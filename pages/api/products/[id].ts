@@ -15,6 +15,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const productId = req.query.id;
 
   const productDetails = await Product.findById(productId);
+  
+  // No productDetail found
+  if (!productDetails) {
+    res.status(404);
+    res.json({ msg: "Product was not found" });
+    res.end();
+    return
+  }
+
   res.status(200);
   res.json(productDetails);
   res.end();

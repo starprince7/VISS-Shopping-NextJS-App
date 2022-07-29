@@ -3,7 +3,7 @@ import Product from "../../../../database/models/products";
 import db from "../../../../database/utils/dbConnection";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") {
+  if (req.method !== "PUT") {
     res.status(400);
     res.json({ msg: "Bad request" });
     return;

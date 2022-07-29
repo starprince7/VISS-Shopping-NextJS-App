@@ -21,9 +21,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.status(404);
     res.json({ msg: "Product was not found" });
     res.end();
+    return
   }
 
   res.status(200);
-  res.json({ msg: "Delete success", product: deletedProduct });
+  res.json({ msg: "Deleted successfully", product: deletedProduct });
   res.end();
 }

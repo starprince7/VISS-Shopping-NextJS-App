@@ -11,20 +11,25 @@ const connectDB = async () => {
   }
 
   if (mongoose.connections.length > 0) {
-    console.log("What is inside [ Mongoose.connenctions ]...");
-    connection.isConnected = mongoose.connections[0].readyState;
+    // @ts-ignore
+    connection.isConnected = mongoose.connections[0]._readyState;
 
     if (connection.isConnected === 1) {
-      console.log("Use previous connection");
+      console.log("Using previous connection...");
       return;
     }
     await mongoose.disconnect();
   }
 
   // No DB connection, connect DB Here!
-  const db = await mongoose.connect(process.env.DATABASE_URI);
-  console.log("New DB connection...");
-  connection.isConnected = db.connection[0].readyState;
+  try {
+    const db = await mongoose.connect(process.env.DATABASE_URI)
+    // @ts-ignore
+    connection.isConnected = db.connection._readyState;
+  }
+  catch (e) {
+    console.log("Error Connecting to DB!: ", e)
+  }
 };
 
 // Disconnect From Database
