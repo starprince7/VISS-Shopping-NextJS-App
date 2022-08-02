@@ -10,6 +10,7 @@ interface User {
   cart: {}[];
   isVerified: boolean;
   date_registered: string;
+  verification_code: string | number
 }
 
 const customerSchema = new mongoose.Schema<User>(
@@ -33,6 +34,7 @@ const customerSchema = new mongoose.Schema<User>(
     cart: { type: [{}], default: [{}] },
     isVerified: { type: Boolean, default: false },
     date_registered: { type: String },
+    verification_code: { type: Number, default: null }
   },
   {
     timestamps: true,
@@ -52,7 +54,7 @@ customerSchema.pre("save", async function (next) {
 
 /*  @ Internal Utility Func. */
 customerSchema.statics.logIn = async function (email, password): Promise<User> {
-  const user: User = await this.findOne({ email })
+  const user: User = await this.findOne({ email }).select('-password')
   
   // check for user, No user found.
   if (!user)
