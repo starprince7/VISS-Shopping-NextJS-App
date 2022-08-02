@@ -1,11 +1,11 @@
 import { NextApiResponse, NextApiRequest } from "next";
-import Product from "../../../../database/models/products";
-import db from "../../../../database/utils/dbConnection";
+import Product from "../../../../../database/models/productSchema";
+import db from "../../../../../database/dbUtils/dbConnection";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "DELETE") {
-    res.status(400);
-    res.json({ msg: "Bad request" });
+    res.status(405);
+    res.json({ msg: "Method not allowed" });
     return;
   }
 

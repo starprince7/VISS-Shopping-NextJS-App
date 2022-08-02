@@ -22,8 +22,15 @@ const connectDB = async () => {
   }
 
   // No DB connection, connect DB Here!
+  const databaseOptions = {
+    // useNewUrlParser: true,  /* Not-supported / deprecated */
+    // useUnifiedTopology: true, /* Not-supported / deprecated */
+    autoIndex: true,
+    // useCreateIndex: true,      /* Not-supported / deprecated */
+    // useFindAndModify: false,   /* Not-supported / deprecated */
+  }
   try {
-    const db = await mongoose.connect(process.env.DATABASE_URI)
+    const db = await mongoose.connect(process.env.DATABASE_URI, databaseOptions)
     // @ts-ignore
     connection.isConnected = db.connection._readyState;
   }
