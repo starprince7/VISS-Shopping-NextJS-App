@@ -42,4 +42,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   res.status(200);
   res.json({ msg: "Enter the verfication code sent to your email address." });
+
+  // Remove verification code
+  setTimeout(async () => {
+    await Customer.findByIdAndUpdate(customer._id, {
+      verification_code: null,
+    });
+  }, 30000);
 };

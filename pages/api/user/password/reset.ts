@@ -47,7 +47,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await Customer.findByIdAndUpdate(
     id,
     {
-      password: new_password,
+        password: new_password,
+        verification_code: null
     },
     { new: true }
   );

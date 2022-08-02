@@ -5,7 +5,7 @@ import db from "../../../../../database/dbUtils/dbConnection";
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "DELETE") {
     res.status(405);
-    res.json({ msg: "Method not allowed" });
+    res.json({ error: "Method not allowed" });
     return;
   }
 
@@ -19,7 +19,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   // No product found
   if (!deletedProduct) {
     res.status(404);
-    res.json({ msg: "Product was not found" });
+    res.json({ error: "Product was not found" });
     res.end();
     return
   }

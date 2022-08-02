@@ -4,8 +4,8 @@ import db from "../../../database/dbUtils/dbConnection";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") {
-    res.status(400);
-    res.json({ msg: "Bad request" });
+    res.status(405);
+    res.json({ msg: "Method not allowed" });
     return;
   }
 
