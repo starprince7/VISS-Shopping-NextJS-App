@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Give token to client
     const token = createToken(newCustomer._id);
     res.status(201);
-    res.setHeader("Authorization", token);
+    res.setHeader("authorization", token);
     res.json({
       msg: "Account created successfully",
       _id: newCustomer._id,

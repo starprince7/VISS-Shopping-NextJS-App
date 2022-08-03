@@ -15,7 +15,7 @@
     "mailgun.js": "^8.0.0",
     "moment": "^2.29.4",
     "mongoose": "^6.5.0",
-    "next": "^12.1.0",
+    "next": "^12.2.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "validator": "^13.7.0"

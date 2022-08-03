@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Give token to client
     const token = createToken(customer._id)
     res.status(200);
-    res.setHeader("Authorization", token);
+    res.setHeader("authorization", token);
     res.json({ customer, auth_token: token });
     res.end();
   }
