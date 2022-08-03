@@ -8,10 +8,7 @@ type Validation = {
 };
 
 // function-Type-Definition
-type GetValidAuth = (
-  req: NextApiRequest,
-  res: NextApiResponse,
-) => Validation;
+type GetValidAuth = (req: NextApiRequest, res: NextApiResponse) => Validation;
 
 // Main Function
 const getValidAuthentication: GetValidAuth = (req, res) => {
