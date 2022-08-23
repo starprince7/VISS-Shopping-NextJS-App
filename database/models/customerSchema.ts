@@ -10,7 +10,11 @@ interface User {
   cart: {}[];
   isVerified: boolean;
   date_registered: string;
-  verification_code: string | number
+  verification_code: string | number;
+  address: string;
+  country: string;
+  zipcode: number; 
+  city: string;
 }
 
 const customerSchema = new mongoose.Schema<User>(
@@ -34,7 +38,11 @@ const customerSchema = new mongoose.Schema<User>(
     cart: { type: [{}], default: [{}] },
     isVerified: { type: Boolean, default: false },
     date_registered: { type: String },
-    verification_code: { type: Number, default: null }
+    verification_code: { type: Number, default: null },
+    address: { type: String, default: '' },
+    country: { type: String, default: '' },
+    city: { type: String, default: '' },
+    zipcode: { type: Number, default: null },
   },
   {
     timestamps: true,
