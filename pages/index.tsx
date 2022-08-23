@@ -5,7 +5,7 @@ import React, { useState, useRef, HTMLInputTypeAttribute } from 'react';
 
 export default function Home() {
   const [selectedFile, setSelectedFile] = React.useState('');
-  const [imagePreview, setImagePreview] = React.useState<string | ArrayBuffer>('');
+  const [imagePreview, setImagePreview] = React.useState<string>('');
   const FormRef = useRef<HTMLFormElement>()
   const ProductImageRef = useRef<HTMLInputElement>()
   const SubmitButtonRef = useRef<HTMLButtonElement>()
@@ -46,7 +46,7 @@ export default function Home() {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setImage(reader.result);
-      setImagePreview(reader.result);
+      setImagePreview(reader.result as string);
       console.log("Image is now transformed! ", typeof reader.result);
       console.log("Image is now transformed! Reader Object:>> ", reader);
     };
