@@ -36,6 +36,7 @@ const connectDB = async () => {
   }
   catch (e) {
     console.log("Error Connecting to DB!: ", e)
+    return
   }
 };
 
