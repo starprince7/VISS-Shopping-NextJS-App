@@ -16,7 +16,7 @@ const getValidAuthentication: GetValidAuth = (req, res) => {
 
   if (!token) {
     res.status(401);
-    res.json({ msg: "Unauthorized request" });
+    res.json({ error: "Unauthorized request" });
     return { error: "Unauthorized request", auth_req: null };
   }
 

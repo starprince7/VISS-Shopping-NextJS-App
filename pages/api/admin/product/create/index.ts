@@ -20,7 +20,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   // Check image type first
   if (typeof image !== 'string') {
     res.status(400)
-    res.json({ error: 'Image type should be an ArrayBuffer, base64encoded' })
+    res.json({ error: 'Image type should be an array buffer or a string of base64encoded characters' })
     return
   }
   // Upload Image to Cloud

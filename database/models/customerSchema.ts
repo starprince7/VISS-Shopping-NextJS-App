@@ -1,27 +1,37 @@
 import mongoose, { Model } from "mongoose";
 import { isEmail } from "validator";
 import bcrypt from "bcrypt";
-import moment from "moment"
+import moment from "moment";
+
+type ShippingInfo = {
+  phoneNumber: string;
+  homeAddress: string;
+  country: string;
+  state: string;
+  zipcode: number;
+  city: string;
+};
 
 interface User {
   name: { firstname: string; lastname: string };
   email: string | { unique: object };
   password: string;
   cart: {}[];
-  isVerified: boolean;
+  isEmailVerified: boolean;
+  isPhoneVerified: boolean;
   date_registered: string;
   verification_code: string | number;
-  address: string;
-  country: string;
-  zipcode: number; 
-  city: string;
+  shippingInfo: ShippingInfo[];
 }
 
 const customerSchema = new mongoose.Schema<User>(
   {
     name: {
-      firstname: { type: String, required: [true, 'Please enter a first name'] },
-      lastname: { type: String, required: [true, 'Please enter a last name'] },
+      firstname: {
+        type: String,
+        required: [true, "Please enter a first name"],
+      },
+      lastname: { type: String, required: [true, "Please enter a last name"] },
     },
     email: {
       type: String,
@@ -36,13 +46,20 @@ const customerSchema = new mongoose.Schema<User>(
       minlength: [6, "Minimum password length is 6 characters"],
     },
     cart: { type: [{}], default: [{}] },
-    isVerified: { type: Boolean, default: false },
+    isEmailVerified: { type: Boolean, default: false },
+    isPhoneVerified: { type: Boolean, default: false },
     date_registered: { type: String },
     verification_code: { type: Number, default: null },
-    address: { type: String, default: '' },
-    country: { type: String, default: '' },
-    city: { type: String, default: '' },
-    zipcode: { type: Number, default: null },
+    shippingInfo: [
+      {
+        phoneNumber: String,
+        homeAddress: String,
+        country: String,
+        state: String,
+        zipcode: String,
+        city: String,
+      },
+    ],
   },
   {
     timestamps: true,
@@ -56,25 +73,24 @@ customerSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 
   // @ creating formatted date-time.
-  this.date_registered = moment().format('MMMM Do YYYY, h:mm:ss a')
+  this.date_registered = moment().format("MMMM Do YYYY, h:mm:ss a");
   next();
 });
 
 /*  @ Internal Utility Func. */
 customerSchema.statics.logIn = async function (email, password): Promise<User> {
-  const user: User = await this.findOne({ email }).select('-password')
-  
+  const user: User = await this.findOne({ email }).select("-password");
+
   // check for user, No user found.
-  if (!user)
-    throw new Error('This email address is not registered')
+  if (!user) throw new Error("This email address is not registered");
   else {
     // Here user found, compare passwords
-    const passwordMatched = await bcrypt.compare(password, user.password)
-    if (passwordMatched) return user
+    const passwordMatched = await bcrypt.compare(password, user.password);
+    if (passwordMatched) return user;
     // Here passwords do not match.
-    else throw new Error('You entered an incorrect password')
+    else throw new Error("You entered an incorrect password");
   }
-}
+};
 
 const Customer =
   mongoose.models.Customer || mongoose.model<User>("Customer", customerSchema);

@@ -71,7 +71,6 @@ export default function Home() {
       countInStock
     };
 
-
     try {
       const res = await fetch('/api/admin/product/create', {
         method: 'POST',
