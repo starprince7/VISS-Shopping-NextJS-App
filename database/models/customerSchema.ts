@@ -38,7 +38,7 @@ const customerSchema = new mongoose.Schema<User>(
       required: [true, "Please enter your email address"],
       unique: true,
       lowercase: true,
-      validate_registered: [isEmail, "Please enter a valid email address"],
+      validate: [isEmail, "Please enter a valid email address"],
     },
     password: {
       type: String,

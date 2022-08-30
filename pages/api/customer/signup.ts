@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   catch (e) {
     const descriptiveError = formatCustomerSignUpError(e);
     res.status(400);
-    res.json(descriptiveError);
+    res.json({ error: descriptiveError });
     res.end();
   }
 };
