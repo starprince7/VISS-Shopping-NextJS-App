@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   catch (e) {
     console.log("Login catch error block>: ", e)
     res.status(401);
-    res.json({ error: e.message });
+    res.json({ error: e });
     res.end();
   }
 };
