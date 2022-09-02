@@ -12,7 +12,8 @@ type ShippingInfo = {
   city: string;
 };
 
-interface User {
+export type CustomerType = {
+  _id: string;
   name: { firstname: string; lastname: string };
   email: string | { unique: object };
   password: string;
@@ -24,7 +25,11 @@ interface User {
   shippingInfo: ShippingInfo[];
 }
 
-const customerSchema = new mongoose.Schema<User>(
+interface CustomerModel extends Model<CustomerType> {
+  logIn(): CustomerType;
+}
+
+const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
   {
     name: {
       firstname: {
@@ -78,8 +83,8 @@ customerSchema.pre("save", async function (next) {
 });
 
 /*  @ Internal Utility Func. */
-customerSchema.statics.logIn = async function (email, password): Promise<User> {
-  const user: User = await this.findOne({ email }).select("-password");
+customerSchema.static('logIn', async function logIn(email, password) {
+  const user: CustomerType = await this.findOne({ email });
 
   // check for user, No user found.
   if (!user) throw new Error("This email address is not registered");
@@ -90,9 +95,9 @@ customerSchema.statics.logIn = async function (email, password): Promise<User> {
     // Here passwords do not match.
     else throw new Error("You entered an incorrect password");
   }
-};
+})
 
 const Customer =
-  mongoose.models.Customer || mongoose.model<User>("Customer", customerSchema);
+  mongoose.models.Customer || mongoose.model<CustomerType>("Customer", customerSchema);
 
 export default Customer;
