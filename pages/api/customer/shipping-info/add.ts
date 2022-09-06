@@ -34,17 +34,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     city,
   };
 
-  const customer = await Customer.findByIdAndUpdate(
+  // This will return a customer Obj with the Array of shipping info.
+  const customer_with_shippingInfo = await Customer.findByIdAndUpdate(
     id,
     {
       // @ts-ignore
       $push: { shippingInfo: shipping_information },
     },
     { new: true }
-  );
+  ).select("shippingInfo");
 
-  // No customer found
-  if (!customer) {
+  // No customer_with_shippingInfo found
+  if (!customer_with_shippingInfo) {
     res.status(404);
     res.json({
       error:
@@ -55,6 +56,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.status(200);
-  res.json({ msg: "Added new shipping detail" });
+  res.json({ msg: "Shipping information added successfully.", customerShippingInfo: customer_with_shippingInfo });
   res.end();
 };
