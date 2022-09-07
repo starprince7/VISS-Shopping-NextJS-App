@@ -7,7 +7,7 @@ type Login = {
 }
 
 async function logIn(email: string, password: string): Promise<Login> {
-  const user: CustomerType = await Customer.findOne({ email }).select("-password");
+  let user: CustomerType = await Customer.findOne({ email });
 
   // check for user, No user found.
   if (!user) {
@@ -15,7 +15,10 @@ async function logIn(email: string, password: string): Promise<Login> {
   } else {
     // Here user found, compare passwords
     const passwordMatched = await bcrypt.compare(password, user.password);
-    if (passwordMatched) return { error: null, customer: user };
+    if (passwordMatched) {
+      user.password = "";
+      return { error: null, customer: user }
+    };
     // Here passwords do not match.
     return { customer: null, error: "You entered an incorrect password" }
   }
