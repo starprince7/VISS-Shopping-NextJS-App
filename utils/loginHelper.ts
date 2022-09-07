@@ -7,7 +7,7 @@ type Login = {
 }
 
 async function logIn(email: string, password: string): Promise<Login> {
-  const user: CustomerType = await Customer.findOne({ email });
+  const user: CustomerType = await Customer.findOne({ email }).select("-password");
 
   // check for user, No user found.
   if (!user) {
