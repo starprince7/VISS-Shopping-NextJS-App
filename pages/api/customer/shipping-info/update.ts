@@ -55,7 +55,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     },
     { new: true }
-  );
+  ).select("shippingInfo");
 
   // No customer found
   if (!customer) {
@@ -69,7 +69,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.status(200);
-  res.json({ msg: "Shipping information updated successfully" });
+  res.json({ msg: "Shipping information updated successfully", customerShippingInfo: customer });
   res.end();
 };
 
