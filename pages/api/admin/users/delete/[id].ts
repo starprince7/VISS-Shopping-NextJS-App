@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import db from "../../../../../database/dbUtils/dbConnection";
 import Customer from "../../../../../database/models/customerSchema";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -7,6 +8,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json({ error: "Method not allowed" });
     return;
   }
+
+  // Connect DB
+  await db.connectDB();
 
   //   User id
   const userId = req.query.id;
