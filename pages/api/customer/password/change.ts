@@ -23,13 +23,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { id, oldPassword, newPassword } = auth_req.body;
 
   // Check if verification-code matches
-  const { password } = await Customer.findById(id);
+  let dbPassword;
+  try {
+    const { password } = await Customer.findById(id);
+    dbPassword = password;
+  }
+  catch (e) {
+    res.status(404);
+    res.json({ error: `Customer with this "_id: ${id}" was not found on record.` });
+    return;
+  }
 
-  // 1. Check if password matches
-  const passwordMatched = await bcrypt.compare(oldPassword, password);
+  // 1. Check if dbPassword matches
+  const passwordMatched = await bcrypt.compare(oldPassword, dbPassword);
   if (!passwordMatched) {
     res.status(404);
-    res.json({ error: "Your current password is incorrect." });
+    res.json({ error: "Your current Password is incorrect." });
     return;
   }
 
@@ -40,11 +49,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  // 3. Hash password, before saving to database.
+  // 3. Hash dbPassword, before saving to database.
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(newPassword, salt);
 
-  // Update new password
+  // Update new dbPassword
   await Customer.findByIdAndUpdate(
     id,
     {
