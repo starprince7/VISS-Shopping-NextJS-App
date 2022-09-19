@@ -23,6 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!verification_code) {
     res.status(404);
     res.json({ error: "Account does not exits, cannot reset password" });
+    return
   }
 
   // 2. Auth code does not match
