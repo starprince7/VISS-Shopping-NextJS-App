@@ -2,13 +2,15 @@ import Head from 'next/head';
 import Image from 'next/image';
 import router from 'next/router'
 import React, { useState, useRef, HTMLInputTypeAttribute } from 'react';
+import useCategories from '../hooks/categories';
 
 export default function Home() {
-  const [selectedFile, setSelectedFile] = React.useState('');
-  const [imagePreview, setImagePreview] = React.useState<string>('');
+  const categories = useCategories()
   const FormRef = useRef<HTMLFormElement>()
   const ProductImageRef = useRef<HTMLInputElement>()
   const SubmitButtonRef = useRef<HTMLButtonElement>()
+  const [selectedFile, setSelectedFile] = React.useState('');
+  const [imagePreview, setImagePreview] = React.useState<string>('');
 
   // Product Details
   const [title, setTitle] = useState('')
@@ -161,12 +163,17 @@ export default function Home() {
             required
             defaultValue={`${category ? category : 'Watch'}`}
             onChange={e => setCategory(e.target.value)}
-            className='select' disabled>
+            className='select capitalize' disabled={categories.length === 0}>
             <option value="">Select</option>
-            <option value="Watch">Watch</option>
-            <option value="Cloth">Cloth</option>
-            <option value="Computer">Computer</option>
-            <option value="Accesories">Accesories</option>
+            {categories?.map(category => (
+              <option
+                key={category.name}
+                className='capitalize'
+                value={`${category.name}`}
+              >
+                {category.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="input-field mb-4">
