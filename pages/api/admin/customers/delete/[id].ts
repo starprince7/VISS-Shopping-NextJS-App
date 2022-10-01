@@ -13,8 +13,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connectDB();
 
   //   User id
-  const userId = req.query.id;
-  const deletedUser = await Customer.findByIdAndDelete(userId);
+  const customerId = req.query.id;
+  const deletedUser = await Customer.findByIdAndDelete(customerId);
 
   // No User found
   if (!deletedUser) {

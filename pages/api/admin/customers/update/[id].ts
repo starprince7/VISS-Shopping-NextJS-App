@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connectDB();
 
   // User ID
-  const userId = req.query.id;
+  const customerId = req.query.id;
 
   //   Req Body
   const { name, email, password } = req.body;
@@ -39,7 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   const updatedCustomer = await Customer.findByIdAndUpdate(
-    userId,
+    customerId,
     data_update,
     {
       new: true,

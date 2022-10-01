@@ -6,7 +6,7 @@ import uploadImage from "../../../../../utils/cloudinary/imageUploader";
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "PUT") {
     res.status(405);
-    res.json({ msg: "Method not allowed" });
+    res.json({ error: "Method not allowed" });
     return;
   }
 
