@@ -28,6 +28,8 @@ const productSchema = new mongoose.Schema<Product>(
   { timestamps: true }
 );
 
+productSchema.index({ title: "text", brand: "text"})
+
 // @ Internal utility func.
 productSchema.pre("save", function (next) {
   // @ creating formatted date-time.
