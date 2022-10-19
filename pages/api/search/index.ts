@@ -2,30 +2,28 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../database/dbUtils/dbConnection";
 import Product from "../../../database/models/productSchema";
 
-export default async function(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        res.status(405)
-        res.json({ error: 'Method not allowed' })
-        return
-    }
+// Having a proper condition structure makes the code more readable
 
-    await db.connectDB()
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  const { method } = req;
+  await db.connectDB();
+  const { query } = req.body;
 
-    const { query } = req.body
+  switch (method) {
+    case "POST":
+      if (!query) {
+        res.status(401).json({ error: "No query parameter found" });
+        return;
+      }
 
-    if (!query) {
-        res.status(401)
-        res.json({error: "No query parameter found"})
-        return 
-    }
-
-    const results = await Product.find(
+      const results = await Product.find(
         { $text: { $search: query } },
-        {score: { $meta: "textScore"} }
-    ).sort(
-        { score: { $meta: 'textScore'} }
-    )
-    res.status(200)
-    res.json(results)
-    return
+        { score: { $meta: "textScore" } }
+      ).sort({ score: { $meta: "textScore" } });
+      res.status(200).json({ data: results });
+      break;
+    default:
+      res.status(405).json({ error: "Method not allowed" });
+      break;
+  }
 }
