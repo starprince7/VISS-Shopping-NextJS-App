@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
-import Customer, { CustomerType } from "../database/models/customerSchema";
+import Customer from "../database/models/customerSchema";
+import { CustomerType } from "../types";
 
 type Login = {
   error: string | null;
