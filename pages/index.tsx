@@ -16,6 +16,7 @@ export default function Home() {
   const [title, setTitle] = useState('')
   const [brand, setBrand] = useState('')
   const [price, setPrice] = useState(0)
+  const [weight, setWeight] = useState(0)
   const [countInStock, setCountInStock] = useState(0)
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
@@ -25,6 +26,7 @@ export default function Home() {
     setTitle('')
     setBrand('')
     setPrice(0)
+    setWeight(0)
     setCountInStock(0)
     setCategory('')
     setDescription('')
@@ -69,6 +71,7 @@ export default function Home() {
       image,
       brand,
       price,
+      weight,
       description,
       countInStock
     };
@@ -147,6 +150,13 @@ export default function Home() {
             required
             defaultValue={price}
             onChange={e => setPrice(Number(e.target.value))}
+            type="number" placeholder='Enter product price' className='input' />
+        </div>
+        <div className="input-field mb-4">
+          <label htmlFor="product title" className="block text-gray-400 my-2">Weight (g)</label>
+          <input
+            defaultValue={weight}
+            onChange={e => setWeight(Number(e.target.value))}
             type="number" placeholder='Enter product price' className='input' />
         </div>
         <div className="input-field mb-4">

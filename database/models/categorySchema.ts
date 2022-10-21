@@ -1,11 +1,6 @@
 import moment from "moment";
 import mongoose from "mongoose";
-
-interface Category {
-  name: string;
-  type: string;
-  date: String;
-}
+import { Category } from "../../types";
 
 const categorySchema = new mongoose.Schema<Category>(
   {

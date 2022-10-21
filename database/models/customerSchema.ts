@@ -1,33 +1,8 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 import { isEmail } from "validator";
 import bcrypt from "bcrypt";
 import moment from "moment";
-
-type ShippingInfo = {
-  phoneNumber: string;
-  homeAddress: string;
-  country: string;
-  state: string;
-  zipcode: number;
-  city: string;
-};
-
-export type CustomerType = {
-  _id: string;
-  name: { firstname: string; lastname: string };
-  email: string | { unique: object };
-  password: string;
-  cart: {}[];
-  isEmailVerified: boolean;
-  isPhoneVerified: boolean;
-  date_registered: string;
-  verification_code: string | number;
-  shippingInfo: ShippingInfo[];
-}
-
-interface CustomerModel extends Model<CustomerType> {
-  logIn(): CustomerType;
-}
+import { CustomerModel, CustomerType } from "../../types";
 
 const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
   {
@@ -73,7 +48,6 @@ const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
 
 /*  @ Internal Utility Func. */
 customerSchema.pre("save", async function (next) {
-  // @ Password hashing, before saving to database.
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 
@@ -89,10 +63,8 @@ customerSchema.static('logIn', async function logIn(email, password) {
   // check for user, No user found.
   if (!user) throw new Error("This email address is not registered");
   else {
-    // Here user found, compare passwords
     const passwordMatched = await bcrypt.compare(password, user.password);
     if (passwordMatched) return user;
-    // Here passwords do not match.
     else throw new Error("You entered an incorrect password");
   }
 })

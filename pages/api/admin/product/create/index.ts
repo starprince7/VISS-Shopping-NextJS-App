@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/dbUtils/dbConnection";
 import uploadImage from "../../../../../utils/cloudinary/imageUploader";
+import { Product as ProductType } from "../../../../../types";
 
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -15,7 +16,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // Req Body
-  const { title, image, brand, price, description, countInStock } = req.body;
+  const { title, image, brand, price, weight, description, countInStock, } = req.body as ProductType;
 
   // Check image type first
   if (typeof image !== 'string') {
@@ -33,6 +34,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       image: secure_url,
       brand,
       price,
+      weight,
       description,
       countInStock,
     });

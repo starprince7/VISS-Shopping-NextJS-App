@@ -1,17 +1,6 @@
 import mongoose from "mongoose";
 import moment from "moment"
-
-interface Product {
-  title: string;
-  image: string;
-  brand: string;
-  price: number;
-  description: string;
-  countInStock: number;
-  category: string;
-  reviews: number;
-  date_created: string
-}
+import { Product } from "../../types";
 
 const productSchema = new mongoose.Schema<Product>(
   {
@@ -19,6 +8,7 @@ const productSchema = new mongoose.Schema<Product>(
     image: { type: String, required: true },
     brand: { type: String, required: true },
     price: { type: Number, required: true },
+    weight: { type: Number, default: 165 },
     description: { type: String, required: true },
     countInStock: { type: Number, required: true, default: 0 },
     category: { type: String, default: "watch" },

@@ -1,49 +1,15 @@
 import moment from "moment";
 import mongoose from "mongoose";
-
-interface Order {
-  orderNo: number;
-  orderDate: string;
-  orderDetails: OrderDetails[];
-  paidAmount: number;
-  payableAmount: number;
-  customerDetails: CustomerDetails;
-  isOrderFulfilled: boolean;
-};
-
-type OrderDetails = {
-  _id: string;
-  quantity: number;
-  title: string;
-  image: string;
-  brand: string;
-  price: number;
-  description: string;
-  countInStock: number;
-  category: string;
-  reviews: number;
-  date_created: string;
-};
-
-type CustomerDetails = {
-  name: { firstName: string; lastName: string };
-  email: string;
-  phoneNumber: string;
-  homeAddress: string;
-  country: string;
-  state: string;
-  zipcode: number;
-  city: string;
-};
+import { Order } from "../../types";
 
 const orderSchema = new mongoose.Schema<Order>(
   {
     orderNo: Number,
     orderDate: String,
     orderDetails: Array,
-    paidAmount: Number,
-    payableAmount: Number,
-    customerDetails: Object,
+    orderTotal: Number,
+    amountPaid: Number,
+    customer: Object,
     isOrderFulfilled: { type: Boolean, default: false },
   },
   { timestamps: true }
