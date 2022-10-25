@@ -6,7 +6,7 @@ export interface IHeaderProps {
 
 const Header: FC<IHeaderProps> = ({className}) => {
   return (
-    <section className={`${className} w-full`}>
+    <section className={`${className} w-full flex justify-between px-12`}>
       Header
     </section>
   );
