@@ -1,11 +1,12 @@
 import  React, { FC } from 'react';
 
 export interface IHeaderProps {
+  className: string;
 }
 
-const Header: FC<IHeaderProps> = (props) => {
+const Header: FC<IHeaderProps> = ({className}) => {
   return (
-    <section>
+    <section className={`${className} w-full`}>
       Header
     </section>
   );
