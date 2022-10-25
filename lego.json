@@ -1,8 +1,14 @@
 {
   "blocks": [
     {
-      "type": "component",
-      "path": "./components",
+      "type": "molecule",
+      "path": "./components/molecule",
+      "isFile": true,
+      "file": "TSX"
+    },
+    {
+      "type": "atom",
+      "path": "./components/atom",
       "isFile": true,
       "file": "TSX"
     },
@@ -65,23 +71,23 @@
     },
     "TS": {
       "name": "<name>.ts",
-      "template": "/Users/mac/Desktop/template/typescript.ts"
+      "template": "./template/typescript.ts"
     },
     "TSX": {
       "name": "<name>.tsx",
-      "template": "/Users/mac/Desktop/template/component.tsx"
+      "template": "./template/component.tsx"
     },
     "TSXPAGE": {
       "name": "<name>.tsx",
-      "template": "/Users/mac/Desktop/template/page.tsx"
+      "template": "./template/page.tsx"
     },
     "TSXPAGESLUG": {
       "name": "[<name>].tsx",
-      "template": "/Users/mac/Desktop/template/slugPage.tsx"
+      "template": "./template/slugPage.tsx"
     },
     "ICON": {
       "name": "<name>.tsx",
-      "template": "/Users/mac/Desktop/template/icon.tsx"
+      "template": "./template/icon.tsx"
     },
     "CSS": {
       "name": "<name>.css"
