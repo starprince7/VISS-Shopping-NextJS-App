@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 
-export interface IDashboardProps {
+export interface IdashboardProps {
 }
 
-const Dashboard: NextPage<IDashboardProps> = () => {
+const dashboard: NextPage<IdashboardProps> = () => {
   return (
     <section>
-      Dashboard
+      dashboard
     </section>
   );
 }
-export default Dashboard;
+export default dashboard;
