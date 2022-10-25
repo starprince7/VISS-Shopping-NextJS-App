@@ -5,8 +5,8 @@ export interface ILayoutProps {
 
 const Layout: FC<ILayoutProps> = (props) => {
   return (
-    <section>
-      Layout
+    <section className="min-h-screen">
+      
     </section>
   );
 }
