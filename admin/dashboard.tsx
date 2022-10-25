@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Layout } from "../../components/molecule";
+import { Layout } from "../components/molecule";
 
 export interface IdashboardProps {}
 
