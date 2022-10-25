@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
-import type { IconProps, Props, PropTypes } from "../../typescript";
 
-
-
-const blockName: FC<PropTypes<Props, IconProps>> = (props) => {
+const blockName: FC = (props) => {
     return (
         <>
             blockName
