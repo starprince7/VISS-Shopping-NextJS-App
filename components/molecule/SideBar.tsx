@@ -1,11 +1,12 @@
 import  React, { FC } from 'react';
 
 export interface ISideBarProps {
+  className: string;
 }
 
-const SideBar: FC<ISideBarProps> = (props) => {
+const SideBar: FC<ISideBarProps> = ({className}) => {
   return (
-    <section>
+    <section className={`${className}`}>
       SideBar
     </section>
   );
