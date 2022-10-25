@@ -4,8 +4,7 @@
         "es2021": true
     },
     "extends": "standard-with-typescript",
-    "overrides": [
-    ],
+    "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -16,6 +15,34 @@
         "max-len": ["error", { "code": 120 }],
         "object-curly-spacing": "off",
         "no-throw-literal": "off",
-        "require-jsdoc": "off"
+        "require-jsdoc": "off",
+        "react/jsx-props-no-spreading": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index"
+                ],
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "external",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
+        "import/no-cycle": "off"
     }
 }
