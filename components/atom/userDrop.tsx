@@ -6,15 +6,13 @@ export interface IuserDropProps {
 
 const UserDrop: FC<IuserDropProps> = (props) => {
   return (
-    <div>
+    <div className="flex items-center gap-4">
       <Avatar />
-      <div>
-        <span>
+        <span className="flex flex-col">
           <h4>Administrator</h4>
           <h5>John Doe</h5>
         </span>
-        <DropDown />
-      </div>
+      <DropDown />
     </div>
   );
 }
