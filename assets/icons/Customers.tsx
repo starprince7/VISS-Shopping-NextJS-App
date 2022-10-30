@@ -5,6 +5,7 @@ interface ICustomersprops{
 const Customers: FC<ICustomersprops> = (props) => {
     return (
         <svg
+            {...props}
             width="18"
             height="15"
             viewBox="0 0 18 15"
