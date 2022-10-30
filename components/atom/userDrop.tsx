@@ -9,8 +9,8 @@ const UserDrop: FC<IuserDropProps> = (props) => {
     <div className="flex items-center gap-4">
       <Avatar />
         <span className="flex flex-col">
-          <h4>Administrator</h4>
-          <h5>John Doe</h5>
+          <h4 className="text-xs italic">Administrator</h4>
+          <h5 className="text-sm">John Doe</h5>
         </span>
       <DropDown />
     </div>
