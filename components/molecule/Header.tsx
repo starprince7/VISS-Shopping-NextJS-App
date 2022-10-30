@@ -1,5 +1,6 @@
 import  React, { FC } from 'react';
 import Logo from "../../assets/icons/Logo";
+import { UserDrop } from "../atom";
 
 export interface IHeaderProps {
   className: string;
@@ -7,9 +8,9 @@ export interface IHeaderProps {
 
 const Header: FC<IHeaderProps> = ({className}) => {
   return (
-    <section className={`${className} w-full flex justify-between px-12 bg-bls`}>
+    <section className={`${className} w-full flex justify-between px-12 py-6`}>
       <Logo />
-      Header
+      <UserDrop />
     </section>
   );
 }
