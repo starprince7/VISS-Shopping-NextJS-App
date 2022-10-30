@@ -5,9 +5,9 @@ export interface IdashboardProps {}
 
 const dashboard: NextPage<IdashboardProps> = () => {
     return (
-        <section>
-            <Layout>dashboard</Layout>
-        </section>
+        <Layout className="bg-gray">
+            dashboard
+        </Layout>
     );
 };
 export default dashboard;
