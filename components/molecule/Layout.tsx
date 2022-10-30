@@ -1,7 +1,8 @@
 import  React, { FC, ReactNode } from 'react';
 import { Header, SideBar } from ".";
 export interface ILayoutProps {
-  children: ReactNode
+  children: ReactNode,
+  className?: string;
 }
 
 const Layout: FC<ILayoutProps> = ({children, ...props}) => {
