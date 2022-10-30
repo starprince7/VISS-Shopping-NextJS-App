@@ -1,13 +1,21 @@
 import  React, { FC } from 'react';
+import { Avatar, DropDown } from "../../assets/icons";
 
 export interface IuserDropProps {
 }
 
-const userDrop: FC<IuserDropProps> = (props) => {
+const UserDrop: FC<IuserDropProps> = (props) => {
   return (
-    <section>
-      userDrop
-    </section>
+    <div>
+      <Avatar />
+      <div>
+        <span>
+          <h4>Administrator</h4>
+          <h5>John Doe</h5>
+        </span>
+        <DropDown />
+      </div>
+    </div>
   );
 }
-export default userDrop;
+export default UserDrop;
