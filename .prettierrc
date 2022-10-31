@@ -7,6 +7,5 @@
     "multiline": "auto",
     "bracketSameLine": false,
     "maxLineLength": 100,
-    "semi": true,
     "arrowParens": "always"
 }
