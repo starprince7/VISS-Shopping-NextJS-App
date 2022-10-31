@@ -1,2 +1,2 @@
-export { default as SideLink } from "./SideBar";
-export { default as UserDrop } from "./userDrop";
+export { default as SideBar } from "./SideLink";
+export { default as UserDrop } from "./UserDrop";
