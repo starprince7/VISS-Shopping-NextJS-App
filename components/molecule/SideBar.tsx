@@ -10,12 +10,12 @@ import {
 import { SideLink } from '../atom';
 
 export interface ISideBarProps {
-  className: string;
+  className: string
 }
 interface ILinks {
-  to: string;
-  text: string;
-  Icon: FC;
+  to: string
+  text: string
+  Icon: FC
 }
 const links: ILinks[] = [
   {
@@ -45,11 +45,9 @@ const links: ILinks[] = [
   },
 ];
 const SideBar: FC<ISideBarProps> = ({ className }) => (
-  <section className={`${className}`}>
-    {links.map(({ text, Icon, to }) => (
-      <SideLink {...{ text, to }}>
-        <Icon />
-      </SideLink>
+  <section className={`${className} h-full gap-3 flex flex-col px-6`}>
+    {links.map((props) => (
+      <SideLink {...props} />
     ))}
   </section>
 );
