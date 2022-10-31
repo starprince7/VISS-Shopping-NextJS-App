@@ -2,7 +2,7 @@ import React, { FC } from "react";
 interface IProductsProps {
     className?: string;
 }
-const Product: FC = (props) => {
+const Products: FC<{IProductsProps}> = (props) => {
     return (
         <svg
         {...props}
@@ -19,4 +19,4 @@ const Product: FC = (props) => {
         </svg>
     );
 };
-export default Product;
+export default Products;
