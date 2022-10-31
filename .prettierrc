@@ -1,7 +1,7 @@
 {
-    "doubleQuote": true,
-    "singleQuote": false,
-    "tabWidth": 4,
+    "jsxProps": "doubleQuotes",
+    "singleQuote": true,
+    "tabWidth": 2,
     "useTabs": false,
     "trailingComma": "all",
     "multiline": "auto",
