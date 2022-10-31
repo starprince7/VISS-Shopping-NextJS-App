@@ -6,7 +6,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+/* @layer components {
     .container {
         @apply mx-auto max-w-xl shadow-xl rounded-md;
     }
@@ -25,11 +25,11 @@
     .btn {
         @apply w-full p-4 bg-blue-600 active:bg-blue-800 outline-none rounded-md text-white font-semibold my-5;
     }
-}
+} */
 .layout {
     display: grid;
     grid-template-areas: "header header header" "sidebar body body" "sidebar body body";
-    grid-template-columns: 0.22fr 1fr;
+    grid-template-columns: 0.3fr 1fr;
     grid-template-rows: fit-content(100%) 1fr;
 }
 .sidebar{
