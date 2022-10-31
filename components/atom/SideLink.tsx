@@ -1,13 +1,17 @@
+import { useRouter } from "next/router";
 import  React, { FC } from 'react';
 
-export interface ISideBarProps {
+export interface ISideLinkProps {
+  children: string;
+  to: string;
 }
 
-const SideBar: FC<ISideBarProps> = (props) => {
+const SideLink: FC<ISideLinkProps> = (props) => {
+  const router = useRouter();
   return (
     <section>
-      SideBar
+      SideLink
     </section>
   );
 }
-export default SideBar;
+export default SideLink;
