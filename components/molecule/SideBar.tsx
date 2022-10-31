@@ -1,5 +1,13 @@
-import  React, { FC } from 'react';
-import { Products, Dashboard, Customers, ClipboardCopy, ClipboardCheck } from "../../assets/icons";
+import React, { FC } from 'react';
+
+import {
+  Products,
+  Dashboard,
+  Customers,
+  ClipboardCopy,
+  ClipboardCheck,
+} from '../../assets/icons';
+import { SideLink } from '../atom';
 
 export interface ISideBarProps {
   className: string;
@@ -7,41 +15,42 @@ export interface ISideBarProps {
 interface ILinks {
   to: string;
   text: string;
-  icon: FC;
+  Icon: FC;
 }
-const links = [
+const links: ILinks[] = [
   {
-    to: "/admin/dashboard",
-    text: "Dashboard",
-    icon: Dashboard,
+    to: '/admin/dashboard',
+    text: 'Dashboard',
+    Icon: Dashboard,
   },
   {
-    to: "/admin/products",
-    text: "Products",
-    icon: Products,
+    to: '/admin/products',
+    text: 'Products',
+    Icon: Products,
   },
   {
-    to: "/admin/customers",
-    text: "Customers",
-    icon: Customers,
+    to: '/admin/customers',
+    text: 'Customers',
+    Icon: Customers,
   },
   {
-    to: "/admin/orders",
-    text: "Orders",
-    icon: ClipboardCopy,
+    to: '/admin/orders',
+    text: 'Orders',
+    Icon: ClipboardCopy,
   },
   {
-    to: "/admin/fullfilledorders",
-    text: "Fullfilled Orders",
-    icon: ClipboardCheck,
-  }
-]
-const SideBar: FC<ISideBarProps> = ({ className }) => {
-  
-  return (
-    <section className={`${className}`}>
-      SideBar
-    </section>
-  );
-}
+    to: '/admin/fullfilledorders',
+    text: 'Fullfilled Orders',
+    Icon: ClipboardCheck,
+  },
+];
+const SideBar: FC<ISideBarProps> = ({ className }) => (
+  <section className={`${className}`}>
+    {links.map(({ text, Icon, to }) => (
+      <SideLink {...{ text, to }}>
+        <Icon />
+      </SideLink>
+    ))}
+  </section>
+);
 export default SideBar;

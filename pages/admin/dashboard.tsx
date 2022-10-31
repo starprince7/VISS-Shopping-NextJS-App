@@ -1,13 +1,10 @@
-import type { NextPage } from "next";
-import { Layout } from "../../components/molecule";
+import React from "react";
 
-export interface IdashboardProps {}
+import { NextPage } from 'next';
 
-const dashboard: NextPage<IdashboardProps> = () => {
-    return (
-        <Layout className="bg-gray">
-            dashboard
-        </Layout>
-    );
+import { Layout } from '../../components/molecule';
+
+const dashboard: NextPage = () => {
+  return <Layout className="bg-gray">dashboard</Layout>;
 };
 export default dashboard;
