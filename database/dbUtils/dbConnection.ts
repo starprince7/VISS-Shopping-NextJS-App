@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const connection = { isConnected: null };
 
@@ -6,7 +6,7 @@ const connection = { isConnected: null };
 const connectDB = async () => {
   // Db is connected
   if (connection.isConnected) {
-    console.log("Database is already connected!...");
+    console.log('Database is already connected!...');
     return;
   }
 
@@ -15,7 +15,7 @@ const connectDB = async () => {
     connection.isConnected = mongoose.connections[0]._readyState;
 
     if (connection.isConnected === 1) {
-      console.log("Using previous connection...");
+      console.log('Using previous connection...');
       return;
     }
     await mongoose.disconnect();
@@ -28,21 +28,23 @@ const connectDB = async () => {
     autoIndex: true,
     // useCreateIndex: true,      /* Not-supported / deprecated */
     // useFindAndModify: false,   /* Not-supported / deprecated */
-  }
+  };
   try {
-    const db = await mongoose.connect(process.env.DATABASE_URI, databaseOptions)
+    const db = await mongoose.connect(
+      process.env.DATABASE_URI as string,
+      databaseOptions,
+    );
     // @ts-ignore
     connection.isConnected = db.connection._readyState;
-  }
-  catch (e) {
-    console.log("Error Connecting to DB!: ", e)
-    return
+  } catch (e) {
+    console.log('Error Connecting to DB!: ', e);
+    return;
   }
 };
 
 // Disconnect From Database
 async function disconnectDB() {
-  if (connection.isConnected && process.env.NODE_ENV === "production") {
+  if (connection.isConnected && process.env.NODE_ENV === 'production') {
     await mongoose.disconnect();
     connection.isConnected = false;
   }
