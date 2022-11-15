@@ -12,6 +12,9 @@
     },
     "plugins": ["react", "react-hooks"],
     "rules": {
+      "@typescript-eslint/explicit-function-return-type": {
+        "allowExpressions": true
+      },
       "react/jsx-filename-extension": [
         1,
         { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
