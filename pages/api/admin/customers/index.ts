@@ -4,8 +4,8 @@ import Customer from "../../../../database/models/customerSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  let auth_req = req;
-/* 
+  const auth_req = req;
+  /* 
   // Middleware
   const { error, auth_req } = getValidAuthentication(req, res);
   // if not authenticated request `stop`

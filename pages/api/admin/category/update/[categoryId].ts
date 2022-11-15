@@ -13,12 +13,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // category ID
-  const categoryId = req.query.categoryId;
+  const { categoryId } = req.query;
 
-  const categoryUpdated = await Category.findByIdAndUpdate(categoryId, req.body, {
-    new: true,
-  });
+  const categoryUpdated = await Category.findByIdAndUpdate(
+    categoryId,
+    req.body,
+    {
+      new: true,
+    },
+  );
   res.status(201);
-  res.json({ msg: "Category updated successfully.", category: categoryUpdated });
+  res.json({
+    msg: "Category updated successfully.",
+    category: categoryUpdated,
+  });
   res.end();
 }

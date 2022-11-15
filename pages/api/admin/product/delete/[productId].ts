@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   // Connect DB
   await db.connectDB();
 
-  const productId = req.query.productId;
+  const { productId } = req.query;
 
   const deletedProduct = await Product.findByIdAndDelete(productId);
 
@@ -21,7 +21,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.status(404);
     res.json({ error: "Product was not found" });
     res.end();
-    return
+    return;
   }
 
   res.status(200);

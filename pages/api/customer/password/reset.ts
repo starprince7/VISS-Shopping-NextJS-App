@@ -23,11 +23,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!verification_code) {
     res.status(404);
     res.json({ error: "Account does not exits, cannot reset password" });
-    return
+    return;
   }
 
   // 2. Auth code does not match
-  if (auth_code != verification_code) {
+  if (auth_code !== verification_code) {
     res.status(401);
     res.json({ error: "Invalid code" });
     return;
@@ -48,10 +48,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await Customer.findByIdAndUpdate(
     id,
     {
-        password: new_password,
-        verification_code: null
+      password: new_password,
+      verification_code: null,
     },
-    { new: true }
+    { new: true },
   );
 
   res.status(200);

@@ -1,11 +1,9 @@
 {
-    "jsxProps": "doubleQuotes",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "useTabs": false,
-    "trailingComma": "all",
-    "multiline": "auto",
-    "bracketSameLine": false,
-    "maxLineLength": 100,
-    "arrowParens": "always"
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "all",
+  "multiline": "auto",
+  "bracketSameLine": false,
+  "maxLineLength": 100,
+  "arrowParens": "always"
 }

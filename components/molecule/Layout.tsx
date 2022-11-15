@@ -1,15 +1,16 @@
-import  React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Header, SideBar } from ".";
+
 export interface ILayoutProps {
   children: ReactNode,
   className?: string;
 }
 
-const Layout: FC<ILayoutProps> = ({children, ...props}) => {
+const Layout: FC<ILayoutProps> = ({ children, ...props }) => {
   return (
     <section className="min-h-screen bg-white layout">
       <Header className="header" />
-      <SideBar className="sidebar"/>
+      <SideBar className="sidebar" />
       <main className="body" {...props}>
         {children}
       </main>

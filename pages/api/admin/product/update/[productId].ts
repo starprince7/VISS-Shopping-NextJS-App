@@ -14,7 +14,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // product ID
-  const productId = req.query.productId;
+  const { productId } = req.query;
 
   // Req Body
   const {
@@ -25,24 +25,28 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     catregory,
     reviews,
     description,
-    countInStock, } = req.body;
-  
+    countInStock,
+  } = req.body;
+
   // Image link
   let imageLink;
 
   // Check for Image first, then check Image type.
   if (image) {
-    if (typeof image !== 'string') {
-      res.status(400)
-      res.json({ error: 'Image type should be an ArrayBuffer of base64encoding' })
-      return
+    if (typeof image !== "string") {
+      res.status(400);
+      res.json({
+        error: "Image type should be an ArrayBuffer of base64encoding",
+      });
+      return;
     }
     // Uplaod Image to cloud
     const { secure_url } = await uploadImage(image);
-    imageLink = secure_url
+    imageLink = secure_url;
+    // eslint-disable-next-line no-console
     console.log("Image was uploaded!");
   }
-  
+
   const data_update = {
     title,
     image: imageLink,

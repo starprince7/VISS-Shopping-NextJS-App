@@ -28,6 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (e) {
     res.status(400);
     res.json({ error: "Something went wrong, couldn't create an order!" });
+    // eslint-disable-next-line no-console
     console.log("Error creating an Order ::> ", e);
   }
 };
