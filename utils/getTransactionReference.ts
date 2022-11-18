@@ -1,7 +1,7 @@
 import crypto from "crypto";
 
 function generateTransactionReference() {
-  const suffixStr = "viss-";
+  const suffixStr = "VS-";
   return suffixStr + crypto.randomUUID();
 }
 

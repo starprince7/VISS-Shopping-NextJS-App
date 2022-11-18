@@ -33,8 +33,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       );
       res.end({ status: "Success", message: "Payment successfully verified" });
     } else {
-      await sendFailedOrderEmail(pendingOrder); // Inform the customer their payment was unsuccessful
-      res.end({ status: "Error", message: "Payment verification failed." });
+      await sendFailedOrderEmail(pendingOrder.customer, tx_ref as string); // Inform the customer their payment was unsuccessful
+      res.end({ status: "Error", message: "Payment failed for this order." });
     }
   }
 };

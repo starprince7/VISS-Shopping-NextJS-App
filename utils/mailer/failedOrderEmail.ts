@@ -1,13 +1,13 @@
-import { Order } from "../../types";
+import { CustomerType, Order } from "../../types";
 import { client, domain } from "./mailgunConfig";
 
-const sendFailedOrderEmail = async (order: Order) => {
+const sendFailedOrderEmail = async (customer: CustomerType, txRef: string) => {
   console.log("Sending failed order email!...");
   const mail_options = {
     from: "Viss Store <codeplugservices@gmail.com>",
-    to: order.customer.email as string,
+    to: customer.email as string,
     subject: "Item Purchase Failed",
-    text: `Hi ${order.customer?.name?.firstname},\n\nThis is to notify you that your order with the order no: ${order.orderNo} was not successful, please contact support with your order no.
+    text: `Hi ${customer.name?.firstname},\n\nThis is to notify you that your order with the order no: ${txRef} was not successful, please contact support with your order no.
     \nRegards,\nsystem@viss-shopping.com`,
   };
 

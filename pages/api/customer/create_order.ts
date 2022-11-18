@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../database/dbUtils/dbConnection";
 import Orders from "../../../database/models/orderSchema";
+import FlutterWave from "../../../services/flutterwave/flutterwave.config";
+import sendFailedOrderEmail from "../../../utils/mailer/failedOrderEmail";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -13,15 +15,47 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connectDB();
 
   // Req Body
-  const { paidAmount, orderDetails, customerDetails } = req.body;
+  const {
+    status,
+    tx_ref,
+    transaction_id,
+    sumTotal,
+    customer,
+    processingFee,
+    orderDetails,
+    shippingFee,
+  } = req.body;
 
-  if (!paidAmount && !orderDetails && !customerDetails) {
-    res.status(401).json({ error: "Incomplete request-body parameter" });
+  if (!status && !tx_ref && !transaction_id) {
+    res.status(401).json({ error: "Complete payment first" });
+    return;
+  }
+
+  if (!sumTotal && !orderDetails && !customer) {
+    res.status(401).json({
+      error:
+        "Failed, incomplete body provide the required fields, 'sumTotal', 'orderDetails', 'customer'.",
+    });
+    return;
+  }
+
+  // ::> Quick verification of payment before creating order.
+  const response = await FlutterWave.Transaction.verify({
+    id: transaction_id,
+  });
+
+  if (response.status !== "success") {
+    await sendFailedOrderEmail(customer, tx_ref); // Inform the customer their payment was unsuccessful
+    res.end({ status: "Error", message: "Payment failed for this order." });
     return;
   }
 
   try {
-    await Orders.create(req.body);
+    await Orders.create({
+      ...req.body,
+      transactionRef: tx_ref,
+      paymentStatus: "SUCCESS",
+    });
     res.status(200).json({
       msg: "Your order was successfully received, and processing has begun.",
     });
