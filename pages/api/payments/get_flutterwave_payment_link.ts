@@ -21,9 +21,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     amount: sumTotal,
     currency: "NGN",
     redirect_url:
+      process.env.VERCEL_ENV !== "production" ||
       process.env.NODE_ENV !== "production"
         ? "https://webhook.site/f8d06e4e-5591-4d1d-bff1-d1ec081f2381"
-        : "https://viss-shopping-next-js-app.vercel.app/api/payments/verify_flutterwave_payment",
+        : `https://${process.env.VERCEL_URL}/api/payments/verify_flutterwave_payment`,
     customer: {
       email: customer.email,
       phonenumber: customer.shippingInfo.phoneNumber,
