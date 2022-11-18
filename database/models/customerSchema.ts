@@ -13,6 +13,7 @@ const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
       },
       lastname: { type: String, required: [true, "Please enter a last name"] },
     },
+    fullName: String,
     email: {
       type: String,
       required: [true, "Please enter your email address"],
@@ -43,7 +44,7 @@ const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 /*  @ Internal Utility Func. */
@@ -51,13 +52,16 @@ customerSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 
+  // fullName update
+  this.fullName = this.name.firstname + this.name.lastname;
+
   // @ creating formatted date-time.
   this.date_registered = moment().format("MMMM Do YYYY, h:mm:ss a");
   next();
 });
 
 /*  @ Internal Utility Func. */
-customerSchema.static('logIn', async function logIn(email, password) {
+customerSchema.static("logIn", async function logIn(email, password) {
   const user: CustomerType = await this.findOne({ email });
 
   // check for user, No user found.
@@ -67,9 +71,10 @@ customerSchema.static('logIn', async function logIn(email, password) {
     if (passwordMatched) return user;
     else throw new Error("You entered an incorrect password");
   }
-})
+});
 
 const Customer =
-  mongoose.models.Customer || mongoose.model<CustomerType>("Customer", customerSchema);
+  mongoose.models.Customer ||
+  mongoose.model<CustomerType>("Customer", customerSchema);
 
 export default Customer;

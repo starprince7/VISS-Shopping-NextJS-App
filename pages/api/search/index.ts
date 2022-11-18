@@ -2,8 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../database/dbUtils/dbConnection";
 import Product from "../../../database/models/productSchema";
 
-// Having a proper condition structure makes the code more readable
-
 export default async function (req: NextApiRequest, res: NextApiResponse) {
     const { method } = req;
     await db.connectDB();

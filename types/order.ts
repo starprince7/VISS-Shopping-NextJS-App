@@ -2,11 +2,16 @@ import { CustomerType } from "./customer";
 import { Product } from "./product";
 
 export interface Order {
-  orderNo: number;
+  orderNo: string;
   orderDate: string;
   orderDetails: Product[];
   orderTotal: number;
-  amountPaid: number;
+  sumTotal: number;
+  amount: number;
+  processingFee: number;
+  shippingFee: number;
   customer: CustomerType;
+  paymentStatus: String;
+  transactionRef: string;
   isOrderFulfilled: boolean;
 }
