@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/dbUtils/dbConnection";
-import uploadImage from "../../../../../utils/cloudinary/imageUploader";
+import uploadImage from "../../../../../services/cloudinary/imageUploader";
 import { Product as ProductType } from "../../../../../types";
-
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -16,13 +15,17 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // Req Body
-  const { title, image, brand, price, weight, description, countInStock, } = req.body as ProductType;
+  const { title, image, brand, price, weight, description, countInStock } =
+    req.body as ProductType;
 
   // Check image type first
-  if (typeof image !== 'string') {
-    res.status(400)
-    res.json({ error: 'Image type should be an array buffer or a string of base64encoded characters' })
-    return
+  if (typeof image !== "string") {
+    res.status(400);
+    res.json({
+      error:
+        "Image type should be an array buffer or a string of base64encoded characters",
+    });
+    return;
   }
   // Upload Image to Cloud
   const { secure_url } = await uploadImage(image);
@@ -42,8 +45,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.status(201);
     res.json({ msg: "Success", product: newProduct });
     res.end();
-  }
-  catch (e) {
+  } catch (e) {
     const descriptiveError = formatCreateProductError(e);
     res.status(400);
     res.json(descriptiveError);
@@ -71,5 +73,3 @@ function formatCreateProductError(e) {
 
   return error;
 }
-
-

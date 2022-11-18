@@ -12,6 +12,7 @@ export type ShippingInfo = {
 export type CustomerType = {
   _id: string;
   name: { firstname: string; lastname: string };
+  fullName: string;
   email: string | { unique: object };
   password: string;
   cart: {}[];
