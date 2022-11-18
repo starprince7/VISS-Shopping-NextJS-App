@@ -17,8 +17,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Req Body
   const {
     status,
-    tx_ref,
     transaction_id,
+    transactionRef,
     sumTotal,
     customer,
     processingFee,
@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     shippingFee,
   } = req.body;
 
-  if (!status && !tx_ref && !transaction_id) {
+  if (!status && !transactionRef && !transaction_id) {
     res.status(401).json({ error: "Complete payment first" });
     return;
   }
@@ -45,17 +45,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   if (response.status !== "success") {
-    await sendFailedOrderEmail(customer, tx_ref); // Inform the customer their payment was unsuccessful
+    await sendFailedOrderEmail(customer, transactionRef); // Inform the customer their payment was unsuccessful
     res.end({ status: "Error", message: "Payment failed for this order." });
     return;
   }
 
   try {
-    await Orders.create({
-      ...req.body,
-      transactionRef: tx_ref,
-      paymentStatus: "SUCCESS",
-    });
+    await Orders.create({ ...req.body, paymentStatus: "SUCCESS" });
     res.status(200).json({
       msg: "Your order was successfully received, and processing has begun.",
     });
