@@ -57,12 +57,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     await Orders.create({ ...req.body, paymentStatus: "SUCCESS" });
+    // :: Clear customers cart
+    await Customer.findOneAndUpdate({ email: customer.email }, { cart: [] });
     res.status(200).json({
       msg: "Your order was successfully received, and processing has begun.",
     });
-
-    // :: Clear customers cart
-    Customer.findOneAndUpdate({ email: customer.email }, { cart: [] });
   } catch (e) {
     res.status(400);
     res.json({ error: "Something went wrong, couldn't create an order!" });
