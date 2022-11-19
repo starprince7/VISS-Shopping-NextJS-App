@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Customer from "../../../database/models/customerSchema";
 import db from "../../../database/dbUtils/dbConnection";
-import createToken from "../../../utils/createToken"
+import createToken from "../../../utils/createToken";
 import logIn from "../../../utils/loginHelper";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,11 +15,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connectDB();
 
   // Req Body
-  const { email, password } = req.body;
+  const { email, password, cart } = req.body;
 
   // Validate request body parameters.
-  if(!email) return res.status(400).json({ error: "Please provide your email address" })
-  if(!password) return res.status(400).json({ error: "Enter your password" })
+  if (!email)
+    return res.status(400).json({ error: "Please provide your email address" });
+  if (!password) return res.status(400).json({ error: "Enter your password" });
 
   // lOG USER IN.
   const { error, customer } = await logIn(email, password);
@@ -29,11 +30,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(401);
     res.json({ error });
     res.end();
-    return
+    return;
   }
 
+  if (customer) await Customer.findByIdAndUpdate(customer._id, { cart });
+
   // Give token to client
-  const token = createToken(customer._id)
+  const token = createToken(customer._id);
   res.status(200);
   res.setHeader("authorization", token);
   res.json({ customer, auth_token: token });
