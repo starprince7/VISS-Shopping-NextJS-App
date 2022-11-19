@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../database/dbUtils/dbConnection";
+import Customer from "../../../database/models/customerSchema";
 import Orders from "../../../database/models/orderSchema";
 import FlutterWave from "../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../utils/mailer/failedOrderEmail";
@@ -46,7 +47,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (response.status !== "success") {
     await sendFailedOrderEmail(customer, transactionRef); // Inform the customer their payment was unsuccessful
-    res.end({ status: "Error", message: "Payment failed for this order." });
+    res.end({
+      status: "Error",
+      message: "Payment failed for this order.",
+      error: "Payment failed for this order.",
+    });
     return;
   }
 
@@ -55,6 +60,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({
       msg: "Your order was successfully received, and processing has begun.",
     });
+
+    // :: Clear customers cart
+    Customer.findOneAndUpdate({ email: customer.email }, { cart: [] });
   } catch (e) {
     res.status(400);
     res.json({ error: "Something went wrong, couldn't create an order!" });
