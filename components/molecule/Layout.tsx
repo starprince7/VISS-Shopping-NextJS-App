@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from 'react';
-import { Header, SideBar } from ".";
+import Header from "./Header";
+import SideBar from "./SideBar";
 
 export interface ILayoutProps {
   children: ReactNode,

@@ -47,7 +47,7 @@ const links: ILinks[] = [
 const SideBar: FC<ISideBarProps> = ({ className }) => (
   <section className={`${className} h-full gap-3 flex flex-col px-6`}>
     {links.map((props) => (
-      <SideLink {...props} />
+      <SideLink {...props} key={props.text} />
     ))}
   </section>
 );
