@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // if not authenticated request `stop`
   if (error) return;
 
-  if (auth_req.method !== "POST") {
+  if (auth_req?.method !== "POST") {
     res.status(405);
     res.json({ error: "Method not allowed" });
     return;
@@ -27,10 +27,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { password } = await Customer.findById(id);
     dbPassword = password;
-  }
-  catch (e) {
+  } catch (e) {
     res.status(404);
-    res.json({ error: `Customer with this "_id: ${id}" was not found on record.` });
+    res.json({
+      error: `Customer with this "_id: ${id}" was not found on record.`,
+    });
     return;
   }
 
@@ -59,7 +60,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     {
       password: passwordHash,
     },
-    { new: true }
+    { new: true },
   );
 
   res.status(200);
