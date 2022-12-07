@@ -35,11 +35,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         break;
       }
       // Give token to client
-      const token = createToken(customer._id);
-      res.status(200);
-      res.setHeader("authorization", token);
-      res.json({ customer, auth_token: token });
-      res.end();
+      if (customer) {
+        const token = createToken(customer._id);
+        res.status(200);
+        res.setHeader("authorization", token);
+        res.json({ customer, auth_token: token });
+        res.end();
+      }
       break;
     default:
       res.status(405);
