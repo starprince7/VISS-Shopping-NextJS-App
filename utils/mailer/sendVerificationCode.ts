@@ -1,6 +1,9 @@
 import { client, domain } from "./mailgunConfig";
 
-const sendEmailVerificationCode = async (email: string, code: string | number) => {
+const sendEmailVerificationCode = async (
+  email: string,
+  code: string | number,
+) => {
   const mail_options = {
     from: "Viss Shopping <codeplugservices@gmail.com>",
     to: email,
@@ -9,8 +12,7 @@ const sendEmailVerificationCode = async (email: string, code: string | number) =
     \nRegards,\nsystem-support@viss-shopping.com`,
   };
 
-  return await client.messages.create(domain, mail_options);
+  return client.messages.create(domain as string, mail_options);
 };
 
 export default sendEmailVerificationCode;
-
