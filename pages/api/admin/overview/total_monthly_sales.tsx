@@ -18,7 +18,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const result = await Orders.aggregate([
         {
           $match: {
-            // isOrderFulfilled: true,
+            isOrderFulfilled: true,
             orderIsFulfilledAt: {
               $gte: new Date(new Date().setUTCMonth(month - 1)),
               $lt: new Date(new Date().setUTCMonth(month)),

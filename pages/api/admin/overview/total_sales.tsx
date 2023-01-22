@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case "GET":
       const result = await Orders.aggregate([
-        { $match: { isOrderFulfilled: false } },
+        { $match: { isOrderFulfilled: true } },
         {
           $group: {
             _id: null,
