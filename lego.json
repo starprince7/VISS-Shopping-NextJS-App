@@ -20,13 +20,13 @@
     },
     {
       "type": "icon",
-      "path": "./components/icons",
+      "path": "./assets/icons",
       "isFile": true,
       "file": "ICON"
     },
     {
       "type": "page",
-      "path": "pages",
+      "path": "pages/admin",
       "isFile": true,
       "file": "TSXPAGE"
     },

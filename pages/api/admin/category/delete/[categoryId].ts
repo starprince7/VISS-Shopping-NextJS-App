@@ -13,7 +13,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // category ID
-  const categoryId = req.query.categoryId;
+  const { categoryId } = req.query;
 
   const deletedCategory = await Category.findByIdAndDelete(categoryId);
 
@@ -22,7 +22,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.status(404);
     res.json({ error: "Category was not found" });
     res.end();
-    return
+    return;
   }
 
   res.status(200);

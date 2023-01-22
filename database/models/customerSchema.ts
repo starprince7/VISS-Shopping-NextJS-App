@@ -62,14 +62,14 @@ customerSchema.pre("save", async function (next) {
 
 /*  @ Internal Utility Func. */
 customerSchema.static("logIn", async function logIn(email, password) {
-  const user: CustomerType = await this.findOne({ email });
+  const user = (await this.findOne({ email })) as CustomerType;
 
   // check for user, No user found.
   if (!user) throw new Error("This email address is not registered");
   else {
     const passwordMatched = await bcrypt.compare(password, user.password);
     if (passwordMatched) return user;
-    else throw new Error("You entered an incorrect password");
+    throw new Error("You entered an incorrect password");
   }
 });
 

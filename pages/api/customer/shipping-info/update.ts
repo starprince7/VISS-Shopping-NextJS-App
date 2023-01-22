@@ -4,7 +4,7 @@ import Customer from "../../../../database/models/customerSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  let auth_req = req;
+  const auth_req = req;
   /* 
   // Middleware
   const { error, auth_req } = getValidAuthentication(req, res);
@@ -54,7 +54,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "shippingInfo.$.city": city,
       },
     },
-    { new: true }
+    { new: true },
   ).select("shippingInfo");
 
   // No customer found
@@ -69,7 +69,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.status(200);
-  res.json({ msg: "Shipping information updated successfully", customerShippingInfo: customer });
+  res.json({
+    msg: "Shipping information updated successfully",
+    customerShippingInfo: customer,
+  });
   res.end();
 };
-

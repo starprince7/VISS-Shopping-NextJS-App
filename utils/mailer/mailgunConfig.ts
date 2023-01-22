@@ -6,7 +6,7 @@ const mailgun = new Mailgun(formData);
 
 const auth_credentials = {
   username: "api",
-  key: process.env.MAILGUN_API_KEY,
+  key: process.env.MAILGUN_API_KEY as string,
   url: "https://api.eu.mailgun.net",
 };
 

@@ -14,4 +14,5 @@ export interface Order {
   paymentStatus: String;
   transactionRef: string;
   isOrderFulfilled: boolean;
+  orderIsFulfilledAt: string;
 }

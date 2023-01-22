@@ -1,3 +1,16 @@
 {
+<<<<<<< HEAD
+<<<<<<< HEAD
   "editor.formatOnSave": true
+=======
+=======
+>>>>>>> 29809952d3835a755e2324214ac44a9897e8e348
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+<<<<<<< HEAD
+>>>>>>> 29809952d3835a755e2324214ac44a9897e8e348
+=======
+>>>>>>> 29809952d3835a755e2324214ac44a9897e8e348
 }

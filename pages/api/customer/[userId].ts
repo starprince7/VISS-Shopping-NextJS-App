@@ -13,8 +13,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connectDB();
 
   //   User id
-  const userId = req.query.userId;
-  const userDetail = await Customer.findById(userId).select("-password, -verification_code");
+  const { userId } = req.query;
+  const userDetail = await Customer.findById(userId).select(
+    "-password, -verification_code",
+  );
 
   // No userDetail found
   if (!userDetail) {

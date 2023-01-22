@@ -25,8 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       auth_token: token,
     });
     res.end();
-  } 
-  catch (e) {
+  } catch (e) {
     const descriptiveError = formatCustomerSignUpError(e);
     res.status(400);
     res.json({ error: descriptiveError });
@@ -36,28 +35,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 // Handles Err with descriptive information.
 function formatCustomerSignUpError(e) {
-  let error = {
-    name: { firstname: null, lastname: null },
-    email: null,
-    password: null,
+  const error = {
+    name: { firstname: "", lastname: "" },
+    email: "",
+    password: "",
   };
 
-  //check for duplicate email signup.
-  if(e.code === 11000) {
-      error.email = "This email is already registered"
+  // check for duplicate email signup.
+  if (e.code === 11000) {
+    error.email = "This email is already registered";
   }
 
   // Evalute error parameter 'e'
   if (e.message.includes("Customer validation failed")) {
     Object.values(e.errors).forEach(({ properties }) => {
-      if (properties.path == "email" || properties.path == "password") {
+      if (properties.path === "email" || properties.path === "password") {
         error[properties.path] = properties.message;
       }
 
-      if (properties.path == "name.lastname") {
+      if (properties.path === "name.lastname") {
         error.name.lastname = properties.message;
       }
-      if (properties.path == "name.firstname") {
+      if (properties.path === "name.firstname") {
         error.name.firstname = properties.message;
       }
     });

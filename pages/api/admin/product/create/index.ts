@@ -29,6 +29,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
   // Upload Image to Cloud
   const { secure_url } = await uploadImage(image);
+  // eslint-disable-next-line no-console
   console.log("Image was uploaded!");
 
   try {
@@ -55,13 +56,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
 // Handles Err with descriptive information.
 function formatCreateProductError(e) {
-  let error = {
-    title: null,
-    image: null,
-    brand: null,
-    price: null,
-    description: null,
-    countInStock: null,
+  const error = {
+    title: "",
+    image: "",
+    brand: "",
+    price: "",
+    description: "",
+    countInStock: "",
   };
 
   // Evalute error parameter 'e'
