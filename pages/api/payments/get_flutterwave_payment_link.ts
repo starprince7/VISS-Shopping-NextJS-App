@@ -45,13 +45,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   await db.connectDB();
 
-  //:> Create New Order;
+  // ==> Create New Order;
   try {
     await Orders.create({ ...req.body, transactionRef });
   } catch (e) {
     res.status(400);
     res.json({ error: "Something went wrong, couldn't create an order!" });
-    console.log("Error creating an Order ::> ", e);
+    // console.log("Error creating an Order ::> ", e);
   }
 
   const createdPayment = await axios.post(

@@ -43,14 +43,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     // Uplaod Image to cloud
     const { secure_url } = await uploadImage(image);
     imageLink = secure_url;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     // eslint-disable-next-line no-console
->>>>>>> 29809952d3835a755e2324214ac44a9897e8e348
-=======
-    // eslint-disable-next-line no-console
->>>>>>> 29809952d3835a755e2324214ac44a9897e8e348
     console.log("Image was uploaded!");
   }
 
