@@ -12,11 +12,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         {
           $group: {
             _id: null,
-            totalOrders: { $sum: 1 },
+            count: { $sum: 1 },
           },
         },
       ]);
-      res.status(200).json({ data: result });
+      res.status(200).json(result);
       break;
 
     default:

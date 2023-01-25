@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
 import {
   Products,
@@ -6,48 +6,48 @@ import {
   Customers,
   ClipboardCopy,
   ClipboardCheck,
-} from '../../assets/icons';
-import { SideLink } from '../atom';
+} from "../../assets/icons";
+import { SideLink } from "../atom";
 
 export interface ISideBarProps {
-  className: string
+  className: string;
 }
 interface ILinks {
-  to: string
-  text: string
-  Icon: FC
+  to: string;
+  text: string;
+  Icon: FC;
 }
 const links: ILinks[] = [
   {
-    to: '/admin/dashboard',
-    text: 'Dashboard',
+    to: "/admin/dashboard",
+    text: "Dashboard",
     Icon: Dashboard,
   },
   {
-    to: '/admin/products',
-    text: 'Products',
+    to: "/admin/dashboard/products",
+    text: "Products",
     Icon: Products,
   },
   {
-    to: '/admin/customers',
-    text: 'Customers',
+    to: "/admin/dashboard/customers",
+    text: "Customers",
     Icon: Customers,
   },
   {
-    to: '/admin/orders',
-    text: 'Orders',
+    to: "/admin/dashboard/orders",
+    text: "Orders",
     Icon: ClipboardCopy,
   },
   {
-    to: '/admin/fullfilledorders',
-    text: 'Fullfilled Orders',
+    to: "/admin/dashboard/fullfilledorders",
+    text: "Fullfilled Orders",
     Icon: ClipboardCheck,
   },
 ];
 const SideBar: FC<ISideBarProps> = ({ className }) => (
   <section className={`${className} h-full gap-3 flex flex-col px-6`}>
-    {links.map((props) => (
-      <SideLink {...props} key={props.text} />
+    {links.map((link) => (
+      <SideLink {...link} key={link.text} />
     ))}
   </section>
 );

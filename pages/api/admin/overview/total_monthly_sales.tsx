@@ -33,7 +33,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           },
         },
       ]);
-      res.status(200).json({ data: result });
+      res.status(200).json(result);
       break;
 
     default:

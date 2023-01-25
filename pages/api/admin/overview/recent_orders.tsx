@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         { $sort: { createdAt: -1 } },
         { $limit: 6 },
       ]);
-      res.status(200).json({ data: result });
+      res.status(200).json(result);
       break;
 
     default:
