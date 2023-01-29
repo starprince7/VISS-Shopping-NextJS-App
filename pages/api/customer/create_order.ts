@@ -6,16 +6,9 @@ import FlutterWave from "../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../utils/mailer/failedOrderEmail";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== "POST") {
-    res.status(405);
-    res.json({ error: "Method not allowed" });
-    return;
-  }
-
   // Connect database
   await db.connectDB();
 
-  // Req Body
   const {
     status,
     transaction_id,
@@ -27,45 +20,63 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     shippingFee,
   } = req.body;
 
-  if (!status && !transactionRef && !transaction_id) {
-    res.status(401).json({ error: "Complete payment first" });
-    return;
-  }
+  switch (req.method) {
+    case "POST":
+      if (!status && !transactionRef && !transaction_id) {
+        res.status(401).json({ error: "Complete payment first" });
+        break;
+      }
+      if (!sumTotal && !orderDetails && !customer) {
+        res.status(401).json({
+          error:
+            "Failed, incomplete body provide the required fields, 'sumTotal', 'orderDetails', 'customer'.",
+        });
+        break;
+      }
 
-  if (!sumTotal && !orderDetails && !customer) {
-    res.status(401).json({
-      error:
-        "Failed, incomplete body provide the required fields, 'sumTotal', 'orderDetails', 'customer'.",
-    });
-    return;
-  }
+      // Quick! verify payment status before creating an order.
+      const response = await FlutterWave.Transaction.verify({
+        id: transaction_id,
+      });
 
-  // ::> Quick verification of payment before creating order.
-  const response = await FlutterWave.Transaction.verify({
-    id: transaction_id,
-  });
+      // Check for a failed payment status.
+      if (response.status !== "success") {
+        await sendFailedOrderEmail(customer, transactionRef); // Inform the customer their payment was unsuccessful.
+        res.end({
+          status: "Error",
+          message:
+            "Payment failed for this order, please check your email for more information.",
+          error: "Payment failed for this order.",
+        });
+        break;
+      }
 
-  if (response.status !== "success") {
-    await sendFailedOrderEmail(customer, transactionRef); // Inform the customer their payment was unsuccessful
-    res.end({
-      status: "Error",
-      message: "Payment failed for this order.",
-      error: "Payment failed for this order.",
-    });
-    return;
-  }
+      // Create the Order.
+      try {
+        await Orders.create({
+          ...req.body,
+          paymentStatus: "SUCCESS",
+          orderStatus: "PROCESSING",
+        });
+        // Clear customers cart.
+        await Customer.findOneAndUpdate(
+          { email: customer.email },
+          { cart: [] },
+        );
+        res.status(200).json({
+          msg: "Your order was successfully received, and is being prepared for shipping.",
+        });
+      } catch (e) {
+        res.status(400);
+        res.json({ error: "Something went wrong, couldn't create an order!" });
+        // eslint-disable-next-line no-console
+        console.log("Error creating an Order ::> ", e);
+      }
+      break;
 
-  try {
-    await Orders.create({ ...req.body, paymentStatus: "SUCCESS" });
-    // :: Clear customers cart
-    await Customer.findOneAndUpdate({ email: customer.email }, { cart: [] });
-    res.status(200).json({
-      msg: "Your order was successfully received, and processing has begun.",
-    });
-  } catch (e) {
-    res.status(400);
-    res.json({ error: "Something went wrong, couldn't create an order!" });
-    // eslint-disable-next-line no-console
-    console.log("Error creating an Order ::> ", e);
+    default:
+      res.status(405);
+      res.json({ error: "Method not allowed" });
+      break;
   }
 };

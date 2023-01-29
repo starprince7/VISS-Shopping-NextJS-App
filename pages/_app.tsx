@@ -1,16 +1,20 @@
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "@mui/material";
+import { ToastContainer } from "react-toastify";
 
-import "../styles/globals.css";
 import { store } from "../store";
 import { lightTheme } from "../theme";
+
+import "../styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={lightTheme}>
         <Component {...pageProps} />
+        <ToastContainer />
       </ThemeProvider>
     </Provider>
   );

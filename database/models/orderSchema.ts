@@ -9,6 +9,16 @@ enum PaymentStatus {
   FAILED = "FAILED",
 }
 
+enum OrderStatus {
+  PENDING = "PENDING",
+  PROCESSING = "PROCESSING",
+  SHIPPED = "SHIPPED",
+  DELIVERED = "DELIVERED",
+  CANCELED = "CANCELED",
+  REFUNDED = "REFUNDED",
+  RETURNED = "RETURNED",
+}
+
 const orderSchema = new mongoose.Schema<Order>(
   {
     orderNo: String,
@@ -25,6 +35,11 @@ const orderSchema = new mongoose.Schema<Order>(
       enum: Object.values(PaymentStatus),
       default: PaymentStatus.PENDING,
     },
+    orderStatus: {
+      type: String,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.PENDING,
+    },
     transactionRef: { type: String, unique: true },
     isOrderFulfilled: { type: Boolean, default: false },
     orderIsFulfilledAt: Date,
@@ -35,7 +50,7 @@ const orderSchema = new mongoose.Schema<Order>(
 // @ Internal utility func.
 orderSchema.pre("save", function (next) {
   this.orderDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-  this.orderNo = getUid(); // 1178851014
+  this.orderNo = `#${getUid()}`; // #1178851014
   next();
 });
 

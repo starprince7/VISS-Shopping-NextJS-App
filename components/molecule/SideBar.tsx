@@ -40,7 +40,7 @@ const links: ILinks[] = [
   },
   {
     to: "/admin/dashboard/fullfilledorders",
-    text: "Fullfilled Orders",
+    text: "Completed Orders",
     Icon: ClipboardCheck,
   },
 ];

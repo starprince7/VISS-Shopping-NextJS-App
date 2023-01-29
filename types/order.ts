@@ -11,8 +11,10 @@ export interface Order {
   processingFee: number;
   shippingFee: number;
   customer: CustomerType;
+  orderStatus: String;
   paymentStatus: String;
   transactionRef: string;
+  transactionReference?: string;
   isOrderFulfilled: boolean;
   orderIsFulfilledAt: string;
 }

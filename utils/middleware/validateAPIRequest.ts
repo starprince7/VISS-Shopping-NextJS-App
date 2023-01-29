@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 // return-Type-Definition
 type Validation = {
   error: string | null;
-  auth_req: NextApiRequest | null;
+  auth_req: NextApiRequest;
 };
 
 // function-Type-Definition
@@ -16,16 +16,16 @@ const getValidAuthentication: GetValidAuth = (req, res) => {
 
   if (!token) {
     res.status(401);
-    res.json({ error: "Unauthorized request" });
-    return { error: "Unauthorized request", auth_req: null };
+    res.json({ error: "Unauthenticated request" });
+    return { error: "Unauthenticated request", auth_req: null };
   }
 
   // Check if token is a valid one
   return jwt.verify(token, process.env.TOKEN_SECRET, (e, token_decoded) => {
     if (e) {
       res.status(401);
-      res.json({ error: "Authorization failed" });
-      return { error: "Authorization failed", auth_req: null };
+      res.json({ error: "Authentication failed" });
+      return { error: "Authentication failed", auth_req: null };
     }
 
     // Successful Authentication!

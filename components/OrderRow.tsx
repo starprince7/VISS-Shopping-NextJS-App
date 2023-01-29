@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   IconButton,
+  Button,
   TableCell,
   TableRow,
   Box,
@@ -11,14 +12,17 @@ import {
   TableBody,
   Chip,
   Avatar,
+  Modal,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Order } from "../types";
 import { formatToCurrency } from "../utils/currencyFormatter";
+import { SetOrderStatus } from "./SetOrderStatus";
 
 export const OrderRow = (props: Order) => {
   const {
+    _id,
     orderNo,
     orderDate,
     orderDetails,
@@ -28,6 +32,8 @@ export const OrderRow = (props: Order) => {
     paymentStatus,
   } = props;
   const [open, setOpen] = useState(false);
+  const [openOrderId, setOpenOrderId] = useState("");
+  const [isOrderStatusModalOpen, setOrderStatusModalOpen] = useState(false);
 
   return (
     <>
@@ -39,33 +45,39 @@ export const OrderRow = (props: Order) => {
           {customer.name.firstname} {customer.name.lastname}
         </TableCell>
         <TableCell align="center">
-          {isOrderFulfilled ? (
-            <Chip
-              label="Delivered"
-              sx={{ color: "#1EE0AC", width: 80 }}
-              style={{ fontSize: 11 }}
-              className="bg-green-100"
-            />
-          ) : (
-            <Chip
-              label="Waiting"
-              sx={{ color: "#F4BD0E", width: 80 }}
-              style={{ fontSize: 11 }}
-              className="bg-yellow-100"
-            />
-          )}
+          <Button
+            disableElevation
+            disableFocusRipple
+            onClick={() => {
+              setOpenOrderId(_id);
+              setOrderStatusModalOpen(!isOrderStatusModalOpen);
+            }}
+          >
+            {isOrderFulfilled ? (
+              <Chip
+                label="Delivered"
+                sx={{ color: "#1EE0AC", width: 80 }}
+                style={{ fontSize: 11 }}
+                className="bg-green-100"
+              />
+            ) : (
+              <Chip
+                label="Waiting"
+                sx={{ color: "#F4BD0E", width: 80 }}
+                style={{ fontSize: 11 }}
+                className="bg-yellow-100"
+              />
+            )}
+          </Button>
         </TableCell>
-        <TableCell
-          align="center"
-          className="flex justify-center items-center space-x-2"
-        >
+        <TableCell align="center">
           <Typography>{orderDetails.length}</Typography>
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {!open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
         <TableCell align="center">{orderDate}</TableCell>
@@ -125,6 +137,22 @@ export const OrderRow = (props: Order) => {
           </Collapse>
         </TableCell>
       </TableRow>
+      <Modal
+        disablePortal
+        disableEnforceFocus
+        disableAutoFocus
+        open={isOrderStatusModalOpen}
+        onClose={() => setOrderStatusModalOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <SetOrderStatus
+          orderId={openOrderId}
+          orderNo={orderNo}
+          customerName={`${customer.name.firstname} ${customer.name.lastname}`}
+          handleClose={() => setOrderStatusModalOpen(false)}
+        />
+      </Modal>
     </>
   );
 };

@@ -16,7 +16,6 @@ import {
   FlexCol,
 } from "../../../components";
 import RecentOrders from "../../../components/RecentOrders";
-import { useFetch } from "../../../hooks";
 
 const DashboardPage: NextPage = () => {
   return (
@@ -55,6 +54,7 @@ const DashboardPage: NextPage = () => {
           title="Total Sales"
           icon={PieChartIcon}
           src="/api/admin/overview/total_sales"
+          isMoneyCount
         />
         <OverviewCard
           title="Orders"

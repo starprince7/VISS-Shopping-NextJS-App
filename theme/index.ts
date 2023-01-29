@@ -30,6 +30,10 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none",
+          "&.Mui-disabled": {
+            background: "#89a67e73",
+            color: "#fdfdfd8c",
+          },
         },
       },
     },

@@ -4,14 +4,16 @@ import { FlexCol } from "./FlexCol";
 import { FlexRow } from "./FlexRow";
 import { useFetch } from "../hooks";
 import { OverviewCardSkeleton } from "./skeleton/OverviewCardSkeleton";
+import { formatToCurrency } from "../utils/currencyFormatter";
 
 type Props = {
   title: string;
   icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   src: string;
+  isMoneyCount?: boolean;
 };
 
-export const OverviewCard = ({ title, icon, src }: Props) => {
+export const OverviewCard = ({ title, icon, src, isMoneyCount }: Props) => {
   const { data, error, fetchStatus } = useFetch(src);
   const dataItems = data[0];
 
@@ -47,10 +49,12 @@ export const OverviewCard = ({ title, icon, src }: Props) => {
       </FlexRow>
       <Typography
         sx={{ alignSelf: "flex-end", color: "secondary.main" }}
-        variant="h6"
-        fontWeight={700}
+        variant="h5"
+        fontWeight={800}
       >
-        {dataItems?.count || 0}
+        {isMoneyCount
+          ? formatToCurrency(dataItems?.count || 0, "NGN")
+          : dataItems?.count || 0}
       </Typography>
     </FlexCol>
   );
