@@ -20,7 +20,7 @@ export default function Products() {
 
   React.useEffect(() => {
     dispatch(fetchProducts() as unknown as AnyAction);
-  }, []);
+  }, [dispatch]);
 
   if (productsRequestStatus !== "succeeded") {
     return <TableLoadingView />;

@@ -10,36 +10,10 @@ import { OrderRow } from "./OrderRow";
 import { useFetch } from "../hooks";
 import { TableLoadingView } from "./skeleton/TableLoadingView";
 
-function createData(
-  orderNo: string,
-  customer: {},
-  status: boolean,
-  orderDate: string,
-  sumTotal: number,
-) {
-  return {
-    orderNo,
-    customer,
-    isOrderFulfilled: status,
-    orderDate,
-    sumTotal,
-    orderDetails: [],
-  };
-}
-
-const rows = [
-  createData("1", { fullName: "Jon Snow" }, false, "12-04-22", 40000),
-  createData("1", { fullName: "Megan Snow" }, true, "02-05-23", 10000),
-  createData("1", { fullName: "Don Pedro" }, true, "21-04-22", 60000),
-  createData("1", { fullName: "Don Pedro" }, true, "21-04-22", 60000),
-  createData("1", { fullName: "Don Pedro" }, true, "21-04-22", 60000),
-];
-
-export default function RecentOrders() {
+export const RecentOrders = () => {
   const { data, error, fetchStatus } = useFetch(
     "/api/admin/overview/recent_orders",
   );
-  console.log("Recent Orders :", data);
 
   if (fetchStatus !== "succeeded") {
     return <TableLoadingView />;
@@ -67,4 +41,4 @@ export default function RecentOrders() {
       </Table>
     </TableContainer>
   );
-}
+};
