@@ -5,7 +5,13 @@ const theme = "colored";
 const hideProgressBar = true;
 const autoClose = 5000;
 
-const toastService = {
+type ToastService = {
+  showSuccessMessage: (message: string) => void;
+  showInfoMessage: (message: string) => void;
+  showErrorMessage: (message: string) => void;
+};
+
+const toastService: ToastService = {
   showSuccessMessage: (message: string) => {
     toast.success(message, {
       position,

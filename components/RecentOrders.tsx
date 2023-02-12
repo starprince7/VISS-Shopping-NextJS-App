@@ -9,11 +9,16 @@ import Paper from "@mui/material/Paper";
 import { OrderRow } from "./OrderRow";
 import { useFetch } from "../hooks";
 import { TableLoadingView } from "./skeleton/TableLoadingView";
+import toastService from "../services/toast-notification";
 
 export const RecentOrders = () => {
   const { data, error, fetchStatus } = useFetch(
     "/api/admin/overview/recent_orders",
   );
+
+  if (error) {
+    toastService.showErrorMessage(error);
+  }
 
   if (fetchStatus !== "succeeded") {
     return <TableLoadingView />;
