@@ -11,7 +11,7 @@ const sendFailedOrderEmail = async (customer: CustomerType, txRef: string) => {
     \nRegards,\nsystem@viss-shopping.com`,
   };
 
-  return await client.messages.create(domain, mail_options);
+  return client.messages.create(domain, mail_options);
 };
 
 export default sendFailedOrderEmail;
