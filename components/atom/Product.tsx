@@ -16,12 +16,12 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Product } from "../../types";
+import { Product as ProductType } from "../../types";
 import { formatToCurrency } from "../../utils/currencyFormatter";
 import { SetOrderStatus } from "../SetOrderStatus";
 import { FlexRow } from "../FlexRow";
 
-export const OrderRow = (props: Product & { _id: string }) => {
+export const Product = (props: ProductType & { _id: string }) => {
   const { _id, image, title, price, category, countInStock } = props;
 
   return (

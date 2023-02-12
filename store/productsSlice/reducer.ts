@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import { getProducts } from "../../helpers";
 import { Product } from "../../types";
 
 export type StateProps = {
@@ -17,7 +18,7 @@ const initialState: StateProps = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
-    const result = await axios.get("/api/products/");
+    const result = await getProducts();
     return result.data;
   },
 );
@@ -32,7 +33,7 @@ const products = createSlice({
         state.productsRequestStatus = "loading";
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = action.payload.products;
         state.productsRequestStatus = "succeeded";
       })
       .addCase(fetchProducts.rejected, (state, action) => {

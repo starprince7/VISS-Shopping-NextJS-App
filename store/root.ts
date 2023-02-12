@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { productReducer } from "./productsSlice";
 
-const rootReducer = {
+export const rootReducer = {
   Products: productReducer,
   // Customers: {},
   // Orders: {},

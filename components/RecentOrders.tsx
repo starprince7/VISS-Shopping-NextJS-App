@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { OrderRow } from "./OrderRow";
 import { useFetch } from "../hooks";
-import { RecentOrdersSkeleton } from "./skeleton/RecentOrdersSkeleton";
+import { TableLoadingView } from "./skeleton/TableLoadingView";
 
 function createData(
   orderNo: string,
@@ -42,7 +42,7 @@ export default function RecentOrders() {
   console.log("Recent Orders :", data);
 
   if (fetchStatus !== "succeeded") {
-    return <RecentOrdersSkeleton />;
+    return <TableLoadingView />;
   }
 
   return (
@@ -55,7 +55,7 @@ export default function RecentOrders() {
             <TableCell align="center">Delivery Status</TableCell>
             <TableCell align="center">Items Purchased</TableCell>
             <TableCell align="center">Date</TableCell>
-            <TableCell align="right">Total</TableCell>
+            <TableCell align="right">Amount Paid</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

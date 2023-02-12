@@ -1,17 +1,18 @@
 import axios, { AxiosResponse } from "axios";
 import { useState, useEffect } from "react";
+import apiClient from "../config/apiConfig";
 
 type RequestStatus = "idle" | "loading" | "succeeded" | "failed";
 
 export const useFetch = (url: string) => {
   const [fetchStatus, setFetchStatus] = useState<RequestStatus>("idle");
-  const [data, setData] = useState<AxiosResponse<any>>([]);
+  const [data, setData] = useState<AxiosResponse[]>([]);
   const [error, setError] = useState<AxiosResponse<any>>([]);
 
-  const fetchData = async () => {
+  const fetchData = async (urlWithQueryStr?: string) => {
     try {
       setFetchStatus("loading");
-      const response = await axios.get(url);
+      const response = await apiClient.get(urlWithQueryStr || url);
       setData(response.data);
       setFetchStatus("succeeded");
     } catch (error) {
@@ -22,7 +23,7 @@ export const useFetch = (url: string) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [url]);
 
-  return { data, error, fetchStatus };
+  return { data, error, fetchStatus, fetchData };
 };

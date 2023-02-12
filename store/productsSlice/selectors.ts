@@ -1,3 +1,3 @@
-import productsSlice, { StateProps } from "./reducer";
+import productsSlice, { StateProps as ProductsState } from "./reducer";
 
-export const selectProducts = (state: StateProps) => state.products;
+export const selectProductsState = (store) => store.Products as ProductsState;

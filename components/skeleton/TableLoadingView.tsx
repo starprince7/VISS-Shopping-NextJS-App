@@ -2,7 +2,7 @@ import { Skeleton, Stack } from "@mui/material";
 import { FlexCol } from "../FlexCol";
 import { FlexRow } from "../FlexRow";
 
-export const RecentOrdersSkeleton = () => {
+export const TableLoadingView = () => {
   return (
     <Stack spacing={1}>
       {new Array(6).fill("").map((_) => (

@@ -1,18 +1,17 @@
 import React from "react";
 import { NextPage } from "next";
 
-import { Typography } from "@mui/material";
-import { Layout } from "../../../components/molecule";
+import { Box, Typography } from "@mui/material";
+import { Layout, Products } from "../../../components/molecule";
 import { FlexRow, Input } from "../../../components";
 
 const ProductsPage: NextPage = () => {
   return (
-    <Layout className="bg-background">
+    <Layout className="bg-background px-3">
       <FlexRow
         sx={{
           justifyContent: "space-between",
           alignItems: "center",
-          px: 2,
           my: 1,
         }}
       >
@@ -37,6 +36,9 @@ const ProductsPage: NextPage = () => {
           </Button> */}
         </FlexRow>
       </FlexRow>
+      <Box sx={{ width: "100%", height: "75vh", p: 5, overflowY: "scroll" }}>
+        <Products />
+      </Box>
     </Layout>
   );
 };
