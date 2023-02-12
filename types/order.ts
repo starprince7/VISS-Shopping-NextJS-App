@@ -2,6 +2,7 @@ import { CustomerType } from "./customer";
 import { Product } from "./product";
 
 export interface Order {
+  _id: string;
   orderNo: string;
   orderDate: string;
   orderDetails: Product[];
