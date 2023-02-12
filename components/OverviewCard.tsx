@@ -15,7 +15,7 @@ type Props = {
 
 export const OverviewCard = ({ title, icon, src, isMoneyCount }: Props) => {
   const { data, error, fetchStatus } = useFetch(src);
-  const dataItems = data[0];
+  const dataItems = data[0] as unknown as { count: any };
 
   if (fetchStatus !== "succeeded") {
     return <OverviewCardSkeleton />;
