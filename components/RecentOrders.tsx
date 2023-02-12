@@ -11,7 +11,7 @@ import { useFetch } from "../hooks";
 import { TableLoadingView } from "./skeleton/TableLoadingView";
 import toastService from "../services/toast-notification";
 
-export const RecentOrders = () => {
+export default function RecentOrders() {
   const { data, error, fetchStatus } = useFetch(
     "/api/admin/overview/recent_orders",
   );
@@ -46,4 +46,4 @@ export const RecentOrders = () => {
       </Table>
     </TableContainer>
   );
-};
+}

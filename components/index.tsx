@@ -4,5 +4,5 @@ export * from "./atom";
 export * from "./molecule";
 export * from "./Input";
 export * from "./OverviewCard";
-export * from "./RecentOrders";
+export { default as RecentOrders } from "./RecentOrders";
 export * from "./OrderRow";
