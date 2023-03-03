@@ -1,24 +1,42 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { getProducts } from "../../helpers";
+import toastService from "../../services/toast-notification";
 import { Product } from "../../types";
 
 export type StateProps = {
   error: string;
   products: Product[];
+  page: number;
+  hasMore: boolean;
+  totalCount: number;
   productsRequestStatus: "idle" | "loading" | "succeeded" | "failed";
 };
 
 const initialState: StateProps = {
   error: "",
   products: [],
+  page: 0,
+  hasMore: false,
+  totalCount: 0,
   productsRequestStatus: "idle",
 };
 
-export const fetchProducts = createAsyncThunk(
+type FetchProductsArgs = {
+  page: number;
+  products?: Product[];
+  totalCount?: number;
+};
+
+// type FetchProductResponse = {
+//   products?: Product[];
+//   totalCount?: number;
+// }
+
+export const fetchProducts = createAsyncThunk<any, FetchProductsArgs>(
   "products/fetchProducts",
-  async () => {
-    const result = await getProducts();
+  async ({ page }) => {
+    const result = await getProducts(page);
     return result.data;
   },
 );
@@ -33,12 +51,19 @@ const products = createSlice({
         state.productsRequestStatus = "loading";
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.products = action.payload.products;
+        state.products =
+          action.payload.page === 1
+            ? action.payload.products
+            : [...state.products, ...action.payload.products];
+        state.page = action.payload.page;
+        state.hasMore = state.products.length < action.payload.totalCount;
+        state.totalCount = action.payload.totalCount;
         state.productsRequestStatus = "succeeded";
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.error = action.error.message as string;
         state.productsRequestStatus = "failed";
+        toastService.showErrorMessage(action.error.message as string);
       });
   },
 });
