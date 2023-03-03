@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import RedoIcon from "@mui/icons-material/Redo";
 import UndoIcon from "@mui/icons-material/Undo";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Typography } from "@mui/material";
 import { AnyAction } from "@reduxjs/toolkit";
 import InfiniteScroller from "react-infinite-scroller";
 
@@ -16,7 +17,6 @@ import { useFetch } from "../../hooks";
 import { TableLoadingView } from "../skeleton/TableLoadingView";
 import { Product } from "../atom";
 import { fetchProducts, selectProductsState } from "../../store";
-import { Button, Typography } from "@mui/material";
 import { FlexRow } from "../FlexRow";
 
 export default function Products() {
