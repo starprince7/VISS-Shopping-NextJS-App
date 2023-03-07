@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 interface ConnectionProp {
   isConnected: any;
@@ -11,7 +11,7 @@ const connection: ConnectionProp = { isConnected: null };
 const connectDB: ConnectDb = async () => {
   if (connection.isConnected !== null) {
     // eslint-disable-next-line no-console
-    console.log('Database is already connected!...');
+    console.log("Database is already connected!...");
     return;
   }
 
@@ -45,7 +45,7 @@ const connectDB: ConnectDb = async () => {
     connection.isConnected = db.connection._readyState;
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.log('Error Connecting to DB!: ', e);
+    console.log("Error Connecting to DB!: ", e);
   }
 };
 
@@ -53,7 +53,7 @@ const connectDB: ConnectDb = async () => {
 async function disconnectDB(): Promise<void> {
   if (
     connection.isConnected !== null &&
-    process.env.NODE_ENV === 'production'
+    process.env.NODE_ENV === "production"
   ) {
     await mongoose.disconnect();
     connection.isConnected = false;

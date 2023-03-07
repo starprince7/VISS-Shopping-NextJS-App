@@ -24,9 +24,9 @@ export default function Products() {
   const { products, productsRequestStatus, page, totalCount, hasMore } =
     useSelector(selectProductsState);
 
-  const loadProducts = () => {
+  const loadProducts = React.useCallback(() => {
     dispatch(fetchProducts({ page: page + 1 }) as unknown as AnyAction);
-  };
+  }, [page]);
 
   const loadPreviousProducts = () => {
     dispatch(fetchProducts({ page: page + 1 }) as unknown as AnyAction);
@@ -53,17 +53,12 @@ export default function Products() {
         <TableBody>
           {products?.map((product, index) => (
             // @ts-ignore
-            <Product key={index} {...product} />
+            <Product key={product._id} {...product} />
           ))}
         </TableBody>
       </Table>
       {productsRequestStatus === "loading" && <TableLoadingView />}
       <FlexRow sx={{ px: 1, justifyContent: "center", alignItems: "center" }}>
-        {/* {page > 1 && (
-          <Button onClick={loadPreviousProducts} startIcon={<UndoIcon />}>
-            <Typography>Previous</Typography>
-          </Button>
-        )} */}
         {hasMore && (
           <Button onClick={loadProducts} endIcon={<RedoIcon />}>
             <Typography>Next</Typography>

@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
-import moment from "moment"
+import moment from "moment";
+import getUid from "get-uid";
 import { Product } from "../../types";
 
 const productSchema = new mongoose.Schema<Product>(
   {
+    productNumber: { type: String, unique: true },
     title: { type: String, required: true },
     image: { type: String, required: true },
     brand: { type: String, required: true },
@@ -15,15 +17,16 @@ const productSchema = new mongoose.Schema<Product>(
     reviews: { type: Number, default: 0 },
     date_created: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-productSchema.index({ title: "text", brand: "text"})
+productSchema.index({ title: "text", brand: "text", productNumber: "text" });
 
 // @ Internal utility func.
 productSchema.pre("save", function (next) {
   // @ creating formatted date-time.
-  this.date_created = moment().format('MMMM Do YYYY, h:mm:ss a')
+  this.date_created = moment().format("MMMM Do YYYY, h:mm:ss a");
+  this.productNumber = `#${getUid()}`; /* #360423267 */
   next();
 });
 

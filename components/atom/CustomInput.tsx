@@ -8,31 +8,33 @@ import {
 import React from "react";
 
 type DefaultProps = {
+  required?: boolean;
   title: string;
   placeholder?: string;
   type?: string;
-  options?: string[];
-  handleChange?: any;
+  options?: any[];
+  onChange?: any;
   value?: any;
   textArea?: boolean;
 };
 
-type RequiredSelectProps = {
-  options: string[];
+type RequiredSelectTagProps = {
+  options: any[];
   value: string;
-  handleChange: (e: SelectChangeEvent<string>) => void;
+  onChange: (e: SelectChangeEvent<string>) => void;
 } & Partial<DefaultProps>;
 
-type Props = RequiredSelectProps | DefaultProps;
+type Props = RequiredSelectTagProps | DefaultProps;
 
 export const CustomInput = ({
+  required,
   textArea,
   title,
   placeholder,
   type = "text",
   options = [],
   value,
-  handleChange,
+  onChange,
 }: Props) => {
   if (options.length) {
     return (
@@ -50,11 +52,12 @@ export const CustomInput = ({
           {title}
         </Typography>
         <Select
+          required={required}
           labelId="input-select"
           id="input-select"
           value={value}
           label="Age"
-          onChange={handleChange}
+          onChange={onChange}
           sx={{
             border: "solid #CFCFCF 1px",
             borderRadius: 2,
@@ -90,11 +93,14 @@ export const CustomInput = ({
           {title}
         </Typography>
         <textarea
+          required={required}
           rows={4}
+          value={value}
+          onChange={onChange}
           style={{
             border: "solid #CFCFCF 2px",
             borderRadius: 5,
-            padding: "0.3px 1px",
+            padding: "8px",
             width: "100%",
             color: "#1E1E1E",
           }}
@@ -119,7 +125,10 @@ export const CustomInput = ({
         {title}
       </Typography>
       <InputBase
+        required={required}
         type={type}
+        value={value}
+        onChange={onChange}
         sx={{
           border: "solid #CFCFCF 2px",
           borderRadius: 2,

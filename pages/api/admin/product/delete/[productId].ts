@@ -13,6 +13,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   const { productId } = req.query;
+  console.log("It got to backend. : ", productId);
+  if (!productId) {
+    res.status(400);
+    res.json({ error: "Pass a Product number or ID." });
+    return;
+  }
 
   const deletedProduct = await Product.findByIdAndDelete(productId);
 
