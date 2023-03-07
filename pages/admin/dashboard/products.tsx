@@ -93,12 +93,16 @@ const ProductsPage: NextPage = () => {
         <Typography variant="h4" fontWeight={600} color="secondary.main">
           Products
         </Typography>
-        <FlexRow justifyContent="center" alignItems="center">
-          <Input
+        <FlexRow
+          justifyContent="center"
+          alignItems="center"
+          sx={{ pr: 3, pt: 1 }}
+        >
+          {/* <Input
             sx={{ width: { xs: 350, md: 450 }, bgcolor: "white" }}
             type="text"
             label="Search products..."
-          />
+          /> */}
           <Button
             disableElevation
             variant="contained"
@@ -112,7 +116,7 @@ const ProductsPage: NextPage = () => {
           </Button>
         </FlexRow>
       </FlexRow>
-      <Box sx={{ width: "100%", height: "75vh", p: 5, overflowY: "scroll" }}>
+      <Box sx={{ width: "100%", height: "75vh", p: 3, overflowY: "scroll" }}>
         <Products />
       </Box>
       <Drawer

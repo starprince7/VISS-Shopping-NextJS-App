@@ -1,8 +1,11 @@
+import getUid from "get-uid";
 import { NextApiRequest, NextApiResponse } from "next";
+
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/dbUtils/dbConnection";
-import uploadImage from "../../../../../services/cloudinary/imageUploader";
 import { Product as ProductType } from "../../../../../types";
+import ImageService from "../../../../../services/imageService";
+import { generateImagePublicId } from "../../../../../utils/getTransactionReference";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -27,8 +30,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     });
     return;
   }
+
+  const productNumber = Number(getUid()); /* 360423267 */
+  const productId = generateImagePublicId();
+  console.log("The generateImagePublicId : ", productId);
+
   // Upload Image to Cloud
-  const { secure_url } = await uploadImage(image);
+  const { secure_url } = await ImageService.uploadImage(image, productId);
   // eslint-disable-next-line no-console
   console.log("Image was uploaded!");
 
@@ -41,6 +49,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       weight,
       description,
       countInStock,
+      productId,
+      productNumber,
     });
 
     res.status(201);

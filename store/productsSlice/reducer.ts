@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import { getProducts } from "../../helpers";
 import toastService from "../../services/toast-notification";
@@ -28,11 +28,6 @@ type FetchProductsArgs = {
   totalCount?: number;
 };
 
-// type FetchProductResponse = {
-//   products?: Product[];
-//   totalCount?: number;
-// }
-
 export const fetchProducts = createAsyncThunk<any, FetchProductsArgs>(
   "products/fetchProducts",
   async ({ page }) => {
@@ -44,7 +39,15 @@ export const fetchProducts = createAsyncThunk<any, FetchProductsArgs>(
 const products = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    removeProduct: (state, action: PayloadAction<{ id: string }>) => {
+      state.products = state.products.filter(
+        (product) =>
+          // product.productNumber !== action.payload.id ||
+          product._id !== action.payload.id,
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -68,4 +71,5 @@ const products = createSlice({
   },
 });
 
+export const { removeProduct } = products.actions;
 export default products.reducer;

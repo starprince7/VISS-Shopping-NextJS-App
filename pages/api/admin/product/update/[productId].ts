@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/dbUtils/dbConnection";
-import uploadImage from "../../../../../services/cloudinary/imageUploader";
+import uploadImage from "../../../../../config/cloudinary/imageUploader";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "PUT") {

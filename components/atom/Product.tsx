@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   IconButton,
   Button,
@@ -19,17 +20,21 @@ import {
 import DotIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import { Product as ProductType } from "../../types";
 import { formatToCurrency } from "../../utils/currencyFormatter";
 import { SetOrderStatus } from "../SetOrderStatus";
 import { FlexRow } from "../FlexRow";
 import apiClient from "../../config/apiConfig";
 import toastService from "../../services/toast-notification";
+import { removeProduct } from "../../store";
 
 export const Product = (props: ProductType & { _id: string }) => {
   const { productNumber, _id, image, title, price, category, countInStock } =
     props;
 
+  const dispatch = useDispatch();
+  const deleteButtonRef = useRef<null | HTMLButtonElement>(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
   const open = Boolean(anchorEl);
 
@@ -47,20 +52,33 @@ export const Product = (props: ProductType & { _id: string }) => {
     );
 
     if (!okToProceed) return;
+    if (!deleteButtonRef.current) return;
+    const deleteBtn = deleteButtonRef.current;
+    deleteBtn.textContent = "Deleting...";
+    deleteBtn.disabled = true;
     try {
       const { data } = await apiClient.delete(
-        `/api/admin/product/delete/${productNumber || _id}`,
+        `/api/admin/product/delete/${_id}`,
       );
+
       if (data.error) {
         toastService.showErrorMessage(data.error);
+        deleteBtn.textContent = "Delete";
+        deleteBtn.disabled = false;
         return;
       }
 
       if (data.msg) {
         toastService.showSuccessMessage(data.msg);
+        dispatch(removeProduct({ id: _id }));
+        deleteBtn.textContent = "Delete";
+        deleteBtn.disabled = false;
+        closeMenu();
       }
     } catch (e) {
       console.log(e);
+      deleteBtn.textContent = "Delete";
+      deleteBtn.disabled = false;
     }
     closeMenu();
   };
@@ -91,7 +109,11 @@ export const Product = (props: ProductType & { _id: string }) => {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={handleDelete} className="text-red-600">
+          <MenuItem
+            ref={deleteButtonRef}
+            onClick={handleDelete}
+            className="text-red-600"
+          >
             Delete
           </MenuItem>
           <MenuItem onClick={closeMenu} className="text-neutral-300" disabled>

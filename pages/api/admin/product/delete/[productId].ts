@@ -1,6 +1,7 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/dbUtils/dbConnection";
+import ImageService from "../../../../../services/imageService";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "DELETE") {
@@ -13,10 +14,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   const { productId } = req.query;
-  console.log("It got to backend. : ", productId);
   if (!productId) {
     res.status(400);
-    res.json({ error: "Pass a Product number or ID." });
+    res.json({ error: "Pass a product document ID." });
     return;
   }
 
@@ -29,6 +29,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.end();
     return;
   }
+
+  console.log("Deleted Item : ", deletedProduct);
+  const result = await ImageService.removeUploadedImage(
+    deletedProduct.productId,
+  );
+  console.log("Image removed/deleted from cloud...", result);
 
   res.status(200);
   res.json({ msg: "Deleted successfully", product: deletedProduct });

@@ -6,3 +6,8 @@ function generateTransactionReference() {
 }
 
 export default generateTransactionReference;
+
+export function generateImagePublicId() {
+  const suffixStr = "viss_store_";
+  return suffixStr + crypto.randomUUID();
+}

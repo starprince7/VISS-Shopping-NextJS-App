@@ -105,7 +105,7 @@ export const CustomInput = ({
             color: "#1E1E1E",
           }}
           placeholder={placeholder}
-        ></textarea>
+        />
       </div>
     );
   }

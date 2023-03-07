@@ -5,7 +5,8 @@ import { Product } from "../../types";
 
 const productSchema = new mongoose.Schema<Product>(
   {
-    productNumber: { type: String, unique: true },
+    productId: { type: String, unique: true },
+    productNumber: { type: Number, unique: true },
     title: { type: String, required: true },
     image: { type: String, required: true },
     brand: { type: String, required: true },
@@ -26,7 +27,6 @@ productSchema.index({ title: "text", brand: "text", productNumber: "text" });
 productSchema.pre("save", function (next) {
   // @ creating formatted date-time.
   this.date_created = moment().format("MMMM Do YYYY, h:mm:ss a");
-  this.productNumber = `#${getUid()}`; /* #360423267 */
   next();
 });
 
