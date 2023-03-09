@@ -38,7 +38,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const customer_with_shippingInfo = await Customer.findByIdAndUpdate(
     id,
     {
-      // @ts-ignore
       $push: { shippingInfo: shipping_information },
     },
     { new: true },

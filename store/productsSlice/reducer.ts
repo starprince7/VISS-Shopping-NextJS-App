@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getProducts } from "../../helpers";
+
 import toastService from "../../services/toast-notification";
 import { Product } from "../../types";
 
@@ -13,6 +13,12 @@ export type StateProps = {
   productsRequestStatus: "idle" | "loading" | "succeeded" | "failed";
 };
 
+type FetchProductsArgs = {
+  page: number;
+  products?: Product[];
+  totalCount?: number;
+};
+
 const initialState: StateProps = {
   error: "",
   products: [],
@@ -20,12 +26,6 @@ const initialState: StateProps = {
   hasMore: false,
   totalCount: 0,
   productsRequestStatus: "idle",
-};
-
-type FetchProductsArgs = {
-  page: number;
-  products?: Product[];
-  totalCount?: number;
 };
 
 export const fetchProducts = createAsyncThunk<any, FetchProductsArgs>(
@@ -42,9 +42,7 @@ const products = createSlice({
   reducers: {
     removeProduct: (state, action: PayloadAction<{ id: string }>) => {
       state.products = state.products.filter(
-        (product) =>
-          // product.productNumber !== action.payload.id ||
-          product._id !== action.payload.id,
+        (product) => product._id !== action.payload.id,
       );
     },
   },
@@ -59,7 +57,7 @@ const products = createSlice({
             ? action.payload.products
             : [...state.products, ...action.payload.products];
         state.page = action.payload.page;
-        state.hasMore = state.products.length < action.payload.totalCount;
+        state.hasMore = state.products?.length < action.payload.totalCount;
         state.totalCount = action.payload.totalCount;
         state.productsRequestStatus = "succeeded";
       })

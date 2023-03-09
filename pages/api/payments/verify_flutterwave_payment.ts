@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../database/dbUtils/dbConnection";
+import Customer from "../../../database/models/customerSchema";
 import Orders from "../../../database/models/orderSchema";
 import FlutterWave from "../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../utils/mailer/failedOrderEmail";
@@ -24,16 +25,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       response.data.currency === "NGN"
     ) {
       // Success! Confirm the customer's payment
-      await Orders.findOneAndUpdate(
+      const confirmedOrder = await Orders.findOneAndUpdate(
         { transactionRef: tx_ref },
         {
           paymentStatus: "SUCCESS",
         },
         { new: true },
       );
+
+      // Find the owner of an order and update the order `History`
+      await Customer.findByIdAndUpdate(confirmedOrder.customer._id, {
+        $push: { orderHistory: confirmedOrder },
+      });
       res.end({ status: "Success", message: "Payment successfully verified" });
     } else {
-      await sendFailedOrderEmail(pendingOrder.customer, tx_ref as string); // Inform the customer their payment was unsuccessful
+      await sendFailedOrderEmail(pendingOrder.customer, tx_ref as string); // Inform the customer their payment was unsuccessful.
       res.end({ status: "Error", message: "Payment failed for this order." });
     }
   }

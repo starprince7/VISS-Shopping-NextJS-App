@@ -10,8 +10,8 @@ import { AddProductForm } from "../../../components/AddProductForm";
 import useCategories from "../../../hooks/categories";
 import toastService from "../../../services/toast-notification";
 import apiClient from "../../../config/apiConfig";
-import { fetchProducts } from "../../../store";
 import { AnyAction } from "@reduxjs/toolkit";
+import { fetchProducts } from "../../../store/productsSlice/reducer";
 
 const ProductsPage: NextPage = () => {
   const dispatch = useDispatch();
@@ -87,17 +87,13 @@ const ProductsPage: NextPage = () => {
         sx={{
           justifyContent: "space-between",
           alignItems: "center",
-          my: 1,
+          // my: 1,
         }}
       >
         <Typography variant="h4" fontWeight={600} color="secondary.main">
           Products
         </Typography>
-        <FlexRow
-          justifyContent="center"
-          alignItems="center"
-          sx={{ pr: 3, pt: 1 }}
-        >
+        <FlexRow justifyContent="center" alignItems="center" sx={{ pr: 3 }}>
           {/* <Input
             sx={{ width: { xs: 350, md: 450 }, bgcolor: "white" }}
             type="text"
@@ -107,7 +103,7 @@ const ProductsPage: NextPage = () => {
             disableElevation
             variant="contained"
             color="primary"
-            sx={{ color: "white", fontSize: "13px", py: 1.8 }}
+            sx={{ color: "white", fontSize: "13px", py: 1.5, mt: 1.5 }}
             style={{ background: "#89A67E" }}
             startIcon={<AddIcon />}
             onClick={() => setOpen(true)}
@@ -116,7 +112,7 @@ const ProductsPage: NextPage = () => {
           </Button>
         </FlexRow>
       </FlexRow>
-      <Box sx={{ width: "100%", height: "75vh", p: 3, overflowY: "scroll" }}>
+      <Box sx={{ p: 3 }}>
         <Products />
       </Box>
       <Drawer

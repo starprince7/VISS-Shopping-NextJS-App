@@ -16,8 +16,9 @@ import InfiniteScroller from "react-infinite-scroller";
 import { useFetch } from "../../hooks";
 import { TableLoadingView } from "../skeleton/TableLoadingView";
 import { Product } from "../atom";
-import { fetchProducts, selectProductsState } from "../../store";
 import { FlexRow } from "../FlexRow";
+import { selectProductsState } from "../../store/productsSlice/selectors";
+import { fetchProducts } from "../../store/productsSlice/reducer";
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -37,27 +38,29 @@ export default function Products() {
   }, [fetchProducts, dispatch]);
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto" }}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Product Name</TableCell>
-            <TableCell align="left">ID</TableCell>
-            <TableCell align="center">Price</TableCell>
-            <TableCell align="center">Stock</TableCell>
-            <TableCell align="center">Category</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
+    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <TableContainer component={Paper} sx={{ mx: "auto", maxHeight: "77vh" }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Product Name</TableCell>
+              <TableCell align="left">ID</TableCell>
+              <TableCell align="center">Price</TableCell>
+              <TableCell align="center">Stock</TableCell>
+              <TableCell align="center">Category</TableCell>
+              <TableCell align="right">Action</TableCell>
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {products?.map((product, index) => (
-            // @ts-ignore
-            <Product key={product._id} {...product} />
-          ))}
-        </TableBody>
-      </Table>
-      {productsRequestStatus === "loading" && <TableLoadingView />}
+          <TableBody>
+            {products?.map((product, index) => (
+              // @ts-ignore
+              <Product key={product._id} {...product} />
+            ))}
+          </TableBody>
+        </Table>
+        {productsRequestStatus === "loading" && <TableLoadingView />}
+      </TableContainer>
       <FlexRow sx={{ px: 1, justifyContent: "center", alignItems: "center" }}>
         {hasMore && (
           <Button onClick={loadProducts} endIcon={<RedoIcon />}>
@@ -65,6 +68,6 @@ export default function Products() {
           </Button>
         )}
       </FlexRow>
-    </TableContainer>
+    </Paper>
   );
 }

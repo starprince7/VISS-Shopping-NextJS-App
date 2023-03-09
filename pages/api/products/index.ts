@@ -23,17 +23,18 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       ]);
 
       const products = await Product.find()
-        // @ts-ignore
-        .skip((page - 1) * limit)
-        // @ts-ignore
-        .limit(limit)
+        .skip((Number(page) - 1) * Number(limit))
+        .limit(Number(limit))
         .exec();
       res.status(200);
       res.json({ products, totalCount: totalCount[0].count, page });
       break;
     default:
-      res.status(400);
-      res.json({ msg: "Bad request", error: "Bad request" });
+      res.status(405);
+      res.json({
+        msg: "Method is rejected, not allowed.",
+        error: "Bad request, not allowed.",
+      });
       break;
   }
 }
