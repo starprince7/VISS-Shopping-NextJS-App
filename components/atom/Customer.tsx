@@ -41,7 +41,7 @@ export const Customer = (props: CustomerType) => {
   const { phoneNumber, state } = shippingInfo[0];
   const numberOfItemsInCart = cart?.length || 0;
   const ordersPaidFor = orderHistory?.length || 0;
-  const initials = name.firstname[0] + name.lastname[0];
+  const initials = name.firstname[0]; /* + name.lastname[0] */
 
   const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
