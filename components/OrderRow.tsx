@@ -13,6 +13,7 @@ import {
   Chip,
   Avatar,
   Modal,
+  Tooltip,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -39,36 +40,38 @@ export const OrderRow = (props: Order) => {
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell component="th" scope="row">
-          {orderNo}
+          #{orderNo}
         </TableCell>
         <TableCell align="left">
           {customer.name.firstname} {customer.name.lastname}
         </TableCell>
         <TableCell align="center">
-          <Button
-            disableElevation
-            disableFocusRipple
-            onClick={() => {
-              setOpenOrderId(_id);
-              setOrderStatusModalOpen(!isOrderStatusModalOpen);
-            }}
-          >
-            {isOrderFulfilled ? (
-              <Chip
-                label="Delivered"
-                sx={{ color: "#1EE0AC", width: 80 }}
-                style={{ fontSize: 11 }}
-                className="bg-green-100"
-              />
-            ) : (
-              <Chip
-                label="Waiting"
-                sx={{ color: "#F4BD0E", width: 80 }}
-                style={{ fontSize: 11 }}
-                className="bg-yellow-100"
-              />
-            )}
-          </Button>
+          <Tooltip title="Set Order Status" followCursor>
+            <Button
+              disableElevation
+              disableFocusRipple
+              onClick={() => {
+                setOpenOrderId(_id);
+                setOrderStatusModalOpen(!isOrderStatusModalOpen);
+              }}
+            >
+              {isOrderFulfilled ? (
+                <Chip
+                  label="Delivered"
+                  sx={{ color: "#1EE0AC", width: 80, cursor: "pointer" }}
+                  style={{ fontSize: 11 }}
+                  className="bg-green-100"
+                />
+              ) : (
+                <Chip
+                  label="Waiting"
+                  sx={{ color: "#F4BD0E", width: 80, cursor: "pointer" }}
+                  style={{ fontSize: 11 }}
+                  className="bg-yellow-100"
+                />
+              )}
+            </Button>
+          </Tooltip>
         </TableCell>
         <TableCell align="center">
           <Typography>{orderDetails.length}</Typography>

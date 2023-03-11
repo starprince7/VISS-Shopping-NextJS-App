@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 
-import { store } from "../store";
+import store from "../store";
 import { lightTheme } from "../theme";
 
 import "../styles/globals.css";

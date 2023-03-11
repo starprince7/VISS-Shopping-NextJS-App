@@ -33,7 +33,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   const productNumber = Number(getUid()); /* 360423267 */
   const productId = generateImagePublicId();
-  console.log("The generateImagePublicId : ", productId);
 
   // Upload Image to Cloud
   const { secure_url } = await ImageService.uploadImage(image, productId);

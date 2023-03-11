@@ -55,7 +55,10 @@ const customersSlice = createSlice({
       toastService.showErrorMessage(action.error.message as string);
     });
     builder.addCase(fetchCustomers.fulfilled, (state, action) => {
-      state.customers = action.payload.customers;
+      state.customers =
+        action.payload.page === 1
+          ? action.payload.customers
+          : [...state.customers, ...action.payload.customers];
       state.page = action.payload.page;
       state.hasMore = state.customers.length < action.payload.totalCount;
       state.totalCount = action.payload.totalCount;

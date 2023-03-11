@@ -33,7 +33,7 @@ export default function Customers() {
     (page: number = 0) => {
       dispatch(fetchCustomers({ page: page + 1 }) as unknown as AnyAction);
     },
-    [page],
+    [dispatch],
   );
 
   // const loadPreviousCustomers = () => {
@@ -42,7 +42,7 @@ export default function Customers() {
 
   React.useEffect(() => {
     loadCustomers();
-  }, []);
+  }, [loadCustomers]);
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>

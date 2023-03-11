@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/dbUtils/dbConnection";
-import uploadImage from "../../../../../config/cloudinary/imageUploader";
+import ImageService from "../../../../../services/imageService";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "PUT") {
@@ -14,7 +14,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // product ID
-  const { productId } = req.query;
+  const { id } = req.query;
 
   // Req Body
   const {
@@ -40,11 +40,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       });
       return;
     }
+
+    const product = await Product.findById(id);
     // Uplaod Image to cloud
-    const { secure_url } = await uploadImage(image);
+    const { secure_url } = await ImageService.uploadImage(
+      image,
+      product.productId,
+    );
     imageLink = secure_url;
-    // eslint-disable-next-line no-console
-    console.log("Image was uploaded!");
   }
 
   const data_update = {
@@ -58,7 +61,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     countInStock,
   };
 
-  const newProduct = await Product.findByIdAndUpdate(productId, data_update, {
+  const newProduct = await Product.findByIdAndUpdate(id, data_update, {
     new: true,
   });
   res.status(201);

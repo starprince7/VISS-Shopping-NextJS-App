@@ -53,6 +53,8 @@ export const Customer = (props: CustomerType) => {
 
   const handleDelete = async (e) => {
     const deleteBtn = e.target;
+    // eslint-disable-next-line no-alert
+    // eslint-disable-next-line no-restricted-globals
     const okToProceed = confirm(
       "Confirm, are you sure you want to delete this Customer?\nClick 'OK' if you wish to continue.",
     );

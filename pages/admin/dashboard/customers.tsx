@@ -1,9 +1,9 @@
 import React from "react";
 import { NextPage } from "next";
+import { Button, Typography } from "@mui/material";
 
 import { Layout } from "../../../components/molecule";
 import { FlexRow, Input } from "../../../components";
-import { Button, Typography } from "@mui/material";
 import Customers from "../../../components/molecule/Customers";
 
 const CustomersPage: NextPage = () => {

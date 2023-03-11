@@ -27,7 +27,7 @@ import { SetOrderStatus } from "../SetOrderStatus";
 import { FlexRow } from "../FlexRow";
 import apiClient from "../../config/apiConfig";
 import toastService from "../../services/toast-notification";
-import { removeProduct } from "../../store";
+import { removeProduct } from "../../store/productsSlice/reducer";
 
 export const Product = (props: ProductType & { _id: string }) => {
   const { productNumber, _id, image, title, price, category, countInStock } =
@@ -47,6 +47,8 @@ export const Product = (props: ProductType & { _id: string }) => {
 
   const handleDelete = async (e) => {
     const deleteBtn = e.target;
+    // eslint-disable-next-line no-alert
+    // eslint-disable-next-line no-restricted-globals
     const okToProceed = confirm(
       "Are you sure you want to delete this product?\nClick 'OK' to continue.",
     );

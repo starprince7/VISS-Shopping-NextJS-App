@@ -27,7 +27,7 @@ export default function Products() {
 
   const loadProducts = React.useCallback(() => {
     dispatch(fetchProducts({ page: page + 1 }) as unknown as AnyAction);
-  }, [page]);
+  }, [page, dispatch]);
 
   const loadPreviousProducts = () => {
     dispatch(fetchProducts({ page: page + 1 }) as unknown as AnyAction);
@@ -35,7 +35,7 @@ export default function Products() {
 
   React.useEffect(() => {
     loadProducts();
-  }, [fetchProducts, dispatch]);
+  }, [dispatch]);
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -44,7 +44,7 @@ export default function Products() {
           <TableHead>
             <TableRow>
               <TableCell>Product Name</TableCell>
-              <TableCell align="left">ID</TableCell>
+              <TableCell align="left">Product Number</TableCell>
               <TableCell align="center">Price</TableCell>
               <TableCell align="center">Stock</TableCell>
               <TableCell align="center">Category</TableCell>
