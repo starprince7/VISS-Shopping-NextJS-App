@@ -9,7 +9,7 @@ enum PaymentStatus {
   FAILED = "FAILED",
 }
 
-enum OrderStatus {
+export enum OrderStatus {
   PENDING = "PENDING",
   PROCESSING = "PROCESSING",
   SHIPPED = "SHIPPED",

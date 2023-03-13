@@ -33,6 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       ]);
       // Get all-customers
       const customers = await Customer.find()
+        .sort({ date_registered: -1 })
         .skip((Number(page) - 1) * Number(limit))
         .limit(Number(limit))
         .exec();

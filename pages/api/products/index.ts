@@ -23,6 +23,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       ]);
 
       const products = await Product.find()
+        .sort({ date_created: -1 })
         .skip((Number(page) - 1) * Number(limit))
         .limit(Number(limit))
         .exec();
