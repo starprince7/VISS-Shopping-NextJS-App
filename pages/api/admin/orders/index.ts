@@ -22,12 +22,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { method } = req;
 
-  let { page, limit } = query.parse(req.url?.split("?")[1] as string, {
+  let { page, limit, status } = query.parse(req.url?.split("?")[1] as string, {
     parseNumbers: true,
   });
 
   if (!page) page = 1;
   if (!limit) limit = 10;
+  if (!status) status = OrderStatus.PENDING;
 
   switch (method) {
     case "GET":
@@ -36,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         { $group: { _id: null, count: { $sum: 1 } } },
       ]);
       // Get all-Orders
-      const orders = await Orders.find({ orderStatus: OrderStatus.PENDING })
+      const orders = await Orders.find({ orderStatus: status })
         .sort({ orderDate: -1 })
         .skip((Number(page) - 1) * Number(limit))
         .limit(Number(limit))

@@ -14,6 +14,7 @@ export interface StateProps {
 
 type AsyncActionArgs = {
   page: number;
+  status: "PENDING" | "DELIVERED" | "CANCELED" | "REFUNDED" | "RETURNED";
 };
 
 const initialState: StateProps = {
@@ -27,8 +28,8 @@ const initialState: StateProps = {
 
 export const fetchOrders = createAsyncThunk<any, AsyncActionArgs>(
   "orders/fetchOrders",
-  async ({ page }) => {
-    const result = await getOrders(page);
+  async ({ page, status }) => {
+    const result = await getOrders({ page, status });
     return result.data;
   },
 );

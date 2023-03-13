@@ -1,5 +1,13 @@
 import apiClient from "../config/apiConfig";
 
-export const getOrders = async (page: number, limit: number = 0) => {
-  return apiClient.get(`/api/admin/orders?page=${page}&limit=${limit}`);
+type Params = {
+  page: number;
+  limit?: number;
+  status?: string;
+};
+
+export const getOrders = async ({ page, limit = 0, status }: Params) => {
+  return apiClient.get(
+    `/api/admin/orders?page=${page}&limit=${limit}&status=${status}`,
+  );
 };

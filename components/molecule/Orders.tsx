@@ -29,12 +29,17 @@ export default function Orders() {
     totalCount,
   } = useSelector(selectOrders);
 
-  const loadOrders = React.useCallback(() => {
-    dispatch(fetchOrders({ page: page + 1 }) as unknown as AnyAction);
+  const loadPendingOrders = React.useCallback(() => {
+    dispatch(
+      fetchOrders({
+        page: page + 1,
+        status: "PENDING",
+      }) as unknown as AnyAction,
+    );
   }, [page, dispatch]);
 
   React.useEffect(() => {
-    loadOrders();
+    loadPendingOrders();
   }, []);
 
   return (
@@ -62,7 +67,7 @@ export default function Orders() {
       </TableContainer>
       <FlexRow sx={{ px: 1, justifyContent: "center", alignItems: "center" }}>
         {hasMore && (
-          <Button onClick={loadOrders} endIcon={<RedoIcon />}>
+          <Button onClick={loadPendingOrders} endIcon={<RedoIcon />}>
             <Typography>Next</Typography>
           </Button>
         )}
