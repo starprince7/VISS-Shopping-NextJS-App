@@ -6,3 +6,4 @@ export * from "./Input";
 export * from "./OverviewCard";
 export { default as RecentOrders } from "./RecentOrders";
 export * from "./OrderRow";
+export * from "./SingleOrderInformation";

@@ -49,8 +49,7 @@ export const SetOrderStatus = ({
 
   const handleOrderStatusUpdate = async () => {
     if (!orderStatus) {
-      // eslint-disable-next-line no-alert
-      alert("Select an order status!");
+      toastService.showInfoMessage("Select an order status!");
       return;
     }
 
@@ -67,7 +66,6 @@ export const SetOrderStatus = ({
       payload,
     );
     if (res.data.error) {
-      // eslint-disable-next-line no-alert
       toastService.showErrorMessage(res.data.error);
       setLoading(true);
       setIsButtonDisabled(true);
@@ -75,7 +73,6 @@ export const SetOrderStatus = ({
     }
 
     // success
-    // eslint-disable-next-line no-alert
     toastService.showSuccessMessage(res.data.message);
     setLoading(false);
     setIsButtonDisabled(false);

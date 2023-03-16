@@ -347,7 +347,7 @@ const AddProductForm = ({
             />
           ) : (
             <Box sx={{ textAlign: "center" }}>
-              <Typography>Click or drop Image File</Typography>
+              <Typography>Click or drag image here</Typography>
               <Typography>800 x 800</Typography>
               <AddIcon />
             </Box>

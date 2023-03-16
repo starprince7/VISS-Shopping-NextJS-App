@@ -12,14 +12,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await db.connectDB();
 
   // Grab Order ID
-  const orderId = req.query.id;
+  const orderNumber = req.query.id as string;
+
+  console.log("The Order Number should not have any digits : ", orderNumber);
 
   let orderDetails;
   let deletedOrder;
 
   switch (method) {
     case "GET":
-      orderDetails = await Orders.findById(orderId);
+      orderDetails = await Orders.findOne({ orderNo: orderNumber });
       if (!orderDetails) {
         return res.status(404).json({ msg: "Order was not found" });
       }
@@ -27,9 +29,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case "DELETE":
-      deletedOrder = await Orders.findByIdAndDelete(orderId);
+      deletedOrder = await Orders.findOneAndDelete({ orderNo: orderNumber });
       if (!deletedOrder) {
-        return res.status(404).json({ msg: "Order was not found" });
+        return res.status(404).json({ error: "Order was not found" });
       }
       res.status(200).json({
         msg: "Order deleted successfully",

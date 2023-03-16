@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import ErrorIcon from "@mui/icons-material/Error";
 
 import {
   Products,
@@ -34,14 +35,19 @@ const links: ILinks[] = [
     Icon: Customers,
   },
   {
-    to: "/admin/dashboard/orders",
-    text: "Orders",
+    to: "/admin/dashboard/pending_orders",
+    text: "Pending Orders",
     Icon: ClipboardCopy,
   },
   {
-    to: "/admin/dashboard/fullfilledorders",
+    to: "/admin/dashboard/completed_orders",
     text: "Completed Orders",
     Icon: ClipboardCheck,
+  },
+  {
+    to: "/admin/dashboard/failed_orders",
+    text: "Failed Orders",
+    Icon: ErrorIcon,
   },
 ];
 const SideBar: FC<ISideBarProps> = ({ className }) => (

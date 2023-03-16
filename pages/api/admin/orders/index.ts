@@ -34,8 +34,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       // Run a sum func on the orders collection to get a total count.
       const totalCount = await Orders.aggregate([
+        { $match: { orderStatus: status } },
         { $group: { _id: null, count: { $sum: 1 } } },
       ]);
+
       // Get all-Orders
       const orders = await Orders.find({ orderStatus: status })
         .sort({ orderDate: -1 })
@@ -43,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .limit(Number(limit))
         .exec();
       res.status(200);
-      res.json({ orders, page, totalCount: totalCount[0].count });
+      res.json({ orders, page, totalCount: totalCount[0]?.count || 0 });
       res.end();
       break;
     default:

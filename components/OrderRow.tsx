@@ -54,6 +54,14 @@ export const OrderRow = (props: Order) => {
                 setOpenOrderId(_id);
                 setOrderStatusModalOpen(!isOrderStatusModalOpen);
               }}
+              disabled={isOrderFulfilled}
+              sx={{
+                borderRadius: 6,
+                "&.Mui-disabled": {
+                  bgcolor: "#98d18300",
+                  cursor: "crosshair",
+                },
+              }}
             >
               {isOrderFulfilled ? (
                 <Chip

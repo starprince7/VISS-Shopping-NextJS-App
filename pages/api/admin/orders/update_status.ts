@@ -5,15 +5,16 @@ import getValidAuthentication from "../../../../utils/middleware/validateAPIRequ
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Authenticate request.
-  const { error, auth_req } = getValidAuthentication(req, res);
-  if (error) return;
+  // const { error, auth_req } = getValidAuthentication(req, res);
+  // if (error) return;
+  const { method } = req;
 
   // connect DB
   await db.connectDB();
 
-  const { orderId, status } = auth_req.body;
+  const { orderId, status } = req.body;
 
-  switch (auth_req.method) {
+  switch (method) {
     case "POST":
       if (!orderId) {
         res.status(400).json({

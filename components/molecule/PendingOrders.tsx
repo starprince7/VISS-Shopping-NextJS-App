@@ -15,32 +15,38 @@ import { OrderRow } from "../OrderRow";
 import { useFetch } from "../../hooks";
 import { TableLoadingView } from "../skeleton/TableLoadingView";
 import toastService from "../../services/toast-notification";
-import { selectOrders } from "../../store/orderSlice/selector";
-import { fetchOrders } from "../../store/orderSlice/reducer";
+import { selectOrders } from "../../store/pendingOrderSlice/selector";
+import { fetchPendingOrders } from "../../store/pendingOrderSlice/reducer";
 import { FlexRow } from "../FlexRow";
+import { OrderStatus } from "../../types";
 
-export default function Orders() {
+type Props = {
+  trackStatus: OrderStatus;
+};
+
+export default function PendingOrders({ trackStatus = "PENDING" }: Props) {
   const dispatch = useDispatch();
   const {
     hasMore,
-    orders = [],
+    pendingOrders = [],
     ordersRequestStatus,
     page,
     totalCount,
   } = useSelector(selectOrders);
 
-  const loadPendingOrders = React.useCallback(() => {
+  const loadOrders = React.useCallback(() => {
     dispatch(
-      fetchOrders({
+      fetchPendingOrders({
         page: page + 1,
-        status: "PENDING",
+        status: trackStatus,
       }) as unknown as AnyAction,
     );
   }, [page, dispatch]);
 
   React.useEffect(() => {
-    loadPendingOrders();
-  }, []);
+    if (pendingOrders.length) return;
+    loadOrders();
+  }, [pendingOrders]);
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -57,7 +63,7 @@ export default function Orders() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
+            {pendingOrders.map((order) => (
               // @ts-ignore
               <OrderRow key={order.orderNo} {...order} />
             ))}
@@ -67,7 +73,7 @@ export default function Orders() {
       </TableContainer>
       <FlexRow sx={{ px: 1, justifyContent: "center", alignItems: "center" }}>
         {hasMore && (
-          <Button onClick={loadPendingOrders} endIcon={<RedoIcon />}>
+          <Button onClick={loadOrders} endIcon={<RedoIcon />}>
             <Typography>Next</Typography>
           </Button>
         )}

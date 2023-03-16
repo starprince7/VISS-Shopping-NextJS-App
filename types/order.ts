@@ -12,10 +12,17 @@ export interface Order {
   processingFee: number;
   shippingFee: number;
   customer: CustomerType;
-  orderStatus: String;
+  orderStatus: OrderStatus;
   paymentStatus: String;
   transactionRef: string;
   transactionReference?: string;
   isOrderFulfilled: boolean;
   orderIsFulfilledAt: string;
 }
+
+export type OrderStatus =
+  | "PENDING"
+  | "DELIVERED"
+  | "CANCELED"
+  | "REFUNDED"
+  | "RETURNED";

@@ -14,13 +14,29 @@ type Props = {
   label: string;
   sx?: SxProps<Theme> | undefined;
   type: "text" | "password";
+  onSearchButtonClick?: () => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 };
 
-export const Input = ({ sx = {}, label, type, ...rest }: Props) => {
+type RestProps = {
+  [key: string]: any;
+};
+
+export const Input = ({
+  sx = {},
+  onSearchButtonClick = () => {},
+  label,
+  type,
+  onChange,
+  ...rest
+}: Props & RestProps) => {
   return (
     <FormControl sx={{ m: 1 }} variant="outlined">
       <InputLabel htmlFor={`outlined-adornment-${label}`}>{label}</InputLabel>
       <OutlinedInput
+        onChange={onChange}
         sx={{ ...sx }}
         id={`outlined-adornment-${label}`}
         type={type}
@@ -28,8 +44,9 @@ export const Input = ({ sx = {}, label, type, ...rest }: Props) => {
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              //   onClick={handleClickShowPassword}
+              onClick={onSearchButtonClick}
               edge="end"
+              {...rest}
             >
               <SearchIcon />
             </IconButton>
