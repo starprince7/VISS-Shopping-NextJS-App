@@ -14,8 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Grab Order ID
   const orderNumber = req.query.id as string;
 
-  console.log("The Order Number should not have any digits : ", orderNumber);
-
   let orderDetails;
   let deletedOrder;
 

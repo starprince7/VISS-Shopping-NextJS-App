@@ -13,6 +13,7 @@ import PendingOrders from "../../../components/molecule/PendingOrders";
 import apiClient from "../../../config/apiConfig";
 import toastService from "../../../services/toast-notification";
 import { Order } from "../../../types";
+import { OrderLoader } from "../../../components/OrderLoader";
 
 const OrdersPage: NextPage = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -68,9 +69,13 @@ const OrdersPage: NextPage = () => {
           />
         </FlexRow>
       </FlexRow>
-      <FlexCol sx={{ px: 2 }}>
+      <FlexCol sx={{ px: 2, position: "relative" }}>
+        <OrderLoader loading={loading} />
         {orderResult ? (
-          <SingleOrderInformation {...(orderResult as Order)} />
+          <SingleOrderInformation
+            {...(orderResult as Order)}
+            handleClose={() => setOrderResult(undefined)}
+          />
         ) : (
           <PendingOrders trackStatus="PENDING" />
         )}

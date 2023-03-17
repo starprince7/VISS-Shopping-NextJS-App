@@ -42,3 +42,59 @@
     grid-area: body;
     width: 100%;
 }
+
+/* ====== --- Styles for Order Loader --- ============= */
+
+
+@keyframes ldio-i8o6i3n8mdo {
+    0%    { transform: translate(2px,2px) }
+   33.33% { transform: translate(102px,2px) }
+   66.66% { transform: translate(42px,102px) }
+  100%    { transform: translate(2px,2px) }
+}
+
+
+.ldio-i8o6i3n8mdo > div {
+  transform: scale(0.8);
+  transform-origin: 100px 100px;
+}
+
+.ldio-i8o6i3n8mdo > div > div {
+  animation: ldio-i8o6i3n8mdo 1s linear infinite;
+  position: absolute
+}
+
+.ldio-i8o6i3n8mdo > div > div div:nth-child(1) {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 12px solid #89a67e;
+  background: #ededed
+}
+
+.ldio-i8o6i3n8mdo > div > div div:nth-child(2) {
+  width: 17px;
+  height:  51px;
+  transform: rotate(-45deg);
+  background: #89a67e;
+  border-radius: 0 0 8px 8px;
+  position: absolute;
+  top: 68px;
+  left: 85px
+}
+.loadingio-spinner-magnify-gosd16rm1tl {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background: #ffffff;
+}
+.ldio-i8o6i3n8mdo {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-i8o6i3n8mdo div { box-sizing: content-box; }
