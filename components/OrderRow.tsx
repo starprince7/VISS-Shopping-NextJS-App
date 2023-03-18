@@ -46,7 +46,7 @@ export const OrderRow = (props: Order) => {
           {customer.name.firstname} {customer.name.lastname}
         </TableCell>
         <TableCell align="center">
-          <Tooltip title="Set Order Status" followCursor>
+          <Tooltip title="Click" followCursor>
             <Button
               disableElevation
               disableFocusRipple
@@ -160,7 +160,9 @@ export const OrderRow = (props: Order) => {
         <SetOrderStatus
           orderId={openOrderId}
           orderNo={orderNo}
-          customerName={`${customer.name.firstname} ${customer.name.lastname}`}
+          customerName={`${customer.fullName && customer.fullName} ${
+            !customer.fullName ? customer.name.firstname : ""
+          } ${!customer.fullName ? customer.name.lastname || "" : ""}`}
           handleClose={() => setOrderStatusModalOpen(false)}
         />
       </Modal>

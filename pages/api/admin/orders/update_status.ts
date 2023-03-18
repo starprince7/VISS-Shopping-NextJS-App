@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../../database/dbUtils/dbConnection";
+import Customer from "../../../../database/models/customerSchema";
 import Orders from "../../../../database/models/orderSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
@@ -36,6 +37,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             orderStatus: status,
             isOrderFulfilled: true,
             orderIsFulfilledAt: new Date(),
+          });
+        } else if (status === "CANCELED") {
+          /* Return funds back to customer wallet for canceled/failed order. */
+          orderUpdated = await Orders.findByIdAndUpdate(orderId, {
+            orderStatus: status,
+          });
+
+          const id = orderUpdated.customer._id;
+          const customer = await Customer.findById(id);
+          await Customer.findByIdAndUpdate(id, {
+            wallet: customer.wallet + orderUpdated.sumTotal,
           });
         } else {
           orderUpdated = await Orders.findByIdAndUpdate(orderId, {

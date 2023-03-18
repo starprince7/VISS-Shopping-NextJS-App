@@ -4,6 +4,6 @@
   "trailingComma": "all",
   "multiline": "auto",
   "bracketSameLine": false,
-  "maxLineLength": 100,
+  "maxLineLength": 200,
   "arrowParens": "always"
 }
