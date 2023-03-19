@@ -13,7 +13,7 @@ import PendingOrders from "../../../components/molecule/PendingOrders";
 import apiClient from "../../../config/apiConfig";
 import toastService from "../../../services/toast-notification";
 import { Order } from "../../../types";
-import { OrderLoader } from "../../../components/OrderLoader";
+import { SearchIconLoader } from "../../../components/SearchLoader";
 
 const OrdersPage: NextPage = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -41,7 +41,7 @@ const OrdersPage: NextPage = () => {
     } catch (error) {
       setLoading(false);
       toastService.showErrorMessage(
-        error.message || "ERR: Could not reach the server.",
+        error.message || "Network Error! Could not reach the server.",
       );
     }
   };
@@ -64,17 +64,23 @@ const OrdersPage: NextPage = () => {
             sx={{ width: { xs: 350, md: 450 }, bgcolor: "white" }}
             type="text"
             label="Search all orders by order number"
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onSearchButtonClick={handleSearch}
           />
         </FlexRow>
       </FlexRow>
       <FlexCol sx={{ px: 2, position: "relative" }}>
-        <OrderLoader loading={loading} />
+        {" "}
+        {/* Always add the position relative CSS to work with search loader animation. */}
+        <SearchIconLoader loading={loading} />
         {orderResult ? (
           <SingleOrderInformation
             {...(orderResult as Order)}
-            handleClose={() => setOrderResult(undefined)}
+            handleClose={() => {
+              setOrderResult(undefined);
+              setSearchTerm("");
+            }}
           />
         ) : (
           <PendingOrders trackStatus="PENDING" />

@@ -97,7 +97,9 @@ export const Customer = (props: CustomerType) => {
           <Avatar
             variant="circular"
             sx={{
-              bgcolor: getColorFromString(fullName || name.firstname),
+              bgcolor: getColorFromString(
+                fullName || name.lastname || name.firstname,
+              ),
               fontSize: 12,
               fontWeight: 600,
             }}

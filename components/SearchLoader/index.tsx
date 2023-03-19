@@ -5,7 +5,7 @@ type Prop = {
   loading: boolean;
 };
 
-export const OrderLoader = ({ loading }: Prop) => {
+export const SearchIconLoader = ({ loading }: Prop) => {
   return (
     <Box
       sx={{
