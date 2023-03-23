@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import Customer from "../../../database/models/customerSchema";
-import db from "../../../database/dbUtils/dbConnection";
-import createToken from "../../../utils/createToken";
-import logIn from "../../../utils/loginHelper";
+import db from "../../../../database/dbUtils/dbConnection";
+import logInAdmin from "../../../../utils/adminLoginHelper";
+import createToken from "../../../../utils/createToken";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -28,18 +27,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         break;
       }
 
-      const { error, customer } = await logIn(email, password);
+      const { error, admin } = await logInAdmin(email, password);
       if (error) {
         res.status(401).json({ error });
         res.end();
         break;
       }
       // Give token to client
-      if (customer) {
-        const token = createToken(customer._id);
+      if (admin) {
+        const token = createToken(admin._id as string);
         res.status(200);
         res.setHeader("authorization", token);
-        res.json({ customer, auth_token: token });
+        res.json({ _id: admin._id, auth_token: token });
         res.end();
       }
       break;

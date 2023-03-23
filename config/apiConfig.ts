@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 // import { DeviceUUID } from "device-uuid";
 import packageJson from "../package.json";
 import * as StorageService from "../utils/helpers/storage";
-import { store } from "../store";
 // import { logOutAction } from "../store/auth/actions";
 
 let apiClient2;

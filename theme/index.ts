@@ -31,7 +31,7 @@ export const lightTheme = createTheme({
         root: {
           textTransform: "none",
           "&.Mui-disabled": {
-            background: "#89a67e73",
+            // background: "#89a67e73",
             color: "#fdfdfd8c",
           },
         },

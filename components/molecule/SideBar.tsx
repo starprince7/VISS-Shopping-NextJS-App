@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
+import CreateAdminIcon from "@mui/icons-material/AdminPanelSettings";
 
 import {
   Products,
@@ -49,9 +50,14 @@ const links: ILinks[] = [
     text: "Failed Orders",
     Icon: ErrorIcon,
   },
+  {
+    to: "/admin/dashboard/create_administrator",
+    text: "Create Administrator",
+    Icon: CreateAdminIcon,
+  },
 ];
 const SideBar: FC<ISideBarProps> = ({ className }) => (
-  <section className={`${className} h-full gap-3 flex flex-col px-6`}>
+  <section className={`${className} h-full gap-2 flex flex-col px-6`}>
     {links.map((link) => (
       <SideLink {...link} key={link.text} />
     ))}
