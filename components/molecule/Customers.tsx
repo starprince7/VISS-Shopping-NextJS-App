@@ -50,9 +50,9 @@ export default function Customers() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>User</TableCell>
+              <TableCell>Customer</TableCell>
               <TableCell align="left">State</TableCell>
-              <TableCell align="center">Num of Transactions</TableCell>
+              <TableCell align="center">Number of Transactions</TableCell>
               <TableCell align="center">Cart Items</TableCell>
               <TableCell align="center">Phone</TableCell>
               <TableCell align="right">Action</TableCell>

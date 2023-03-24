@@ -1,3 +1,5 @@
+"use  client";
+
 import React from "react";
 import { SvgIcon, Typography } from "@mui/material";
 import { FlexCol } from "./FlexCol";
@@ -13,8 +15,16 @@ type Props = {
   isMoneyCount?: boolean;
 };
 
-export const OverviewCard = ({ title, icon, src, isMoneyCount }: Props) => {
-  const { data, error, fetchStatus } = useFetch(src);
+export const OverviewCard = ({
+  title,
+  icon,
+  src = "",
+  isMoneyCount,
+}: Props) => {
+  const { data, error, fetchStatus } =
+    typeof window !== "undefined"
+      ? useFetch(src)
+      : { data: [null], error: null, fetchStatus: null };
   const dataItems = data[0] as unknown as { count: any };
 
   if (fetchStatus !== "succeeded") {
