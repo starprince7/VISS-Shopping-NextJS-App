@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../database/dbUtils/dbConnection";
+import db from "../../../database/connection/dbConnection";
 import Category from "../../../database/models/categorySchema";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 import generateTransactionReference from "../../../utils/getTransactionReference";
 import Orders from "../../../database/models/orderSchema";
-import db from "../../../database/dbUtils/dbConnection";
+import db from "../../../database/connection/dbConnection";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST")

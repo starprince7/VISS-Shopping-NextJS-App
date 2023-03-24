@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
 import { ArrowDropDown as ArrowDropDownIcon } from "@mui/icons-material";
@@ -8,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Avatar, DropDown } from "../../assets/icons";
 import {
   fetchAdminAccount,
-  initializeAdminState,
+  logOutAction,
 } from "../../store/AdminSlice/reducer";
 import { selectAdmin } from "../../store/AdminSlice/selector";
 import { StorageService } from "../../utils/helpers/storage";
@@ -16,7 +15,6 @@ import { StorageService } from "../../utils/helpers/storage";
 export interface Props {}
 
 const UserDrop: FC<Props> = (props) => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const { admin } = useSelector(selectAdmin);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -32,15 +30,13 @@ const UserDrop: FC<Props> = (props) => {
 
   const handleLogout = () => {
     handleMenuClose();
-    StorageService.removeAuthToken();
-    StorageService.removeAdminId();
-    dispatch(initializeAdminState());
-    router.push("/");
+    dispatch(logOutAction());
   };
 
   useEffect(() => {
+    if (admin) return;
     dispatch(fetchAdminAccount() as unknown as AnyAction);
-  }, [dispatch]);
+  }, [dispatch, admin]);
 
   return (
     <div className="flex items-center gap-4">

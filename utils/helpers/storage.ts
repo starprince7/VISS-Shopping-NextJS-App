@@ -1,28 +1,28 @@
-const sessionKey = "viss-store-session";
-const adminUser = "admin-user-id";
+export const SESSION_KEY = "viss-store-session";
+export const ADMIN_USER_KEY = "admin-user-id";
 
 export const setAuthToken = (token: string): void => {
-  localStorage.setItem(sessionKey, token);
+  localStorage.setItem(SESSION_KEY, token);
 };
 
-export const getAuthToken = (): string => {
-  return localStorage.getItem(sessionKey) || "";
+export const getAuthToken = () => {
+  return localStorage.getItem(SESSION_KEY) || null;
 };
 
 export const removeAuthToken = (): void => {
-  localStorage.removeItem(sessionKey);
+  localStorage.removeItem(SESSION_KEY);
 };
 
 const setAdminId = (id: string) => {
-  localStorage.setItem(adminUser, id);
+  localStorage.setItem(ADMIN_USER_KEY, id);
 };
 
 const removeAdminId = () => {
-  localStorage.removeItem(adminUser);
+  localStorage.removeItem(ADMIN_USER_KEY);
 };
 
 const getAdminId = () => {
-  return localStorage.getItem(adminUser);
+  return localStorage.getItem(ADMIN_USER_KEY) || null;
 };
 
 export const StorageService = {

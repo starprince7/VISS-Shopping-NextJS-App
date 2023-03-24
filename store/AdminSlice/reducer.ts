@@ -37,12 +37,17 @@ const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    initializeAdminState: (state) => {
+    logOutAction: (state) => {
       state = {
         error: "",
         admin: null,
         adminRequestStatus: "idle",
       };
+      StorageService.removeAuthToken();
+      StorageService.removeAdminId();
+      setTimeout(() => {
+        navigateTo("/");
+      }, 500);
     },
   },
   extraReducers: (builder) => {
@@ -61,5 +66,5 @@ const adminSlice = createSlice({
   },
 });
 
-export const { initializeAdminState } = adminSlice.actions;
+export const { logOutAction } = adminSlice.actions;
 export default adminSlice.reducer;

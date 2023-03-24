@@ -7,5 +7,5 @@ export type Administrator = {
   isPhoneVerified: boolean;
   date_registered: string;
   verification_code: number;
-  superAdmin: boolean;
+  isSuperAdmin: boolean;
 };

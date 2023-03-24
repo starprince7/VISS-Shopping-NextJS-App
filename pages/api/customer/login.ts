@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Customer from "../../../database/models/customerSchema";
-import db from "../../../database/dbUtils/dbConnection";
+import db from "../../../database/connection/dbConnection";
 import createToken from "../../../utils/createToken";
 import logIn from "../../../utils/loginHelper";
 

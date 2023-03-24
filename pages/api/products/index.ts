@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import query from "query-string";
 
 import Product from "../../../database/models/productSchema";
-import db from "../../../database/dbUtils/dbConnection";
+import db from "../../../database/connection/dbConnection";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;

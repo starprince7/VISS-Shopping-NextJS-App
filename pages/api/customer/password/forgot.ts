@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../../database/dbUtils/dbConnection";
+import db from "../../../../database/connection/dbConnection";
 import Customer from "../../../../database/models/customerSchema";
 import sendEmailVerificationCode from "../../../../utils/mailer/sendVerificationCode";
 
@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         Generate 4 digit code for authentication
     */
   const generated_code = Number(
-    (Math.floor(Math.random() * 10000) + 10000).toString().substring(1)
+    (Math.floor(Math.random() * 10000) + 10000).toString().substring(1),
   );
 
   //  store auth code

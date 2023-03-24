@@ -2,7 +2,7 @@ import getUid from "get-uid";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import Product from "../../../../../database/models/productSchema";
-import db from "../../../../../database/dbUtils/dbConnection";
+import db from "../../../../../database/connection/dbConnection";
 import { Product as ProductType } from "../../../../../types";
 import ImageService from "../../../../../services/imageService";
 import { generateImagePublicId } from "../../../../../utils/getTransactionReference";

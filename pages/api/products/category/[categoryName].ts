@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Product from "../../../../database/models/productSchema";
-import db from "../../../../database/dbUtils/dbConnection";
+import db from "../../../../database/connection/dbConnection";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") {

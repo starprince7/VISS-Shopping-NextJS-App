@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import Customer from "../../../../database/models/customerSchema";
-import db from "../../../../database/dbUtils/dbConnection";
+import db from "../../../../database/connection/dbConnection";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../../database/dbUtils/dbConnection";
+import db from "../../../../database/connection/dbConnection";
 import Admin from "../../../../database/models/adminSchema";
 import createToken from "../../../../utils/createToken";
 
@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(201);
         res.setHeader("authorization", token);
         res.json({
-          msg: "Account created successfully",
+          msg: "Account was created successfully",
           _id: newAdmin._id,
           auth_token: token,
         });

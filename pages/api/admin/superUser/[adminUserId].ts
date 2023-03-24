@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../../database/dbUtils/dbConnection";
+import db from "../../../../database/connection/dbConnection";
 import Admin from "../../../../database/models/adminSchema";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

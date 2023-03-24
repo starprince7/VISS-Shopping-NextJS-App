@@ -6,7 +6,7 @@ const emailAdminCreationLink = async (email: string, url: string) => {
   const mail_options = {
     from: "Viss Store <codeplugservices@gmail.com>",
     to: email,
-    subject: "Create Administrator Account",
+    subject: "Create Your Administrator Account",
     text: messageBody,
   };
 

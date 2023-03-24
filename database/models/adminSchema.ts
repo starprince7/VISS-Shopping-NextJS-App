@@ -23,7 +23,7 @@ const adminSchema = new mongoose.Schema<Administrator>(
     isPhoneVerified: { type: Boolean, default: false },
     date_registered: { type: String },
     verification_code: { type: Number, default: null },
-    superAdmin: { type: Boolean, default: false },
+    isSuperAdmin: { type: Boolean, default: false },
   },
   {
     timestamps: true,

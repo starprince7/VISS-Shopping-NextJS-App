@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
+
 // return-Type-Definition
 type Validation = {
   error: string | null;
@@ -12,7 +14,11 @@ type GetValidAuth = (req: NextApiRequest, res: NextApiResponse) => Validation;
 
 // Main Function
 const getValidAuthentication: GetValidAuth = (req, res) => {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization?.includes("Bearer")
+    ? req.headers.authorization?.split(" ")[1]
+    : req.headers.authorization;
+  console.log("The Token secret : ", TOKEN_SECRET);
+  console.log("The Token Value : ", token);
 
   if (!token) {
     res.status(401);
@@ -21,7 +27,7 @@ const getValidAuthentication: GetValidAuth = (req, res) => {
   }
 
   // Check if token is a valid one
-  return jwt.verify(token, process.env.TOKEN_SECRET, (e, token_decoded) => {
+  return jwt.verify(token, TOKEN_SECRET, (e, token_decoded) => {
     if (e) {
       res.status(401);
       res.json({ error: "Authentication failed" });

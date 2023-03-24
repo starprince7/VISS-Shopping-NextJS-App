@@ -1,6 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import Product from "../../../../../database/models/productSchema";
-import db from "../../../../../database/dbUtils/dbConnection";
+import db from "../../../../../database/connection/dbConnection";
 import ImageService from "../../../../../services/imageService";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {

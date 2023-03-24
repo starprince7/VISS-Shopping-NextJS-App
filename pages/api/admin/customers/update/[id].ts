@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../../../database/dbUtils/dbConnection";
+import db from "../../../../../database/connection/dbConnection";
 import Customer from "../../../../../database/models/customerSchema";
 import hashPassword from "../../../../../utils/passwordHashing";
 
@@ -26,8 +26,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Check password length
     if (password.length < 6) {
       res.status(400);
-        res.json({ error: "Password length must be more than 6 characters" });
-        return
+      res.json({ error: "Password length must be more than 6 characters" });
+      return;
     }
     password_hash = await hashPassword(password);
   }
@@ -43,7 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     data_update,
     {
       new: true,
-    }
+    },
   );
   res.status(201);
   res.json({ msg: "Success", customer: updatedCustomer });

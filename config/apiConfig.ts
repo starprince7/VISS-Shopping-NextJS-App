@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 // import { DeviceUUID } from "device-uuid";
 import packageJson from "../package.json";
+import store from "../store";
+import { logOutAction } from "../store/AdminSlice/reducer";
 import * as StorageService from "../utils/helpers/storage";
-// import { logOutAction } from "../store/auth/actions";
 
 let apiClient2;
 
@@ -62,14 +63,8 @@ if (typeof window !== "undefined") {
         };
       }
 
-      // const deviceUUID = new DeviceUUID().get();
       const session = new Date().getTime();
       const { name, version } = packageJson;
-      // const platform = new DeviceUUID()
-      //   .parse()
-      //   .platform.replace(/\s/g, "_")
-      //   .toLowerCase();
-      // const vissStoreSrc = `${name}/${platform}/${version}`;
       const vissStoreSrc = `${name}/${version}`;
 
       request.headers = {
@@ -92,7 +87,7 @@ if (typeof window !== "undefined") {
     },
     async (error: AxiosError) => {
       if (error.response?.status && error.response?.status === 401) {
-        //   store?.dispatch(logOutAction());
+        store?.dispatch(logOutAction());
       }
       return Promise.reject(error);
     },

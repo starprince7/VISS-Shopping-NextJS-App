@@ -78,9 +78,7 @@ export default function Home() {
       );
 
       // Admin creation success
-      toastService.showSuccessMessage(
-        "Your administrator account created successfully!",
-      );
+      toastService.showSuccessMessage(data.msg);
 
       StorageService.setAuthToken(data.auth_token);
       StorageService.setAdminId(data._id);
@@ -90,7 +88,6 @@ export default function Home() {
       SubmitButtonRef.current.textContent = "Create Account";
       SubmitButtonRef.current.disabled = false;
     } catch (e) {
-      console.log(e);
       if (e.response.data.error) {
         const { email, fullName, password } = e.response.data.error;
         email && setEmailError(email);
