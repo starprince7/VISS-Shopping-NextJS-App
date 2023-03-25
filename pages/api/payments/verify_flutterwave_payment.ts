@@ -5,9 +5,14 @@ import Orders from "../../../database/models/orderSchema";
 import Product from "../../../database/models/productSchema";
 import FlutterWave from "../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../utils/mailer/failedOrderEmail";
+import getValidAuthentication from "../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== "GET")
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
+
+  if (method !== "GET")
     return res.status(405).json({ error: "Method not allowed" });
 
   const { status, tx_ref, transaction_id } = req.query;

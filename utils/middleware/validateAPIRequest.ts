@@ -17,8 +17,6 @@ const getValidAuthentication: GetValidAuth = (req, res) => {
   const token = req.headers.authorization?.includes("Bearer")
     ? req.headers.authorization?.split(" ")[1]
     : req.headers.authorization;
-  console.log("The Token secret : ", TOKEN_SECRET);
-  console.log("The Token Value : ", token);
 
   if (!token) {
     res.status(401);

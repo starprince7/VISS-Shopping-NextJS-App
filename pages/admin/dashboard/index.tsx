@@ -25,29 +25,13 @@ const DashboardPage: NextPage = () => {
           justifyContent: "space-between",
           alignItems: "center",
           px: 2,
-          my: 1,
+          mt: 3,
+          mb: 1,
         }}
       >
         <Typography variant="h4" fontWeight={600} color="secondary.main">
           Overview
         </Typography>
-        <FlexRow justifyContent="center" alignItems="center">
-          <Input
-            sx={{ width: { xs: 350, md: 450 }, bgcolor: "white" }}
-            type="text"
-            label="Search products and brands..."
-          />
-          <Button
-            disableElevation
-            variant="contained"
-            color="primary"
-            sx={{ color: "white", fontSize: "13px", py: 1.8 }}
-            style={{ background: "#89A67E" }}
-            startIcon={<AddBoxIcon />}
-          >
-            Add Product
-          </Button>
-        </FlexRow>
       </FlexRow>
       <FlexRow sx={{ px: 2, my: 3, gap: 3 }}>
         <OverviewCard

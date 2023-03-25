@@ -1,7 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
-import { ArrowDropDown as ArrowDropDownIcon } from "@mui/icons-material";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  ArrowDropDown as ArrowDropDownIcon,
+  Logout as LogoutIcon,
+} from "@mui/icons-material";
+import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Avatar, DropDown } from "../../assets/icons";
@@ -61,7 +64,11 @@ const UserDrop: FC<Props> = (props) => {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <Typography className="text-neutral-600">
+            <LogoutIcon className="h-5 mr-1" /> Logout
+          </Typography>
+        </MenuItem>
       </Menu>
       {/* <DropDown /> */}
     </div>

@@ -1,3 +1,4 @@
+import { Alert } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
 import router from "next/router";
@@ -14,6 +15,7 @@ export default function Home() {
   // Product Details
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   function resetFormFields() {
     setEmail("");
@@ -23,6 +25,8 @@ export default function Home() {
   // Submit for preview.
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (!email)
       return toastService.showErrorMessage("Email address is required.");
     if (!password)
@@ -30,8 +34,8 @@ export default function Home() {
     if (!SubmitButtonRef.current) return;
 
     // button loading indicator
-    SubmitButtonRef.current.textContent = "Please wait...";
     SubmitButtonRef.current.disabled = true;
+    SubmitButtonRef.current.textContent = "Please wait...";
 
     const ADMIN = {
       email,
@@ -48,6 +52,12 @@ export default function Home() {
       });
       const data = await res.json();
 
+      if (data.error) {
+        setError(data.error);
+        SubmitButtonRef.current.disabled = false;
+        SubmitButtonRef.current.textContent = "Log in";
+      }
+
       // ADMIN login success
       if (data._id) {
         StorageService.setAuthToken(data.auth_token);
@@ -60,7 +70,7 @@ export default function Home() {
         SubmitButtonRef.current.disabled = false;
       }
     } catch (e) {
-      console.log("An Error Occurred trying to create a ADMIN :", e);
+      console.log("An Error Occurred trying to login an ADMIN :", e);
 
       // stop button loading indicator
       SubmitButtonRef.current.textContent = "Log in";
@@ -78,6 +88,8 @@ export default function Home() {
         <p className="text-gray-800">
           Only administrators can access this portal.
         </p>
+        <br />
+        {error && <Alert severity="error">{error}</Alert>}
 
         <form
           ref={FormRef as React.LegacyRef<HTMLFormElement>}

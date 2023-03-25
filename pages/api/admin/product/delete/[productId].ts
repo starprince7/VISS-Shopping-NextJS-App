@@ -2,9 +2,14 @@ import { NextApiResponse, NextApiRequest } from "next";
 import Product from "../../../../../database/models/productSchema";
 import db from "../../../../../database/connection/dbConnection";
 import ImageService from "../../../../../services/imageService";
+import getValidAuthentication from "../../../../../utils/middleware/validateAPIRequest";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "DELETE") {
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
+
+  if (method !== "DELETE") {
     res.status(405);
     res.json({ error: "Method not allowed" });
     return;

@@ -13,11 +13,6 @@ const Header: FC<IHeaderProps> = ({ className }) => {
   return (
     <section className={`${className} w-full flex justify-between px-12 py-6`}>
       <FlexRow sx={{ alignItems: "center" }}>
-        {/* <h4 className="text-2xl font-semibold text-neutral-300">VissAdmin</h4>
-        <BadgeIcon
-          className="text-neutral"
-          sx={{ color: "GrayText", alignSelf: "end" }}
-        /> */}
         <FlexRow alignItems="center">
           <Logo className="h-8 stroke-neutral-500 -ml-14 font-extrabold" />
           {/* <BadgeIcon
@@ -27,8 +22,9 @@ const Header: FC<IHeaderProps> = ({ className }) => {
           <Typography
             variant="caption"
             color="primary"
-            fontWeight={800}
-            className="-ml-8"
+            fontWeight={500}
+            sx={{ fontSize: 9 }}
+            className="-translate-y-1 -translate-x-10"
           >
             Admin
           </Typography>

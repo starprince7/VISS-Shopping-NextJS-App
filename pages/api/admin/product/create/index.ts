@@ -6,9 +6,14 @@ import db from "../../../../../database/connection/dbConnection";
 import { Product as ProductType } from "../../../../../types";
 import ImageService from "../../../../../services/imageService";
 import { generateImagePublicId } from "../../../../../utils/getTransactionReference";
+import getValidAuthentication from "../../../../../utils/middleware/validateAPIRequest";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") {
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
+
+  if (method !== "POST") {
     res.status(405);
     res.json({ msg: "Method not allowed" });
     return;

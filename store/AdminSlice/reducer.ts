@@ -25,7 +25,7 @@ export const fetchAdminAccount = createAsyncThunk(
     const id = StorageService.getAdminId();
     if (!id) {
       StorageService.removeAuthToken();
-      navigateTo("/");
+      window.location.assign("/");
       return;
     }
     const result = id && (await getAdminAccount(id as string));
@@ -46,7 +46,7 @@ const adminSlice = createSlice({
       StorageService.removeAuthToken();
       StorageService.removeAdminId();
       setTimeout(() => {
-        navigateTo("/");
+        window.location.assign("/");
       }, 500);
     },
   },

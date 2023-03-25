@@ -1,7 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import getValidAuthentication from "../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== "POST") {
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
+
+  if (method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 

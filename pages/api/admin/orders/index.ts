@@ -9,18 +9,12 @@ import Orders, { OrderStatus } from "../../../../database/models/orderSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const auth_req = req;
-  /* 
-  // Middleware
   const { error, auth_req } = getValidAuthentication(req, res);
-  // if not authenticated request `stop`s
   if (error) return;
- */
+  const { method } = auth_req;
 
   // connect DB
   await db.connectDB();
-
-  const { method } = req;
 
   let { page, limit, status } = query.parse(req.url?.split("?")[1] as string, {
     parseNumbers: true,

@@ -4,9 +4,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import query from "query-string";
+import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { method } = req;
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
 
   let { token } = query.parse(req.url?.split("?")[1] as string, {
     parseNumbers: true,

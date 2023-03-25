@@ -1,10 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../../../database/connection/dbConnection";
 import Customer from "../../../../../database/models/customerSchema";
+import getValidAuthentication from "../../../../../utils/middleware/validateAPIRequest";
 import hashPassword from "../../../../../utils/passwordHashing";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== "PUT") {
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
+
+  if (method !== "PUT") {
     res.status(405);
     res.json({ error: "Method not allowed" });
     return;

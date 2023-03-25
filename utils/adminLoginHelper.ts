@@ -14,7 +14,7 @@ async function logInAdmin(email: string, password: string): Promise<Login> {
   if (!profile) {
     return {
       admin: null,
-      error: "This email address does not belong to an administrator account.",
+      error: "This email is not associated with any administrator accounts.",
     };
   }
   // Here profile found, compare passwords
@@ -24,7 +24,7 @@ async function logInAdmin(email: string, password: string): Promise<Login> {
     return { error: null, admin: profile };
   }
   // Here passwords do not match.
-  return { admin: null, error: "You entered an incorrect password" };
+  return { admin: null, error: "Unauthorized, wrong password." };
 }
 
 export default logInAdmin;

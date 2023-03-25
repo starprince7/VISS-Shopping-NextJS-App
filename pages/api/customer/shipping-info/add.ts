@@ -4,13 +4,10 @@ import Customer from "../../../../database/models/customerSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const auth_req = req;
-  /* 
   // Middleware
   const { error, auth_req } = getValidAuthentication(req, res);
   // if not authenticated request `stop`
-  if (error) return; 
-  */
+  if (error) return;
 
   // checking request type before processing
   if (auth_req.method !== "POST") {

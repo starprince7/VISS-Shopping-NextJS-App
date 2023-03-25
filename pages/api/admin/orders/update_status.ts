@@ -6,9 +6,9 @@ import getValidAuthentication from "../../../../utils/middleware/validateAPIRequ
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Authenticate request.
-  // const { error, auth_req } = getValidAuthentication(req, res);
-  // if (error) return;
-  const { method } = req;
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
 
   // connect DB
   await db.connectDB();

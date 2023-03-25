@@ -1,9 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../../database/connection/dbConnection";
 import Customer from "../../../../database/models/customerSchema";
+import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { method } = req;
+  // Middleware
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method } = auth_req;
 
   // connect DB
   await db.connectDB();

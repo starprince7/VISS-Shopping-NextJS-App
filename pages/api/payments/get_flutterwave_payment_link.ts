@@ -3,13 +3,17 @@ import axios from "axios";
 import generateTransactionReference from "../../../utils/getTransactionReference";
 import Orders from "../../../database/models/orderSchema";
 import db from "../../../database/connection/dbConnection";
+import getValidAuthentication from "../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== "POST")
+  const { error, auth_req } = getValidAuthentication(req, res);
+  if (error) return;
+  const { method, body } = auth_req;
+
+  if (method !== "POST")
     return res.status(405).json({ error: "Method not allowed" });
 
-  const { sumTotal, customer, processingFee, orderDetails, shippingFee } =
-    req.body;
+  const { sumTotal, customer, processingFee, orderDetails, shippingFee } = body;
 
   if (!sumTotal || !customer || !processingFee || !orderDetails)
     return res.status(400).json({ error: "Incomplete request parameters" });
@@ -47,11 +51,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // ==> Create New Order;
   try {
-    await Orders.create({ ...req.body, transactionRef });
+    await Orders.create({ ...body, transactionRef });
   } catch (e) {
     res.status(400);
     res.json({ error: "Something went wrong, couldn't create an order!" });
-    // console.log("Error creating an Order ::> ", e);
   }
 
   const createdPayment = await axios.post(
