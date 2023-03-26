@@ -25,7 +25,7 @@ export const SingleCustomerInformation = ({
   isEmailVerified,
   isPhoneVerified,
 }: Props) => {
-  const phoneNumber = shippingInfo[0].phoneNumber;
+  const { phoneNumber } = shippingInfo[0];
   return (
     <FlexRow
       sx={{
@@ -61,7 +61,7 @@ export const SingleCustomerInformation = ({
           </FlexRow>
           <Typography sx={{ fontSize: "1.2rem", color: "#494949" }}>
             {fullName && fullName}{" "}
-            {!fullName ? Object.values(name).map((v) => v + " ") : ""}
+            {!fullName ? Object.values(name).map((v) => `${v} `) : ""}
           </Typography>
         </Box>
         <Box sx={{ mb: 4 }}>
@@ -102,7 +102,7 @@ export const SingleCustomerInformation = ({
           <Typography variant="subtitle1" sx={{ mb: 1, color: "#727272" }}>
             Cart Items
           </Typography>
-          <Chip label={cart.length < 10 && "0" + cart.length} />
+          <Chip label={cart.length < 10 && `0${cart.length}`} />
         </Box>
       </div>
       <IconButton onClick={handleClose}>

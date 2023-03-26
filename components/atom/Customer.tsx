@@ -83,7 +83,6 @@ export const Customer = (props: CustomerType) => {
         closeMenu();
       }
     } catch (e) {
-      console.log(e);
       deleteBtn.textContent = "Delete";
       deleteBtn.disabled = false;
     }

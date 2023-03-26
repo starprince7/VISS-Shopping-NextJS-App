@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import BadgeIcon from "@mui/icons-material/Badge";
+import { Typography } from "@mui/material";
 import Logo from "../../assets/icons/Logo";
 import { UserDrop } from "../atom";
 import { FlexRow } from "../FlexRow";
-import { Typography } from "@mui/material";
 
 export interface IHeaderProps {
   className: string;

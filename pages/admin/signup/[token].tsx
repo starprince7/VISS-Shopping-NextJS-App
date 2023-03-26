@@ -33,12 +33,12 @@ export default function Home() {
         );
         if (data.error) {
           toastService.showErrorMessage(data.error);
-          token && router.push(`/error/invalid_url?url=${URL}`);
+          if (token) router.push(`/error/invalid_url?url=${URL}`);
         }
         // Do nothing URL is a valid one.
       } catch (e) {
         if (e.response.data.error === "Verification failed") {
-          token && router.push(`/error/invalid_url?url=${URL}`);
+          if (token) router.push(`/error/invalid_url?url=${URL}`);
         }
       }
     })();
@@ -90,9 +90,9 @@ export default function Home() {
     } catch (e) {
       if (e.response.data.error) {
         const { email, fullName, password } = e.response.data.error;
-        email && setEmailError(email);
-        fullName && setFullNameError(fullName);
-        password && setPasswordError(password);
+        if (email) setEmailError(email);
+        if (fullName) setFullNameError(fullName);
+        if (password) setPasswordError(password);
       }
       toastService.showErrorMessage(e.response.data.error || e.message);
       SubmitButtonRef.current.textContent = "Create Account";
@@ -119,59 +119,66 @@ export default function Home() {
           className="mt-5"
         >
           <div className="input-field mb-4">
-            <label htmlFor="product title" className="block text-gray-400 my-2">
+            <label htmlFor="full_name" className="block text-gray-400 my-2">
               Full Name
+              <input
+                id="full_name"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                type="text"
+                placeholder="Your full name"
+                className="input"
+              />
             </label>
-            <input
-              required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              type="text"
-              placeholder="Your full name"
-              className="input"
-            />
           </div>
           <div className="input-field mb-4">
-            <label htmlFor="product title" className="block text-gray-400 my-2">
+            <label htmlFor="email" className="block text-gray-400 my-2">
               Email address
+              <input
+                id="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Your email"
+                className="input"
+              />
             </label>
-            <input
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Your email"
-              className="input"
-            />
           </div>
           <div className="input-field mb-4">
-            <label htmlFor="product title" className="block text-gray-400 my-2">
+            <label htmlFor="password" className="block text-gray-400 my-2">
               Password
+              <input
+                id="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Your admin password"
+                className="input"
+              />
             </label>
-            <input
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              placeholder="Your admin password"
-              className="input"
-            />
           </div>
           <div className="input-field mb-4">
-            <label htmlFor="product title" className="block text-gray-400 my-2">
+            <label
+              htmlFor="confirm_password"
+              className="block text-gray-400 my-2"
+            >
               Confirm Password
+              <input
+                id="confirm_password"
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                type="password"
+                placeholder="confirm admin password"
+                className="input"
+              />
             </label>
-            <input
-              required
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type="password"
-              placeholder="confirm admin password"
-              className="input"
-            />
           </div>
 
-          <button ref={SubmitButtonRef} className="btn">
+          <button type="submit" ref={SubmitButtonRef} className="btn">
             Create Account
           </button>
         </form>

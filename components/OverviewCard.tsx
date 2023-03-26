@@ -21,10 +21,7 @@ export const OverviewCard = ({
   src = "",
   isMoneyCount,
 }: Props) => {
-  const { data, error, fetchStatus } =
-    typeof window !== "undefined"
-      ? useFetch(src)
-      : { data: [null], error: null, fetchStatus: null };
+  const { data, error, fetchStatus } = useFetch(src);
   const dataItems = data[0] as unknown as { count: any };
 
   if (fetchStatus !== "succeeded") {

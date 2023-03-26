@@ -51,14 +51,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
        * 3. Reduce their stock count!
        */
       const cartItemIds = verifiedOrder.orderDetails.map((order) => order._id);
+      const productsToUpdate: any = [];
 
-      for (const itemId of cartItemIds) {
-        const product = await Product.findById(itemId);
+      cartItemIds.forEach(async (id) => {
+        const product = await Product.findById(id);
         if (product.countInStock > 0) {
           product.countInStock -= 1;
-          await product.save();
+          productsToUpdate.push(product);
         }
-      }
+      });
+
+      await Promise.all(productsToUpdate.map((product) => product.save()));
 
       res.end({ status: "Success", message: "Payment successfully verified" });
     } else {

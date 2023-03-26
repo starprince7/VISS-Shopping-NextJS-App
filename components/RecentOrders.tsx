@@ -12,10 +12,9 @@ import { TableLoadingView } from "./skeleton/TableLoadingView";
 import toastService from "../services/toast-notification";
 
 export default function RecentOrders() {
-  const { data, error, fetchStatus } =
-    typeof window !== "undefined"
-      ? useFetch("/api/admin/overview/recent_orders")
-      : { data: [null], error: null, fetchStatus: null };
+  const { data, error, fetchStatus } = useFetch(
+    "/api/admin/overview/recent_orders",
+  );
 
   if (error) {
     toastService.showErrorMessage(error);

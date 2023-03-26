@@ -35,7 +35,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  console.log("Deleted Item : ", deletedProduct);
   const result = await ImageService.removeUploadedImage(
     deletedProduct.productId,
   );

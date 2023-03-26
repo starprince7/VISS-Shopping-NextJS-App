@@ -1,6 +1,6 @@
-/***
+/* ***
  * Verifies if Admin signup URL is valid and authorized by an existing admin.
- **/
+ */
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import query from "query-string";
@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (error) return;
   const { method } = auth_req;
 
-  let { token } = query.parse(req.url?.split("?")[1] as string, {
+  const { token } = query.parse(req.url?.split("?")[1] as string, {
     parseNumbers: true,
   });
 

@@ -24,7 +24,8 @@ const OrdersPage: NextPage = () => {
     if (!searchTerm) return toastService.showInfoMessage("Enter an Order ID.");
     let sterilizedSearchTerm = searchTerm;
     if (searchTerm.includes("#")) {
-      sterilizedSearchTerm = searchTerm.split("#")[1];
+      const [hash, val] = searchTerm.split("#");
+      sterilizedSearchTerm = val;
     }
     setLoading(true);
     try {

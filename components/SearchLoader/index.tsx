@@ -24,8 +24,8 @@ export const SearchIconLoader = ({ loading }: Prop) => {
         <div className="ldio-i8o6i3n8mdo">
           <div>
             <div>
-              <div></div>
-              <div></div>
+              <div />
+              <div />
             </div>
           </div>
         </div>

@@ -84,7 +84,6 @@ const ProductsPage: NextPage = () => {
       } catch (e) {
         toastService.showErrorMessage(e.response.data.error || e.message);
         setLoading(false);
-        console.log("Err: creating a product : ", e);
       }
     },
     [brand, countInStock, description, dispatch, image, price, title, weight],
