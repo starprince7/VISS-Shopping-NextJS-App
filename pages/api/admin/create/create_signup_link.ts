@@ -45,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         await sendAdminSignupLinkOverEmail(email, SECURE_URL);
         res
           .status(200)
-          .json({ msg: "An invitation link was sent successfully." });
+          .json({ msg: "A sign up invitation was sent successfully." });
       }
       break;
     default:

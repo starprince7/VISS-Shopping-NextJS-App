@@ -4,8 +4,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import query from "query-string";
-
-const TOKEN_SECRET = process.env.TOKEN_SECRET;
+import { verifyToken } from "../../../../utils/createToken";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
@@ -18,17 +17,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       const token = (t as string)?.trim();
 
-      if (!!token) {
-        jwt.verify(token, TOKEN_SECRET, (e, token_decoded) => {
-          if (e) {
-            res.status(403);
-            res.json({ error: true, msg: "Verification failed" });
-            return;
-          }
-
-          // Successfully Verified!
-          res.json({ error: false, msg: "OK", verified: true });
-        });
+      if (token) {
+        const { error, verified } = verifyToken(token);
+        if (error) {
+          res.status(403);
+          res.json({ error: true, msg: "Verification failed" });
+          break;
+        }
+        if (verified) res.json({ error: false, msg: "OK", verified: true });
       }
       break;
     default:
