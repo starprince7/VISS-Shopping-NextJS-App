@@ -83,7 +83,9 @@ export default function Home() {
 
       StorageService.setAuthToken(data.auth_token);
       StorageService.setAdminId(data._id);
-      router.push("/admin/dashboard");
+      setTimeout(() => {
+        router.push("/admin/dashboard");
+      }, 100);
 
       // stop button loading indicator
       SubmitButtonRef.current.textContent = "Create Account";
