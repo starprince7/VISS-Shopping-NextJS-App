@@ -26,22 +26,23 @@ export default function Home() {
 
   // Verify sign up URL authenticity
   React.useEffect(() => {
-    (async function () {
-      try {
-        const { data } = await apiClient.get(
-          `/api/admin/create/verify_create_token?token=${token}`,
-        );
-        if (data.error) {
-          toastService.showErrorMessage(data.error);
-          if (token) router.push(`/error/invalid_url?url=${URL}`);
+    if (token) {
+      (async function () {
+        try {
+          await apiClient.get(
+            `/api/admin/create/verify_create_token?token=${token}`,
+          );
+        } catch (e) {
+          if (
+            e.response.status === 403 &&
+            e.response.data.msg === "Verification failed"
+          ) {
+            toastService.showErrorMessage(e.response.statusText);
+            router.push(`/error/invalid_url?url=${URL}`);
+          }
         }
-        // Do nothing URL is a valid one.
-      } catch (e) {
-        if (e.response.data.error === "Verification failed") {
-          if (token) router.push(`/error/invalid_url?url=${URL}`);
-        }
-      }
-    })();
+      })();
+    }
   }, [URL, token]);
 
   // Submit for preview.

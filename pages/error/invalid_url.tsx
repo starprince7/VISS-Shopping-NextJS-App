@@ -29,11 +29,8 @@ export default function InvalidURrlPage() {
           p: 4,
         }}
       >
-        <Typography
-          variant="subtitle1"
-          className="mb-8 text-zinc-500 italic block"
-        >
-          Verification failed
+        <Typography variant="subtitle1" className="mb-8 text-zinc-500 block">
+          Forbidden!
         </Typography>
         <Typography variant="h5">
           <code>{message}</code>

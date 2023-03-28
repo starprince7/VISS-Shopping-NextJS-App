@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../../database/connection/dbConnection";
 import Admin from "../../../../database/models/adminSchema";
 import createToken from "../../../../utils/createToken";
-import emailAdminCreationLink from "../../../../utils/mailer/adminCreationLinkMailer";
+import sendAdminSignupLinkOverEmail from "../../../../utils/mailer/adminCreationLinkMailer";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -38,10 +38,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       const token = createToken(email);
+      console.log("Token Created : ", token);
       if (token) {
         const SECURE_URL = `https://${process.env.VERCEL_URL}/admin/signup/${token}`;
         // email secure url
-        await emailAdminCreationLink(email, SECURE_URL);
+        await sendAdminSignupLinkOverEmail(email, SECURE_URL);
         res
           .status(200)
           .json({ msg: "An invitation link was sent successfully." });
