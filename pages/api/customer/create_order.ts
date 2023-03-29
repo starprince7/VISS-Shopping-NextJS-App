@@ -56,7 +56,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         await Orders.create({
           ...req.body,
           paymentStatus: "SUCCESS",
-          orderStatus: "PROCESSING",
+          orderStatus: "PENDING",
         });
         // Clear customers cart.
         await Customer.findOneAndUpdate(
