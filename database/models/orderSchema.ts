@@ -50,7 +50,7 @@ const orderSchema = new mongoose.Schema<Order>(
 // @ Internal utility func.
 orderSchema.pre("save", function (next) {
   this.orderDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-  this.orderNo = `#${getUid()}`; // #1178851014
+  this.orderNo = `${getUid()}`; // 1178851014
   next();
 });
 
