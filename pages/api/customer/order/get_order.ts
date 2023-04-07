@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = auth_req;
 
   await db.connectDB();
-
+  // eslint-disable-next-line
   let { id, page, limit, status } = query.parse(
     req.url?.split("?")[1] as string,
     {

@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../database/connection/dbConnection";
-import Customer from "../../../database/models/customerSchema";
-import Orders from "../../../database/models/orderSchema";
-import FlutterWave from "../../../services/flutterwave/flutterwave.config";
-import sendFailedOrderEmail from "../../../utils/mailer/failedOrderEmail";
+import db from "../../../../database/connection/dbConnection";
+import Customer from "../../../../database/models/customerSchema";
+import Orders from "../../../../database/models/orderSchema";
+import FlutterWave from "../../../../services/flutterwave/flutterwave.config";
+import sendFailedOrderEmail from "../../../../utils/mailer/failedOrderEmail";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Connect database
