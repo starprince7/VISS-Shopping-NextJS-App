@@ -53,7 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       // Create the Order.
       try {
-        await Orders.create({
+        const createdOrder = await Orders.create({
           ...req.body,
           paymentStatus: "SUCCESS",
           orderStatus: "PENDING",
@@ -61,7 +61,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         // Clear customers cart.
         await Customer.findOneAndUpdate(
           { email: customer.email },
-          { cart: [] },
+          {
+            cart: [],
+            $push: {
+              orderHistory: createdOrder,
+            },
+          },
         );
         res.status(200).json({
           msg: "Your order was successfully received, and is being prepared for shipping.",
