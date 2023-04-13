@@ -11,9 +11,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case "POST":
       if (!query) {
-        return res.status(401).json({ error: "No query parameter found" });
+        return res.status(400).json({ error: "No query parameter found" });
       }
-      const results = Product.find({ $text: { $search: query } }).sort({
+      const results = await Product.find({ $text: { $search: query } }).sort({
         score: { $meta: "textScore" },
       });
       res.status(200).json({ data: results });
