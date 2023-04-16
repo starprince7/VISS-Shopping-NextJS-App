@@ -23,8 +23,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await db.connectDB();
 
   // Req Body
-  const { title, image, brand, price, weight, description, countInStock } =
-    req.body as ProductType;
+  const {
+    title,
+    image,
+    brand,
+    price,
+    category,
+    weight,
+    description,
+    countInStock,
+  } = req.body as ProductType;
 
   // Check image type first
   if (typeof image !== "string") {
@@ -50,6 +58,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       image: secure_url,
       brand,
       price,
+      category,
       weight,
       description,
       countInStock,
