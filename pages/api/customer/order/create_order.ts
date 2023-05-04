@@ -1,10 +1,11 @@
+import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
+
 import db from "../../../../database/connection/dbConnection";
 import Customer from "../../../../database/models/customerSchema";
 import Orders from "../../../../database/models/orderSchema";
 import FlutterWave from "../../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../../utils/mailer/failedOrderEmail";
-import axios from "axios";
 
 type PaymentIsFrom = "flutterwave" | "paystack";
 
