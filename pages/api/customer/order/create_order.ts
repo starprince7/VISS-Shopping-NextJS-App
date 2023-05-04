@@ -58,6 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           `https://api.paystack.co/transaction/verify/${transactionRef}`,
           options,
         );
+        console.log("Paystack Response :", paystackResponse);
       }
 
       // Check for a failed payment status.
