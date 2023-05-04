@@ -4,12 +4,16 @@ import Customer from "../../../../database/models/customerSchema";
 import Orders from "../../../../database/models/orderSchema";
 import FlutterWave from "../../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../../utils/mailer/failedOrderEmail";
+import axios from "axios";
+
+type PaymentIsFrom = "flutterwave" | "paystack";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Connect database
   await db.connectDB();
 
   const {
+    paymentIsFrom,
     status,
     transaction_id,
     transactionRef,
@@ -22,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "POST":
-      if (!status && !transactionRef && !transaction_id) {
+      if (!status && !transactionRef && !transaction_id && !paymentIsFrom) {
         res.status(401).json({ error: "Complete payment first" });
         break;
       }
@@ -34,13 +38,32 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         break;
       }
 
-      // Quick! verify payment status before creating an order.
-      const response = await FlutterWave.Transaction.verify({
-        id: transaction_id,
-      });
+      let flutterwaveResponse;
+      if (paymentIsFrom.toLowerCase() === "flutterwave") {
+        // Quick! verify payment status before creating an order.
+        flutterwaveResponse = await FlutterWave.Transaction.verify({
+          id: transaction_id,
+        });
+      }
+
+      const options = {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        },
+      };
+      let paystackResponse;
+      if (paymentIsFrom.toLowerCase() === "paystack") {
+        paystackResponse = await axios.get(
+          `https://api.paystack.co/transaction/verify/${transactionRef}`,
+          options,
+        );
+      }
 
       // Check for a failed payment status.
-      if (response.status !== "success") {
+      if (
+        flutterwaveResponse.status !== "success" ||
+        (paystackResponse && !paystackResponse.status)
+      ) {
         await sendFailedOrderEmail(customer, transactionRef); // Inform the customer their payment was unsuccessful.
         res.end({
           status: "Error",
