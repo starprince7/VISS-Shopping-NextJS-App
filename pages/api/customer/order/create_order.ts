@@ -7,14 +7,14 @@ import Orders from "../../../../database/models/orderSchema";
 import FlutterWave from "../../../../services/flutterwave/flutterwave.config";
 import sendFailedOrderEmail from "../../../../utils/mailer/failedOrderEmail";
 
-type PaymentIsFrom = "flutterwave" | "paystack";
+type PaymentProcessor = "flutterwave" | "paystack";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Connect database
   await db.connectDB();
 
   const {
-    paymentIsFrom,
+    paymentProcessor,
     status,
     transaction_id,
     transactionRef,
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case "POST":
-      if (!status && !transactionRef && !transaction_id && !paymentIsFrom) {
+      if (!status && !transactionRef && !transaction_id && !paymentProcessor) {
         res.status(401).json({ error: "Complete payment first" });
         break;
       }
@@ -40,33 +40,39 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       let flutterwaveResponse;
-      if (paymentIsFrom.toLowerCase() === "flutterwave") {
+      if (paymentProcessor.toLowerCase() === "flutterwave") {
         // Quick! verify payment status before creating an order.
         flutterwaveResponse = await FlutterWave.Transaction.verify({
           id: transaction_id,
         });
       }
 
+      let paystackResponse;
       const options = {
         headers: {
           Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
         },
       };
-      let paystackResponse;
-      if (paymentIsFrom.toLowerCase() === "paystack") {
-        paystackResponse = await axios.get(
-          `https://api.paystack.co/transaction/verify/${transactionRef}`,
-          options,
-        );
-        console.log("Paystack Response :", paystackResponse);
+      if (paymentProcessor.toLowerCase() === "paystack") {
+        try {
+          paystackResponse = await axios.get(
+            `https://api.paystack.co/transaction/verify/T817936425336017`,
+            options,
+          );
+          console.log("Paystack Response :", paystackResponse.data);
+          console.log("Paystack Response :", paystackResponse.data.status);
+        } catch (e) {
+          console.log("Paystack Error: ", e);
+        }
       }
 
       // Check for a failed payment status.
       if (
-        flutterwaveResponse.status !== "success" ||
-        (paystackResponse && !paystackResponse.status)
+        flutterwaveResponse?.status !== "success" ||
+        (paystackResponse && !paystackResponse?.data) ||
+        !paystackResponse?.data?.status
       ) {
-        await sendFailedOrderEmail(customer, transactionRef); // Inform the customer their payment was unsuccessful.
+        await sendFailedOrderEmail(customer, transactionRef); // Inform the customer that their payment was unsuccessful.
         res.end({
           status: "Error",
           message:
