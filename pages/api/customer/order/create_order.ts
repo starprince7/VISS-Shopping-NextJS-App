@@ -59,7 +59,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             `https://api.paystack.co/transaction/verify/T817936425336017`,
             options,
           );
-          console.log("Paystack Response :", paystackResponse.data);
           console.log("Paystack Response :", paystackResponse.data.status);
         } catch (e) {
           console.log("Paystack Error: ", e);
@@ -68,7 +67,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       // Check for a failed payment status.
       if (
-        flutterwaveResponse?.status !== "success" ||
+        (flutterwaveResponse && flutterwaveResponse?.status !== "success") ||
         (paystackResponse && !paystackResponse?.data) ||
         !paystackResponse?.data?.status
       ) {
