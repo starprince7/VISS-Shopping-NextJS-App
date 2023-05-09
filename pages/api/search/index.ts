@@ -16,7 +16,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const results = await Product.find({ $text: { $search: query } }).sort({
         score: { $meta: "textScore" },
       });
-      res.status(200).json({ data: results });
+      res.status(200).json(results);
       break;
 
     default:
