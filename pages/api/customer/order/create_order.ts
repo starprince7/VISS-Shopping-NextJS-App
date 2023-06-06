@@ -13,6 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Connect database
   await db.connectDB();
 
+  console.log(req.body);
   const {
     paymentProcessor,
     status,
@@ -39,6 +40,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         break;
       }
 
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Payment Verification Start Block >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
       let flutterwaveResponse;
       if (paymentProcessor.toLowerCase() === "flutterwave") {
         // Quick! verify payment status before creating an order.
@@ -56,7 +59,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       if (paymentProcessor.toLowerCase() === "paystack") {
         try {
           paystackResponse = await axios.get(
-            `https://api.paystack.co/transaction/verify/T817936425336017`,
+            `https://api.paystack.co/transaction/verify/${transactionRef}`,
             options,
           );
           console.log("Paystack Response :", paystackResponse.data.status);
@@ -65,7 +68,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
 
-      // Check for a failed payment status.
+      // @Failed payment status.
       if (
         (flutterwaveResponse && flutterwaveResponse?.status !== "success") ||
         (paystackResponse && !paystackResponse?.data) ||
@@ -81,7 +84,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         break;
       }
 
-      // Create the Order.
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Payment Verification End Block >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      /**
+       * ORDER CREATION BLOCK.
+       * CREATE ORDER!
+       */
       try {
         const createdOrder = await Orders.create({
           ...req.body,
@@ -102,8 +110,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           msg: "Your order was successfully received, and is being prepared for shipping.",
         });
       } catch (e) {
+        await sendFailedOrderEmail(customer, transactionRef); // Inform the customer that their order was unsuccessful.
         res.status(400);
-        res.json({ error: "Something went wrong, couldn't create an order!" });
+        res.json({
+          error:
+            "Something went wrong, we couldn't create an order, contact support! ",
+        });
         // eslint-disable-next-line no-console
         console.log("Error creating an Order ::> ", e);
       }
