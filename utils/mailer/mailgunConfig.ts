@@ -10,6 +10,18 @@ const auth_credentials = {
   url: "https://api.eu.mailgun.net",
 };
 
+type MailOptions = {
+  from: string;
+  to: string;
+  subject: string;
+  text: string;
+  rest?: any;
+};
+
 // Domain & Client
 export const domain = process.env.DOMAIN;
 export const client = mailgun.client(auth_credentials);
+
+export async function mailer(mail_options: MailOptions) {
+  return client.messages.create(domain as string, mail_options);
+}
