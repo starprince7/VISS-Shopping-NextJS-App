@@ -13,11 +13,11 @@ async function ApiMailHandler(req, res) {
       return res.status(400).json({ message: "Missing request parameter" });
     }
     isSent = await handleMailing({ to, data, subject });
-    if (isSent) res.status(200).send({ message: "Email sent!" });
+    if (isSent) res.status(200).send({ message: "Email sent!", success: true });
     else {
       res
         .status(500)
-        .send({ message: "Something went wrong with the server mailer." });
+        .send({ message: "Something went wrong with the mailing server." });
     }
   } else if (method === "POST") {
     const { to = "", data, subject } = req.body;
@@ -25,11 +25,11 @@ async function ApiMailHandler(req, res) {
       return res.status(400).json({ message: "Missing request parameter" });
     }
     isSent = await handleMailing({ to, data, subject });
-    if (isSent) res.status(200).send({ message: "Email sent!" });
+    if (isSent) res.status(200).send({ message: "Email sent!", success: true });
     else {
       res
         .status(500)
-        .send({ message: "Something went wrong with the server mailer." });
+        .send({ message: "Something went wrong with the mailing server." });
     }
   } else {
     res.status(405).send({ error: `Sorry, method ${method} not allowed!` });
@@ -39,7 +39,7 @@ async function ApiMailHandler(req, res) {
 const handleMailing = async ({ to, data, subject }) => {
   const customSubject = "Custom Mailer";
   const mailOptions = {
-    from: "STRP MAIL SERVER <no-reply-sys@princenweke.com>",
+    from: "CUSTOM MAIL SERVER <systems@cryptoearn.co.uk>",
     to,
     subject: subject || customSubject,
     text: data.toString(),
