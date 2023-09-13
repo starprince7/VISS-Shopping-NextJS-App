@@ -2,7 +2,8 @@ import query from "query-string";
 import { mailer } from "../../../utils/mailer/mailgunConfig";
 
 async function ApiMailHandler(req, res) {
-  console.log("Method:", new Date().getTime().toLocaleString(), req.method);
+  console.log("Method:", req.method, "👈");
+  console.log("Time:", new Date().toLocaleString());
 
   const { method } = req;
   let isSent: boolean | undefined = false;
@@ -20,7 +21,6 @@ async function ApiMailHandler(req, res) {
         .send({ message: "Something went wrong with the mailing server." });
     }
   } else if (method === "POST") {
-    console.log("Request body:", req.body);
     const { to = "", data, subject } = req.body;
     if (!to || !data) {
       return res.status(400).json({ message: "Missing request parameter" });
