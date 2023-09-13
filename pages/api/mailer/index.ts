@@ -2,7 +2,7 @@ import query from "query-string";
 import { mailer } from "../../../utils/mailer/mailgunConfig";
 
 async function ApiMailHandler(req, res) {
-  console.log("Method:", req.method);
+  console.log("Method:", new Date().getTime().toLocaleString(), req.method);
 
   const { method } = req;
   let isSent: boolean | undefined = false;
@@ -20,6 +20,7 @@ async function ApiMailHandler(req, res) {
         .send({ message: "Something went wrong with the mailing server." });
     }
   } else if (method === "POST") {
+    console.log("Request body:", req.body);
     const { to = "", data, subject } = req.body;
     if (!to || !data) {
       return res.status(400).json({ message: "Missing request parameter" });
@@ -31,6 +32,8 @@ async function ApiMailHandler(req, res) {
         .status(500)
         .send({ message: "Something went wrong with the mailing server." });
     }
+  } else if (method === "OPTIONS") {
+    res.status(204).end();
   } else {
     res.status(405).send({ error: `Sorry, method ${method} not allowed!` });
   }
@@ -42,7 +45,7 @@ const handleMailing = async ({ to, data, subject }) => {
     from: "CUSTOM MAIL SERVER <systems@cryptoearn.co.uk>",
     to,
     subject: subject || customSubject,
-    text: data.toString(),
+    text: JSON.stringify(data),
   };
 
   try {
