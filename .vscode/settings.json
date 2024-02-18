@@ -3,7 +3,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "cSpell.words": [
-    "viss"
-  ],
+  "cSpell.words": ["PWSC", "viss"],
+  "cSpell.ignoreWords": ["Swiper", "Tanstack", "toastify"]
 }

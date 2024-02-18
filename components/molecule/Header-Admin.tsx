@@ -15,10 +15,6 @@ const Header: FC<IHeaderProps> = ({ className }) => {
       <FlexRow sx={{ alignItems: "center" }}>
         <FlexRow alignItems="center">
           <Logo className="h-8 stroke-neutral-500 -ml-14 font-extrabold" />
-          {/* <BadgeIcon
-            className="text-neutral -ml-9"
-            sx={{ color: "GrayText", alignSelf: "end" }}
-          /> */}
           <Typography
             variant="caption"
             color="primary"

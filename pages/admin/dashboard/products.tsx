@@ -8,7 +8,7 @@ import { LoadingButton } from "@mui/lab";
 
 import { Layout, Products } from "../../../components/molecule";
 import { CustomInput, FlexRow, Input } from "../../../components";
-import useCategories from "../../../hooks/categories";
+import { useCategories } from "../../../hooks";
 import toastService from "../../../services/toast-notification";
 import apiClient from "../../../config/apiConfig";
 import { fetchProducts } from "../../../store/productsSlice/reducer";
@@ -32,7 +32,7 @@ export const ProductFormContext = React.createContext(
 
 const ProductsPage: NextPage = () => {
   const dispatch = useDispatch();
-  const categories = useCategories();
+  const { data: categories } = useCategories();
   const [open, setOpen] = React.useState(false);
 
   const [image, setImage] = React.useState<ArrayBuffer | string>();

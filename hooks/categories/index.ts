@@ -1,25 +1,19 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-type Categories = {
+type Category = {
   _id: string;
   name: string;
   type?: string;
 };
+type Response = ReturnType<typeof useQuery<Category[]>>;
 
-type Response = { data: Categories[] };
-
-const useCategories = () => {
-  const [categories, setCategories] = useState<Categories[]>([]);
-  useEffect(() => {
-    async function getCategories() {
-      const res: Response = await axios.get("/api/categories");
-      setCategories(res.data);
-    }
-    getCategories();
-  }, []);
-
-  return categories;
+export const useCategories = (): Response => {
+  return useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const { data } = await axios.get("/api/categories");
+      return data as Category[];
+    },
+  });
 };
-
-export default useCategories;
