@@ -20,7 +20,7 @@ export const ProductsWithSpecificCategory = ({ categoryName }: PWSCProps) => {
   return (
     <FlexCol sx={{ mt: 6 }}>
       <Typography className="font-bold mb-3 text-center text-2xl capitalize">
-        {categoryName}
+        {!!products?.length && categoryName}
       </Typography>
       <FlexRow
         sx={{

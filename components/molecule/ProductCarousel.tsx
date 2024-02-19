@@ -1,7 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
@@ -10,37 +8,23 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { fetchProducts } from "../../store/productsSlice/reducer";
-import { selectProductsState } from "../../store/productsSlice/selectors";
 import { Container } from "@mui/material";
+import { Product } from "../../types";
 
 type Props = {
   className?: string;
+  products: Product[];
 };
 
-export const ProductCarousel = ({ className }: Props) => {
-  const dispatch = useDispatch();
-  const { products, productsRequestStatus, page, totalCount, hasMore } =
-    useSelector(selectProductsState);
-
-  const loadProducts = React.useCallback(() => {
-    dispatch(fetchProducts({ page: page + 1 }) as any);
-  }, [page, dispatch]);
-
-  const loadPreviousProducts = () => {
-    dispatch(fetchProducts({ page: page + 1 }) as any);
-  };
-
-  React.useEffect(() => {
-    loadProducts();
-  }, [dispatch]);
-
+export const ProductCarousel = ({ className, products }: Props) => {
   const renderSwipeItems = products.map((product) => (
     <SwiperSlide key={product._id} className="mr-4">
-      <img
+      <Image
+        width={1080}
+        height={720}
         src={product.image}
         alt={product.title}
-        className="min-h-40 max-h-52 object-cover w-[70%] rounded-3xl border border-primary"
+        className="min-h-40 max-h-52 object-cover w-[60%] rounded-3xl border border-primary"
       />
     </SwiperSlide>
   ));

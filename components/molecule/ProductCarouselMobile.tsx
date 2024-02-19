@@ -1,7 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
@@ -10,31 +7,14 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { fetchProducts } from "../../store/productsSlice/reducer";
-import { selectProductsState } from "../../store/productsSlice/selectors";
-import { Container } from "@mui/material";
+import { Product } from "../../types";
 
 type Props = {
   className?: string;
+  products: Product[];
 };
 
-export const ProductCarouselMobile = ({ className }: Props) => {
-  const dispatch = useDispatch();
-  const { products, productsRequestStatus, page, totalCount, hasMore } =
-    useSelector(selectProductsState);
-
-  const loadProducts = React.useCallback(() => {
-    dispatch(fetchProducts({ page: page + 1 }) as any);
-  }, [page, dispatch]);
-
-  const loadPreviousProducts = () => {
-    dispatch(fetchProducts({ page: page + 1 }) as any);
-  };
-
-  React.useEffect(() => {
-    loadProducts();
-  }, [dispatch]);
-
+export const ProductCarouselMobile = ({ className, products }: Props) => {
   const renderSwipeItems = products.map((product) => (
     <SwiperSlide key={product._id} className="mr-4">
       <div className="w-32 h-32 sm:h-auto sm:w-60 rounded-3xl overflow-hidden bg-primary">

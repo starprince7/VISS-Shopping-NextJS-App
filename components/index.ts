@@ -7,3 +7,6 @@ export * from "./OverviewCard";
 export { default as RecentOrders } from "./RecentOrders";
 export * from "./OrderRow";
 export * from "./SingleOrderInformation";
+export * from "./Footer";
+export * from "./SearchBar";
+export * from "./Cart";

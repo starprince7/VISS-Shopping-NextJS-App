@@ -4,6 +4,7 @@ import { ProductCarousel } from "../../components/molecule/ProductCarousel";
 import {
   Banner,
   Categories,
+  Footer,
   HeaderClient,
   ProductsShowcase,
 } from "../../components";
@@ -13,33 +14,43 @@ import { Category } from "../../types";
 
 export default function HomePage({
   categories,
+  products,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const deviceType = useDeviceType();
   return (
-    <div>
+    <>
       <HeaderClient className="header" />
       <div className="bg-primary py-5">
+        {deviceType === "desktop" && <ProductCarousel products={products} />}
+        {deviceType === "tablet" && <ProductCarousel products={products} />}
+        {deviceType === "mobile" && (
+          <ProductCarouselMobile products={products} />
+        )}
         <Banner />
-        {deviceType === "desktop" && <ProductCarousel />}
-        {deviceType === "tablet" && <ProductCarousel />}
-        {deviceType === "mobile" && <ProductCarouselMobile />}
       </div>
       <Categories categories={categories} />
       <ProductsShowcase categories={categories} />
       {/* products of specific categories */}
       {/* footer */}
-    </div>
+      <Footer />
+    </>
   );
 }
 
 export const getServerSideProps = (async () => {
-  const categories = await fetch("http://localhost:3001/api/categories").then(
+  const categories = await fetch("http://localhost:3000/api/categories").then(
     (res) => res.json(),
   );
+  const page = 1;
+  const limit = 5;
+  const { products } = await fetch(
+    `http://localhost:3000/api/products?page=${page}&limit=${limit}`,
+  ).then((res) => res.json());
 
   return {
     props: {
       categories: categories || [],
+      products: products || [],
     },
   };
 }) satisfies GetServerSideProps<{ categories: Category[] }>;
