@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FlexCol } from "../FlexCol";
 import { Button, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -8,7 +9,7 @@ import { formatToCurrency } from "../../utils/currencyFormatter";
 
 type Props = Product;
 
-export const ProductCard = ({ image, title, price }: Props) => {
+export const ProductCard = ({ image, title, price, productId, _id }: Props) => {
   /**
    * Describe Product Card.
    * 1. Product image
@@ -30,19 +31,28 @@ export const ProductCard = ({ image, title, price }: Props) => {
         mb: 2,
       }}
     >
-      <Image
-        src={image}
-        width={200}
-        height={230}
-        alt={title}
-        style={{
-          maxHeight: 240,
-          minHeight: 240,
-        }}
-        className="object-cover"
-      />
+      <Link href={`/details/${productId || _id}`}>
+        <Image
+          src={image}
+          width={200}
+          height={230}
+          alt={title}
+          style={{
+            maxHeight: 240,
+            minHeight: 240,
+          }}
+          className="object-cover"
+        />
+      </Link>
       <div className="p-2">
-        <Typography fontSize="small">{title}</Typography>
+        <Link href={`/details/${productId || _id}`}>
+          <Typography
+            className="hover:underline hover:text-primary hover:font-bold underline-offset-4"
+            fontSize="small"
+          >
+            {title}
+          </Typography>
+        </Link>
         <Typography sx={{ my: 1, fontWeight: 600 }}>
           {formatToCurrency(price, "NGN")}
         </Typography>

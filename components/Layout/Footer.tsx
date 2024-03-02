@@ -1,13 +1,13 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
-import { FlexCol } from "./FlexCol";
-import { Logo } from "../assets/icons";
-import { FlexRow } from "./FlexRow";
+import { FlexCol } from "../FlexCol";
+import { Logo } from "../../assets/icons";
+import { FlexRow } from "../FlexRow";
 
 export const Footer = () => {
   return (
     <footer>
-      <div className="bg-primary p-5 sm:p-10 text-neutral-100">
+      <div className="bg-[#003868] p-5 sm:p-10 text-neutral-100">
         <Container>
           <FlexRow
             justifyContent="space-between"

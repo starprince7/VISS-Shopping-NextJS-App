@@ -1,4 +1,5 @@
 import { NextApiResponse, NextApiRequest } from "next";
+import mongoose, { isValidObjectId, ObjectId } from "mongoose";
 import Product from "../../../database/models/productSchema";
 import db from "../../../database/connection/dbConnection";
 
@@ -14,7 +15,17 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   const productId = req.query.id;
 
-  const productDetails = await Product.findById(productId);
+  // Find with either the `_id` field or `productId` field.
+  const productDetails = await Product.findOne({
+    $or: [
+      { productId },
+      {
+        _id: isValidObjectId(productId)
+          ? new mongoose.Types.ObjectId(productId as string)
+          : null,
+      },
+    ],
+  });
 
   // No productDetail found
   if (!productDetails) {

@@ -12,9 +12,10 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   },
 }));
 
+/* Cart Component */
 export const Cart = () => {
   return (
-    <StyledBadge badgeContent={5} color="primary">
+    <StyledBadge badgeContent={2} color="primary">
       <ShoppingBasketIcon sx={{ color: "#003868d9", fontSize: 30 }} />
     </StyledBadge>
   );

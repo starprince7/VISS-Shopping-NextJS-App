@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { OrderRow } from "./OrderRow";
 import { useFetch } from "../hooks";
-import { TableLoadingView } from "./skeleton/TableLoadingView";
+import { TableLoadingView } from "./Skeleton/TableLoadingView";
 import toastService from "../services/toast-notification";
 
 export default function RecentOrders() {

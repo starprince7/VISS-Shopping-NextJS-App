@@ -5,7 +5,7 @@ import { SvgIcon, Typography } from "@mui/material";
 import { FlexCol } from "./FlexCol";
 import { FlexRow } from "./FlexRow";
 import { useFetch } from "../hooks";
-import { OverviewCardSkeleton } from "./skeleton/OverviewCardSkeleton";
+import { OverviewCardSkeleton } from "./Skeleton/OverviewCardSkeleton";
 import { formatToCurrency } from "../utils/currencyFormatter";
 
 type Props = {

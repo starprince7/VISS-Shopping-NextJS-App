@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { Container, IconButton, Typography } from "@mui/material";
 import WatchIcon from "@mui/icons-material/Watch";
 import React from "react";
@@ -9,6 +11,7 @@ type Props = {
 };
 
 export const Categories = ({ categories }: Props) => {
+  const router = useRouter();
   return (
     <Container sx={{ py: 3, my: { md: 6 } }}>
       <FlexRow
@@ -17,14 +20,16 @@ export const Categories = ({ categories }: Props) => {
       >
         {categories.map(({ name }) => (
           <div className="rounded-full w-fit py-4 px-6 text-center">
-            <IconButton className="bg-primary my-2">
-              <WatchIcon
-                sx={{ fontSize: { xs: 65, sm: 50 }, color: "white" }}
-              />
-            </IconButton>
-            <Typography className="text-neutral-500 capitalize">
-              {name}
-            </Typography>
+            <Link href={`/category/${name}`}>
+              <IconButton className="bg-primary my-2">
+                <WatchIcon
+                  sx={{ fontSize: { xs: 65, sm: 50 }, color: "white" }}
+                />
+              </IconButton>
+              <Typography className="text-neutral-500 capitalize">
+                {name}
+              </Typography>
+            </Link>
           </div>
         ))}
       </FlexRow>

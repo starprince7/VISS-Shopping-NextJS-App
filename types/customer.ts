@@ -1,5 +1,6 @@
 import { Model } from "mongoose";
 import { Order } from "./order";
+import { CartItem } from "./cart-item";
 
 export type ShippingInfo = {
   phoneNumber: string;
@@ -17,7 +18,7 @@ export type CustomerType = {
   fullName: string;
   email: string | { unique: object };
   password: string;
-  cart: {}[];
+  cart: CartItem[];
   orderHistory: Order[];
   isEmailVerified: boolean;
   isPhoneVerified: boolean;

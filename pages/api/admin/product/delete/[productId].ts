@@ -26,6 +26,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
 
   const deletedProduct = await Product.findByIdAndDelete(productId);
+  const result = await ImageService.removeUploadedImage(
+    deletedProduct.productId,
+  );
+  console.log("Image removed/deleted from cloud...", result);
 
   // No product found
   if (!deletedProduct) {
@@ -34,11 +38,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.end();
     return;
   }
-
-  const result = await ImageService.removeUploadedImage(
-    deletedProduct.productId,
-  );
-  console.log("Image removed/deleted from cloud...", result);
 
   res.status(200);
   res.json({ msg: "Deleted successfully", product: deletedProduct });

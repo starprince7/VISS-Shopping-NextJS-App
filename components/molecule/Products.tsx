@@ -14,7 +14,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 import InfiniteScroller from "react-infinite-scroller";
 
 import { useFetch } from "../../hooks";
-import { TableLoadingView } from "../skeleton/TableLoadingView";
+import { TableLoadingView } from "../Skeleton/TableLoadingView";
 import { Product } from "../atom";
 import { FlexRow } from "../FlexRow";
 import { selectProductsState } from "../../store/productsSlice/selectors";

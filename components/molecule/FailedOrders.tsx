@@ -12,7 +12,7 @@ import { Alert, Button, Typography } from "@mui/material";
 import { AnyAction } from "@reduxjs/toolkit";
 
 import { OrderRow } from "../OrderRow";
-import { TableLoadingView } from "../skeleton/TableLoadingView";
+import { TableLoadingView } from "../Skeleton/TableLoadingView";
 import { fetchFailedOrders } from "../../store/failedOrderSlice/reducer"; /* From completed Order silce folder */
 import { selectOrders } from "../../store/failedOrderSlice/selector"; /* From completed Order silce folder */
 import { FlexRow } from "../FlexRow";

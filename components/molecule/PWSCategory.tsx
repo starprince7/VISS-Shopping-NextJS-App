@@ -3,7 +3,7 @@ import { FlexCol } from "../FlexCol";
 import { FlexRow } from "../FlexRow";
 import { ProductCard } from "../atom";
 import { useProducts } from "../../hooks";
-import { ProductCardSkeleton } from "../skeleton/product-card-skeleton";
+import { ProductCardSkeleton } from "../Skeleton/product-card-skeleton";
 
 type PWSCProps = {
   categoryName: string;

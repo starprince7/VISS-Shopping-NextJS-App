@@ -13,7 +13,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 import { OrderRow } from "../OrderRow";
 import { useFetch } from "../../hooks";
-import { TableLoadingView } from "../skeleton/TableLoadingView";
+import { TableLoadingView } from "../Skeleton/TableLoadingView";
 import toastService from "../../services/toast-notification";
 import { fetchCompletedOrders } from "../../store/completedOrderSlice/reducer"; /* From completed Order silce folder */
 import { selectOrders } from "../../store/completedOrderSlice/selector"; /* From completed Order silce folder */

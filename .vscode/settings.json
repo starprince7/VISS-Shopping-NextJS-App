@@ -4,5 +4,5 @@
     "source.fixAll.eslint": true
   },
   "cSpell.words": ["PWSC", "viss"],
-  "cSpell.ignoreWords": ["Swiper", "Tanstack", "toastify"]
+  "cSpell.ignoreWords": ["Catergory", "Swiper", "Tanstack", "toastify"]
 }

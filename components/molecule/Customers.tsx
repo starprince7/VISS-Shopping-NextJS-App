@@ -13,7 +13,7 @@ import { Button, TablePagination, Typography } from "@mui/material";
 import { AnyAction } from "@reduxjs/toolkit";
 
 import { useFetch } from "../../hooks";
-import { TableLoadingView } from "../skeleton/TableLoadingView";
+import { TableLoadingView } from "../Skeleton/TableLoadingView";
 import { Customer } from "../atom";
 import { FlexRow } from "../FlexRow";
 import { selectCustomers } from "../../store/customersSlice/selector";
