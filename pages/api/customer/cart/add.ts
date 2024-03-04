@@ -65,9 +65,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .status(200)
         .json({ msg: "Product added to cart successfully" });
     }
-
     /**
-     * Product exits inside cart. Hence update customers cart
+     * ELSE
+     * Product exits inside cart. Hence update products quantity.
      */
     const cartItemQuantityIncrementQuery: any = {
       $inc: { "cart.$[item].quantity": parsedQuantity },

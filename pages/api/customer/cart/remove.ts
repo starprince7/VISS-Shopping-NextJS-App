@@ -45,11 +45,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ msg: "Product not found in the cart", error: true });
     }
 
+    /**
+     * If the quantity is more than 1, decrement the quantity by 1;
+     * else If the quantity is 1, remove the product from the cart;
+     */
     if (customer.cart[productIndex].quantity > 1) {
-      // If the quantity is more than 1, decrement the quantity by 1
       customer.cart[productIndex].quantity -= 1;
     } else {
-      // If the quantity is 1, remove the product from the cart
       customer.cart.splice(productIndex, 1);
     }
 
