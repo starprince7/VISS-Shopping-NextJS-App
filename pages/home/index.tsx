@@ -24,6 +24,7 @@ export default function HomePage({
         <Banner />
 
       </div>
+      <Categories categories={categories} />
       <div className="">
         {deviceType === "desktop" && <ProductCarousel products={products} />}
         {deviceType === "tablet" && <ProductCarousel products={products} />}
@@ -31,7 +32,7 @@ export default function HomePage({
           <ProductCarouselMobile products={products} />
         )}
       </div>
-      <Categories categories={categories} />
+
       <ProductsShowcase categories={categories} />
       {/* products of specific categories */}
       {/* footer */}

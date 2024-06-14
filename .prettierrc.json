@@ -1,9 +1,0 @@
-{
-  "tabWidth": 2,
-  "useTabs": false,
-  "trailingComma": "all",
-  "multiline": "auto",
-  "bracketSameLine": false,
-  "maxLineLength": 200,
-  "arrowParens": "always"
-}

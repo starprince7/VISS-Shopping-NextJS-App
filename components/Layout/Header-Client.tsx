@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Container } from "@mui/material";
 import { SearchBar } from "../SearchBar";
-import { Cart } from "../Cart";
+import { CartBadge } from "../cart/CartBadge";
 
 import { useDeviceType } from "../../hooks";
 import Logo from "../../assets/icons/Logo";
@@ -23,9 +23,8 @@ const Header: FC<IHeaderProps> = ({ className }) => {
           <Link href="/home">
             <Logo className="h-7 sm:h-8 stroke-neutral-500 -ml-7 sm:-ml-16 font-extrabold w-fit" />
           </Link>
-          {deviceType === "desktop" && <SearchBar />}
-          {deviceType === "tablet" && <SearchBar />}
-          <Cart />
+          <SearchBar />
+          <CartBadge />
         </section>
         <div className="mb-2.5 px-2">
           {deviceType === "mobile" && <SearchBar />}

@@ -1,13 +1,13 @@
 {
-  "doubleQuote": true,
-  "singleQuote": false,
   "tabWidth": 2,
   "useTabs": false,
   "trailingComma": "all",
   "multiline": "auto",
   "bracketSameLine": false,
   "maxLineLength": 200,
-  "semi": true,
   "arrowParens": "always",
+  "doubleQuote": true,
+  "singleQuote": false,
+  "semi": true,
   "editor.formatOnSave": true
 }

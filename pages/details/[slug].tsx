@@ -9,11 +9,16 @@ import { FlexCol, FlexRow, Footer, HeaderClient } from "../../components";
 import { formatToCurrency } from "../../utils/currencyFormatter";
 import { useProduct } from "../../hooks";
 import { ProductDetailsSkeleton } from "../../components/Skeleton";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
 
 export default function ProductDetailsSlugPage() {
   const { query } = useRouter();
   const { slug } = query;
   const { data: product, status, error } = useProduct(slug as string);
+  console.log("The Product object:", product)
+
+  const dispatch = useDispatch()
 
   if (status === "pending")
     return (
@@ -52,6 +57,9 @@ export default function ProductDetailsSlugPage() {
                 },
               }}
               className="bg-primary"
+              onClick={() => {
+                dispatch(addToCart({ productId: product?.productId!, productNumber: product?.productNumber!, quantity: 1 }))
+              }}
             >
               Add To Cart
             </Button>

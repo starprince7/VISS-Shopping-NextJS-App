@@ -12,4 +12,4 @@ export * from "./Layout/Footer";
 export * from "./OrderRow";
 export * from "./SingleOrderInformation";
 export * from "./SearchBar";
-export * from "./Cart";
+export * from "./cart/CartBadge";

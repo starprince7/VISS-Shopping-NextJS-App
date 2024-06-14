@@ -5,6 +5,7 @@ import pendingOrderReducer from "./pendingOrderSlice/reducer";
 import failedOrderReducer from "./failedOrderSlice/reducer";
 import completedOrderReducer from "./completedOrderSlice/reducer";
 import administratorReducer from "./AdminSlice/reducer";
+import cartSliceOrReducer from "./cartSlice";
 
 export const rootReducer = {
   Products: productReducer,
@@ -13,6 +14,7 @@ export const rootReducer = {
   FailedOrders: failedOrderReducer,
   CompletedOrders: completedOrderReducer,
   Administrator: administratorReducer,
+  Cart: cartSliceOrReducer
 };
 
 const store = configureStore({ reducer: rootReducer });

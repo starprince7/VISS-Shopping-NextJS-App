@@ -27,7 +27,7 @@ const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
       required: [true, "Please enter a password"],
       minlength: [6, "Minimum password length is 6 characters"],
     },
-    cart: { type: [{}], default: [{}] },
+    cart: { type: [{}], default: [] },
     orderHistory: { type: [{}], default: [] },
     isEmailVerified: { type: Boolean, default: false },
     isPhoneVerified: { type: Boolean, default: false },

@@ -3,6 +3,16 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["PWSC", "viss"],
-  "cSpell.ignoreWords": ["Catergory", "Swiper", "Tanstack", "toastify"]
+  "cSpell.words": [
+    "PWSC",
+    "viss"
+  ],
+  "cSpell.ignoreWords": [
+    "Catergory",
+    "Swiper",
+    "Tanstack",
+    "toastify"
+  ],
+  "editor.fontSize": 12.2,
+  "editor.fontFamily": "IntelOne Mono"
 }
