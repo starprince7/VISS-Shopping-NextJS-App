@@ -13,16 +13,16 @@ function CartItemLoadingSkeleton() {
     >
       <Skeleton
         animation="pulse"
-        sx={{ backgroundColor: "#353535", height: 80, width: "80px" }}
+        sx={{ backgroundColor: "#E5E4E2", height: 80, width: "80px" }}
       />
       <div style={{ width: "100%" }}>
         <Skeleton
           animation="pulse"
-          sx={{ backgroundColor: "#353535", height: 30, width: "80%" }}
+          sx={{ backgroundColor: "#E5E4E2", height: 30, width: "80%" }}
         />
         <Skeleton
           animation="pulse"
-          sx={{ backgroundColor: "#353535", height: 30, width: "100%" }}
+          sx={{ backgroundColor: "#E5E4E2", height: 30, width: "100%" }}
         />
       </div>
     </Box>

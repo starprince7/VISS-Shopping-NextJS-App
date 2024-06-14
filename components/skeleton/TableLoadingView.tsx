@@ -1,5 +1,4 @@
 import { Skeleton, Stack } from "@mui/material";
-import { FlexCol } from "../FlexCol";
 import { FlexRow } from "../FlexRow";
 
 export const TableLoadingView = () => {
@@ -22,7 +21,7 @@ export const TableLoadingView = () => {
               key={index}
               variant="rounded"
               animation="pulse"
-              sx={{ bgcolor: "#f7f7f7", width: "100%", fontSize: 20 }}
+              sx={{ bgcolor: "#E5E4E2", width: "100%", fontSize: 20 }}
             />
           ))}
         </FlexRow>

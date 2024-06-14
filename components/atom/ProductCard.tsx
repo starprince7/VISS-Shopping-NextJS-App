@@ -6,10 +6,12 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Product } from "../../types";
 import { formatToCurrency } from "../../utils/currencyFormatter";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
 
 type Props = Product;
 
-export const ProductCard = ({ image, title, price, productId, _id }: Props) => {
+export const ProductCard = ({ image, title, price, productId, productNumber, _id }: Props) => {
   /**
    * Describe Product Card.
    * 1. Product image
@@ -18,6 +20,7 @@ export const ProductCard = ({ image, title, price, productId, _id }: Props) => {
    * 4. rating.
    * 5. add to cart button
    */
+  const dispatch = useDispatch()
   return (
     <FlexCol
       className="shadow-md hover:shadow-2xl group"
@@ -75,6 +78,9 @@ export const ProductCard = ({ image, title, price, productId, _id }: Props) => {
             },
           }}
           className="bg-primary md:opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out"
+          onClick={() => {
+            dispatch(addToCart({ productId, productNumber, quantity: 1 }))
+          }}
         >
           Add To Cart
         </Button>

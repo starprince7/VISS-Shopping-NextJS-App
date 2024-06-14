@@ -6,7 +6,7 @@ export const OverviewCardSkeleton = () => {
       variant="rounded"
       height={150}
       animation="wave"
-      sx={{ bgcolor: "#f7f7f7", width: "100%" }}
+      sx={{ bgcolor: "#E5E4E2", width: "100%" }}
     />
   );
 };

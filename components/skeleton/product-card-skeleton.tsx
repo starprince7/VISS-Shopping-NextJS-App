@@ -20,26 +20,26 @@ export function ProductCardSkeleton() {
         width={200}
         height={230}
         animation="wave"
-        sx={{ bgcolor: "#f7f7f7", width: "100%" }}
+        sx={{ bgcolor: "#E5E4E2", width: "100%" }}
       />
       <div className="p-2">
         <Skeleton
           height={14}
           width={150}
           animation="wave"
-          sx={{ bgcolor: "#f7f7f7" }}
+          sx={{ bgcolor: "#E5E4E2" }}
         />
         <Skeleton
           height={25}
           width={60}
           animation="wave"
-          sx={{ my: 1, bgcolor: "#f7f7f7" }}
+          sx={{ my: 1, bgcolor: "#E5E4E2" }}
         />
         <Skeleton
           height={12}
           width={55}
           animation="wave"
-          sx={{ my: 2, bgcolor: "#f7f7f7" }}
+          sx={{ my: 2, bgcolor: "#E5E4E2" }}
         />
       </div>
     </FlexCol>

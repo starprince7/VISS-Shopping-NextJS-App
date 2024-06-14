@@ -10,7 +10,7 @@ export const ProductDetailsSkeleton = () => {
           variant="rounded"
           animation="wave"
           sx={{
-            bgcolor: "#f7f7f7",
+            bgcolor: "#E5E4E2",
             width: "100%",
             height: 550,
             display: { xs: "none", sm: "block" },
@@ -24,7 +24,7 @@ export const ProductDetailsSkeleton = () => {
               width={350}
               animation="wave"
               sx={{
-                bgcolor: "#f7f7f7",
+                bgcolor: "#E5E4E2",
                 display: { xs: "block", sm: "none" },
               }}
             />
@@ -32,19 +32,19 @@ export const ProductDetailsSkeleton = () => {
               height={23}
               width={350}
               animation="wave"
-              sx={{ bgcolor: "#f7f7f7" }}
+              sx={{ bgcolor: "#E5E4E2" }}
             />
             <Skeleton
               height={55}
               width={180}
               animation="wave"
-              sx={{ my: 1, bgcolor: "#f7f7f7" }}
+              sx={{ my: 1, bgcolor: "#E5E4E2" }}
             />
             <Skeleton
               height={15}
               width={95}
               animation="wave"
-              sx={{ my: 2, bgcolor: "#f7f7f7" }}
+              sx={{ my: 2, bgcolor: "#E5E4E2" }}
             />
             <br />
             <br />
@@ -55,7 +55,7 @@ export const ProductDetailsSkeleton = () => {
                 key={i}
                 height={33}
                 animation="wave"
-                sx={{ bgcolor: "#f7f7f7", width: "100%" }}
+                sx={{ bgcolor: "#E5E4E2", width: "100%" }}
               />
             ))}
             {new Array(3).fill("").map((_, i) => (
@@ -63,7 +63,7 @@ export const ProductDetailsSkeleton = () => {
                 key={i}
                 height={33}
                 animation="wave"
-                sx={{ bgcolor: "#f7f7f7", width: "80%" }}
+                sx={{ bgcolor: "#E5E4E2", width: "80%" }}
               />
             ))}
             {new Array(3).fill("").map((_, i) => (
@@ -71,7 +71,7 @@ export const ProductDetailsSkeleton = () => {
                 key={i}
                 height={33}
                 animation="wave"
-                sx={{ bgcolor: "#f7f7f7", width: "56%" }}
+                sx={{ bgcolor: "#E5E4E2", width: "56%" }}
               />
             ))}
           </div>

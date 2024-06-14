@@ -23,7 +23,8 @@ const Header: FC<IHeaderProps> = ({ className }) => {
           <Link href="/home">
             <Logo className="h-7 sm:h-8 stroke-neutral-500 -ml-7 sm:-ml-16 font-extrabold w-fit" />
           </Link>
-          <SearchBar />
+          {deviceType === "desktop" && <SearchBar />}
+          {deviceType === "tablet" && <SearchBar />}
           <CartBadge />
         </section>
         <div className="mb-2.5 px-2">
