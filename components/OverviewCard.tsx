@@ -7,6 +7,7 @@ import { FlexRow } from "./FlexRow";
 import { useFetch } from "../hooks";
 import { OverviewCardSkeleton } from "./Skeleton/OverviewCardSkeleton";
 import { formatToCurrency } from "../utils/currencyFormatter";
+import toastService from "../services/toast-notification";
 
 type Props = {
   title: string;
@@ -24,8 +25,12 @@ export const OverviewCard = ({
   const { data, error, fetchStatus } = useFetch(src);
   const dataItems = data[0] as unknown as { count: any };
 
-  if (fetchStatus !== "succeeded") {
+  if (fetchStatus === "fetching") {
     return <OverviewCardSkeleton />;
+  }
+
+  if (error) {
+    toastService.showErrorMessage(error.name);
   }
 
   return (

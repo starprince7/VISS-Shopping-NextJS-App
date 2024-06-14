@@ -4,7 +4,7 @@ import React from "react";
 
 export const SearchBar = () => {
   return (
-    <div className="flex-1 border border-neutral-300 rounded-3xl sm:rounded-md flex items-center justify-between px-2">
+    <div className="shadow-sm flex-1 border border-neutral-300 rounded-3xl sm:rounded-md flex items-center justify-between px-2">
       <SearchSharpIcon sx={{ color: "silver", fontSize: 22 }} />
       <InputBase
         placeholder="Search watches, brands and categories..."

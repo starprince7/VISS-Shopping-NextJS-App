@@ -25,9 +25,9 @@ export const Banner = () => {
           delay: 6000,
           disableOnInteraction: false,
         }}
-        direction={"vertical"}
+        direction={"horizontal"}
         slidesPerView={1}
-        mousewheel={true}
+        mousewheel={false}
         pagination={false}
         modules={[Mousewheel, Pagination, Autoplay, Navigation]}
       >

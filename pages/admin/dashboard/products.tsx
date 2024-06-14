@@ -339,11 +339,7 @@ const AddProductForm = ({
           }}
         >
           {image ? (
-            <img
-              src={image as unknown as string}
-              alt="product"
-              className="object-contain"
-            />
+            <img src={image} alt="product" className="object-contain" />
           ) : (
             <Box sx={{ textAlign: "center" }}>
               <Typography>Click or drag image here</Typography>

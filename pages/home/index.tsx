@@ -20,13 +20,16 @@ export default function HomePage({
   return (
     <>
       <HeaderClient className="header" />
-      <div className="bg-primary py-5">
+      <div className="bg-primary space-y-24">
+        <Banner />
+
+      </div>
+      <div className="">
         {deviceType === "desktop" && <ProductCarousel products={products} />}
         {deviceType === "tablet" && <ProductCarousel products={products} />}
         {deviceType === "mobile" && (
           <ProductCarouselMobile products={products} />
         )}
-        <Banner />
       </div>
       <Categories categories={categories} />
       <ProductsShowcase categories={categories} />

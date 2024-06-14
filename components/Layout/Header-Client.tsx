@@ -15,7 +15,7 @@ export interface IHeaderProps {
 const Header: FC<IHeaderProps> = ({ className }) => {
   const deviceType = useDeviceType();
   return (
-    <div className="sticky top-0 z-30 bg-white shadow pb-0.5">
+    <div className="sticky top-0 z-30 bg-white pb-0.5">
       <Container disableGutters>
         <section
           className={`${className} w-full flex justify-between items-baseline px-10 py-4 space-x-3`}

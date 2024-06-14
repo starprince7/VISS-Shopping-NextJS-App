@@ -17,10 +17,10 @@ export default function RecentOrders() {
   );
 
   if (error) {
-    toastService.showErrorMessage(error);
+    toastService.showErrorMessage(error.message);
   }
 
-  if (fetchStatus !== "succeeded") {
+  if (fetchStatus === "fetching") {
     return <TableLoadingView />;
   }
 
