@@ -3,16 +3,20 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": [
-    "PWSC",
-    "viss"
-  ],
+  "cSpell.words": ["PWSC", "viss"],
   "cSpell.ignoreWords": [
     "Catergory",
+    "PaystackButton",
+    "PaystackPaymentButton",
+    "PaystackProps",
     "Swiper",
     "Tanstack",
+    "firstname",
+    "lastname",
+    "persistor",
+    "signup",
     "toastify"
   ],
-  "editor.fontSize": 12.2,
-  "editor.fontFamily": "IntelOne Mono"
+  "editor.fontSize": 13,
+  "editor.fontFamily": "Source Code Pro"
 }

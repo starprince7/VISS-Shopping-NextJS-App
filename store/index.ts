@@ -1,4 +1,9 @@
+import { combineReducers } from 'redux';
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+// Reducers
 import productReducer from "./productsSlice/reducer";
 import customerReducer from "./customersSlice/reducer";
 import pendingOrderReducer from "./pendingOrderSlice/reducer";
@@ -16,6 +21,23 @@ export const rootReducer = {
   Administrator: administratorReducer,
   Cart: cartSliceOrReducer
 };
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['Cart']
+};
 
-const store = configureStore({ reducer: rootReducer });
-export default store;
+
+const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducer));
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST']
+      },
+    }),
+});
+const persistor = persistStore(store);
+export { store, persistor };

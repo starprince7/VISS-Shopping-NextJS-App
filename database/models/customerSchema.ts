@@ -7,12 +7,13 @@ import { CustomerModel, CustomerType } from "../../types";
 const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
   {
     wallet: { type: Number, default: 0 },
+    customerId: { type: String, default: '' },
     name: {
       firstname: {
         type: String,
-        required: [true, "Please enter a first name"],
+        required: [false, "Please enter a first name"],
       },
-      lastname: { type: String, required: [true, "Please enter a last name"] },
+      lastname: { type: String, required: [false, "Please enter a last name"] },
     },
     fullName: String,
     email: {

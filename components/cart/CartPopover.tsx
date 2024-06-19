@@ -34,7 +34,7 @@ export default function CartPopover({
       PaperProps={{
         sx: {
           backgroundColor: "#141414",
-          width: 450,
+          width: 550,
           border: "solid 1px #353535",
         },
       }}
@@ -46,11 +46,12 @@ export default function CartPopover({
 
 function Cart() {
   const cart = useSelector(selectCart)
+  const numberOfItemsInCart = cart.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
   return (
     <Box sx={{ p: { xs: 2, sm: 4 }, width: '100%', bgcolor: 'white' }}>
       {!!cart.length ?
         <Typography fontWeight={600} sx={{ fontSize: 20 }}>
-          Your baggage has {cart.length} {cart.length > 1 ? 'items' : 'item'}:
+          Your baggage has {numberOfItemsInCart} {numberOfItemsInCart > 1 ? 'items' : 'item'}:
         </Typography>
         :
         <Typography fontWeight={600} sx={{ fontSize: 20 }}>

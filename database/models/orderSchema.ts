@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import getUid from "get-uid";
 import { Order } from "../../types";
 
-enum PaymentStatus {
+export enum PaymentStatus {
   PENDING = "PENDING",
   SUCCESS = "SUCCESS",
   FAILED = "FAILED",

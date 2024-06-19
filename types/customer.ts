@@ -13,6 +13,7 @@ export type ShippingInfo = {
 
 export type CustomerType = {
   wallet: number;
+  customerId: string;
   _id: string;
   name: { firstname: string; lastname: string };
   fullName: string;

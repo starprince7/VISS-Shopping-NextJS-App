@@ -18,6 +18,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 /* CartBadge Component */
 export const CartBadge = () => {
   const cart = useSelector(selectCart)
+  const numberOfItemsInCart = cart.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +34,7 @@ export const CartBadge = () => {
   return (
     <>
       <IconButton onClick={handleClick} style={{ outline: 'none' }}>
-        <StyledBadge badgeContent={cart.length || '0'} color="primary">
+        <StyledBadge badgeContent={numberOfItemsInCart || '0'} color="primary">
           <ShoppingBasketTwoTone sx={{ color: "#003868d9", fontSize: 30 }} />
         </StyledBadge>
       </IconButton>

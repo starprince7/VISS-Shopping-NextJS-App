@@ -17,8 +17,9 @@ async function logIn(email: string, password: string): Promise<Login> {
   // Here user found, compare passwords
   const passwordMatched = await bcrypt.compare(password, user.password);
   if (passwordMatched) {
-    user.password = "";
-    return { error: null, customer: user };
+    // @ts-ignore
+    const customer = user.toObject();
+    return { error: null, customer };
   }
   // Here passwords do not match.
   return { customer: null, error: "You entered an incorrect password" };

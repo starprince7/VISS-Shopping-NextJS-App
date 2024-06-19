@@ -11,6 +11,9 @@ import {
 import { ProductCarouselMobile } from "../../components/molecule/ProductCarouselMobile";
 import { useDeviceType } from "../../hooks";
 import { Category } from "../../types";
+import db from "../../database/connection/dbConnection";
+import CategoryModel from "../../database/models/categorySchema";
+import Product from "../../database/models/productSchema";
 
 export default function HomePage({
   categories,
@@ -42,19 +45,22 @@ export default function HomePage({
 }
 
 export const getServerSideProps = (async () => {
-  const categories = await fetch("http://localhost:3000/api/categories").then(
-    (res) => res.json(),
-  );
+  await db.connectDB();
+
+  const categories = await CategoryModel.find();
   const page = 1;
   const limit = 5;
-  const { products } = await fetch(
-    `http://localhost:3000/api/products?page=${page}&limit=${limit}`,
-  ).then((res) => res.json());
+
+  const products = await Product.find()
+    .sort({ date_created: -1 })
+    .skip((Number(page) - 1) * Number(limit))
+    .limit(Number(limit))
+    .exec();
 
   return {
     props: {
-      categories: categories || [],
-      products: products || [],
+      categories: JSON.parse(JSON.stringify(categories || [])),
+      products: JSON.parse(JSON.stringify(products || [])),
     },
   };
 }) satisfies GetServerSideProps<{ categories: Category[] }>;

@@ -1,4 +1,3 @@
-
 import { uniq } from "lodash";
 import { CartItem } from "../types";
 
@@ -20,16 +19,23 @@ export const addItemToCart = (
   }
 };
 
-export const removeItemFromCart = (cart: CartItem[], productNumber: number) => {
-  const index = cart.findIndex((cItem) => cItem.productNumber === productNumber);
-  const nwCartCopy = [...cart];
 
-  if (index !== -1) {
-    nwCartCopy.splice(index, 1);
-  }
-
-  return nwCartCopy;
+export const removeItemFromCart = (cart: CartItem[], productId: string) => {
+  return cart.reduce((acc, item) => {
+    if (item.productId === productId) {
+      if (item.quantity > 1) {
+        // Decrease quantity and add to accumulator
+        acc.push({ ...item, quantity: item.quantity - 1 });
+      }
+      // If quantity is 1, do not add to accumulator, effectively removing it
+    } else {
+      // Add other items to accumulator unchanged
+      acc.push(item);
+    }
+    return acc;
+  }, [] as CartItem[]);
 };
+
 
 export function mergeArrays<T>(array1: T[], array2: T[]): T[] {
   // Concatenate the two arrays

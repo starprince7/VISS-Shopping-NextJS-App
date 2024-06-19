@@ -1,17 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Button, Stack, Typography } from "@mui/material";
+import { StarBorder as StarBorderIcon, Star as StarIcon, Add as AddIcon, Remove as RemoveIcon } from "@mui/icons-material";
+
 import { FlexCol } from "../FlexCol";
-import { Button, Typography } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Product } from "../../types";
+
 import { formatToCurrency } from "../../utils/currencyFormatter";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/cartSlice";
+import { addToCart, removeFromCart, selectCart } from "../../store/cartSlice";
+import { Product } from "../../types";
 
 type Props = Product;
 
-export const ProductCard = ({ image, title, price, productId, productNumber, _id }: Props) => {
+export const ProductCard = (props: Props) => {
+  const { image, title, price, productId, productNumber, _id } = props
   /**
    * Describe Product Card.
    * 1. Product image
@@ -21,6 +24,9 @@ export const ProductCard = ({ image, title, price, productId, productNumber, _id
    * 5. add to cart button
    */
   const dispatch = useDispatch()
+  const cart = useSelector(selectCart)
+  const productInCart = cart.find(item => item.productId === productId || item._id === _id);
+  const quantity = productInCart ? productInCart.quantity : 0;
   return (
     <FlexCol
       className="shadow-md hover:shadow-2xl group"
@@ -66,6 +72,18 @@ export const ProductCard = ({ image, title, price, productId, productNumber, _id
           <StarBorderIcon className="w-4 text-primary" />
           <StarBorderIcon className="w-4 text-primary" />
         </div>
+        <ProductButton productQuantity={quantity} {...props} />
+      </div>
+    </FlexCol>
+  );
+};
+
+
+function ProductButton({ image, title, price, productId, productNumber, _id, productQuantity }) {
+  const dispatch = useDispatch()
+  return (
+    <>
+      {productQuantity === 0 && (
         <Button
           variant="contained"
           sx={{
@@ -79,12 +97,53 @@ export const ProductCard = ({ image, title, price, productId, productNumber, _id
           }}
           className="bg-primary md:opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out"
           onClick={() => {
-            dispatch(addToCart({ productId, productNumber, quantity: 1 }))
+            dispatch(addToCart({ productId, productNumber, price, quantity: 1 }))
           }}
         >
           Add To Cart
         </Button>
-      </div>
-    </FlexCol>
-  );
-};
+      )}
+      {productQuantity > 0 && (
+        <Stack direction="row" gap={4} alignItems='center'>
+          <Button
+            variant="contained"
+            sx={{
+              my: 1,
+              fontWeight: 800,
+              width: "100%",
+              color: "white",
+              "&:hover": {
+                background: "#79936f",
+              },
+            }}
+            className="bg-primary md:opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out"
+            onClick={() => {
+              dispatch(addToCart({ productId, productNumber, price, quantity: +1 }))
+            }}
+          >
+            <AddIcon />
+          </Button>
+          <Typography className=" md:opacity-0 group-hover:opacity-100 transition-all duration-100 ease-in-out">{productQuantity}</Typography>
+          <Button
+            variant="contained"
+            sx={{
+              my: 1,
+              fontWeight: 800,
+              width: "100%",
+              color: "white",
+              "&:hover": {
+                background: "#79936f",
+              },
+            }}
+            className="bg-primary md:opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out"
+            onClick={() => {
+              dispatch(removeFromCart({ productId }))
+            }}
+          >
+            <RemoveIcon />
+          </Button>
+        </Stack>
+      )}
+    </>
+  )
+}

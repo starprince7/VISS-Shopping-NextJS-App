@@ -11,8 +11,8 @@ const cartSlice = createSlice({
     name: "cartSlice",
     initialState,
     reducers: {
-        removeFromCart: (state, action: PayloadAction<{ productNumber: number }>) => {
-            return removeItemFromCart(state, action.payload.productNumber)
+        removeFromCart: (state, action: PayloadAction<{ productId: string }>) => {
+            return removeItemFromCart(state, action.payload.productId)
         },
         addToCart: (state, action: PayloadAction<CartItem>) => {
             return addItemToCart(state, action.payload)
