@@ -9,8 +9,8 @@ import { useRouter } from "next/router";
 import { PaystackButton } from "react-paystack";
 import { PaystackProps } from "react-paystack/dist/types";
 import { useSession } from "../../context/session-provider";
-import { useSelector } from "react-redux";
-import { selectCart } from "../../store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart, selectCart } from "../../store/cartSlice";
 import { generateId } from "../../utils/generate-id";
 import { formatToCurrency } from "../../utils/currencyFormatter";
 import { createOrder } from "../../helpers/create-order";
@@ -20,6 +20,7 @@ export function PaystackPaymentButton() {
   const router = useRouter();
   const session = useSession();
   const cart = useSelector(selectCart);
+  const dispatch = useDispatch();
 
   const totalAmountInCart = cart.reduce((acc, cartItem) => {
     const itemTotal = cartItem.price * cartItem.quantity;
@@ -31,12 +32,15 @@ export function PaystackPaymentButton() {
       const orderNo = generateId();
       const { data: orderData } = await createOrder({
         amount: totalAmountInCart,
+        sumTotal: totalAmountInCart,
         customer: session?._id as any,
         items: cart,
         orderNo,
         transactionRef: txInfo.reference,
       });
 
+      // clear cart here!
+      dispatch(clearCart());
       const route = `/checkout/payment-complete?transactionId=${txInfo.reference}&orderId=${orderData.order._id}`;
       router.push(route);
     })();

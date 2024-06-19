@@ -7,6 +7,7 @@ type CreateOrderParams = {
   customer: CustomerType;
   orderNo: string;
   amount: number;
+  sumTotal: number;
   items: CartItem[];
 };
 

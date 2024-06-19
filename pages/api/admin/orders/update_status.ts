@@ -5,72 +5,97 @@ import Orders from "../../../../database/models/orderSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // Authenticate request.
   const { error, auth_req } = getValidAuthentication(req, res);
   if (error) return;
-  const { method } = auth_req;
 
-  // connect DB
+  const { method } = auth_req;
   await db.connectDB();
 
   const { orderId, status } = req.body;
 
-  switch (method) {
-    case "POST":
-      if (!orderId) {
-        res.status(400).json({
-          error: "Provide an order ID.",
-        });
-        break;
-      }
-      if (!orderId || !status) {
-        res.status(400).json({
-          error:
-            "Provide a valid order status-type of the following; 'PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELED', 'REFUNDED', 'RETURNED'",
-        });
-        break;
-      }
-      let orderUpdated;
-      try {
-        if (status === "DELIVERED") {
-          orderUpdated = await Orders.findByIdAndUpdate(orderId, {
+  if (method === "POST") {
+    if (!orderId || !status) {
+      res.status(400).json({
+        error:
+          "Provide a valid order status-type of the following; 'PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELED', 'REFUNDED', 'RETURNED'",
+      });
+      return;
+    }
+
+    await updateOrderStatus(orderId, status, res);
+  } else {
+    res.status(405).json({ msg: "Method not allowed" });
+  }
+};
+
+const updateOrderStatus = async (
+  orderId: string,
+  status: string,
+  res: NextApiResponse,
+) => {
+  try {
+    let orderUpdated;
+
+    switch (status) {
+      case "DELIVERED":
+        orderUpdated = await Orders.findByIdAndUpdate(
+          orderId,
+          {
             orderStatus: status,
             isOrderFulfilled: true,
             orderIsFulfilledAt: new Date(),
-          });
-        } else if (status === "CANCELED") {
-          /* Return funds back to customer wallet for canceled/failed order. */
-          orderUpdated = await Orders.findByIdAndUpdate(orderId, {
-            orderStatus: status,
-          });
+          },
+          { new: true },
+        );
+        break;
 
-          const id = orderUpdated.customer._id;
-          const customer = await Customer.findById(id);
-          await Customer.findByIdAndUpdate(id, {
-            wallet: customer.wallet + orderUpdated.sumTotal,
-          });
-        } else {
-          orderUpdated = await Orders.findByIdAndUpdate(orderId, {
-            orderStatus: status,
-          });
+      case "CANCELED":
+        orderUpdated = await Orders.findByIdAndUpdate(
+          orderId,
+          { orderStatus: status },
+          { new: true },
+        );
+
+        if (!orderUpdated) {
+          throw new Error("Order not found");
         }
 
-        if (!orderUpdated) break;
-        res.status(200).json({
-          message: `${status}, order status was updated successfully.`,
-          order: orderUpdated,
-        });
-      } catch (error) {
-        res.status(404).json({
-          status: 404,
-          error: "Order not found",
-          message: "Order not found",
-        });
-      }
-      break;
-    default:
-      res.status(405);
-      res.json({ msg: "Method not allowed" });
-      break;
+        const customerId = orderUpdated.customer._id;
+        const customer = await Customer.findById(customerId);
+
+        if (!customer) {
+          throw new Error("Customer not found for refunding");
+        }
+
+        await Customer.findByIdAndUpdate(
+          customerId,
+          { $inc: { wallet: orderUpdated.sumTotal } },
+          { new: true },
+        );
+        break;
+
+      default:
+        orderUpdated = await Orders.findByIdAndUpdate(
+          orderId,
+          { orderStatus: status },
+          { new: true },
+        );
+        break;
+    }
+
+    if (!orderUpdated) {
+      throw new Error("Order not found");
+    }
+
+    res.status(200).json({
+      message: `${status}, order status was updated successfully.`,
+      order: orderUpdated,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: 404,
+      message: error.message || "Order not found",
+      error: true,
+    });
   }
 };

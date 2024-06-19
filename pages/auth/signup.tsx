@@ -1,4 +1,4 @@
-import { Alert, Typography } from "@mui/material";
+import { Alert, Stack, Typography } from "@mui/material";
 import router, { useRouter } from "next/router";
 import React, { useState, useRef } from "react";
 
@@ -13,6 +13,7 @@ export default function signupPage() {
   const { callbackUrl } = router.query;
 
   // Product Details
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -45,6 +46,7 @@ export default function signupPage() {
     SubmitButtonRef.current.textContent = "Please wait...";
 
     const CUSTOMER = {
+      fullName,
       email,
       password,
     };
@@ -106,14 +108,30 @@ export default function signupPage() {
               htmlFor="CUSTOMER title"
               className="block text-gray-400 my-2"
             >
-              Email address
+              Full Name
+            </label>
+            <input
+              required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              type="text"
+              placeholder="Enter your full name"
+              className="input"
+            />
+          </div>
+          <div className="input-field mb-4">
+            <label
+              htmlFor="CUSTOMER title"
+              className="block text-gray-400 my-2"
+            >
+              Email Address
             </label>
             <input
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              placeholder="Your email"
+              placeholder="Enter your email"
               className="input"
             />
             <Typography color="#F44336" variant="caption">
@@ -132,7 +150,7 @@ export default function signupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              placeholder="Your password"
+              placeholder="Enter your password"
               className="input"
             />
             <Typography color="#F44336" variant="caption">

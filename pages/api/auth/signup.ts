@@ -12,7 +12,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   switch (method) {
     case "POST": {
-      const { email, password } = req.body;
+      const { email, password, fullName } = req.body;
+      const firstname = fullName?.split(" ")[0];
+      const lastname = fullName?.split(" ")[1];
+
       if (!email) {
         res.status(401).json({ message: "Provide an email", error: true });
       }
@@ -21,59 +24,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
 
       // here generate a random customer name for every new signup
-      const generateRandomIdentity = () => {
-        const firstNames = [
-          "John",
-          "Jane",
-          "Alex",
-          "Emily",
-          "Chris",
-          "Katie",
-          "Michael",
-          "Sarah",
-        ];
-        const lastNames = [
-          "Smith",
-          "Johnson",
-          "Williams",
-          "Brown",
-          "Jones",
-          "Garcia",
-          "Miller",
-          "Davis",
-        ];
-        const adjectives = [
-          "Clever",
-          "Brave",
-          "Calm",
-          "Witty",
-          "Loyal",
-          "Honest",
-          "Kind",
-          "Bold",
-        ];
-        const numbers = Array.from({ length: 1000 }, (_, i) => i + 1); // Generate numbers from 1 to 1000
-
-        const randomFirstName =
-          firstNames[Math.floor(Math.random() * firstNames.length)];
-        const randomLastName =
-          lastNames[Math.floor(Math.random() * lastNames.length)];
-        const randomAdjective =
-          adjectives[Math.floor(Math.random() * adjectives.length)];
-        const randomNumber =
-          numbers[Math.floor(Math.random() * numbers.length)];
-
-        return {
-          customerId: `${randomAdjective}${randomFirstName}${randomNumber}`,
-        };
-      };
-
       const { customerId } = generateRandomIdentity();
       let newCustomerAccount;
 
       try {
         newCustomerAccount = await Customer.create({
           ...req.body,
+          name: {
+            firstname,
+            lastname,
+          },
           customerId,
         });
       } catch (e: any) {
@@ -85,7 +45,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           validationError: handledError,
         });
       } finally {
-        const token = createSessionToken({ ...newCustomerAccount.toObject() }); // these information are stored in the session token.
+        const plainCustomerObj = newCustomerAccount.toObject();
+        const token = createSessionToken(plainCustomerObj); // these information are stored in the session token.
         const MAX_AGE = 24 * 60 * 60;
 
         // Set a cookie
@@ -109,3 +70,51 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
   }
 }
+
+const generateRandomIdentity = () => {
+  const firstNames = [
+    "John",
+    "Jane",
+    "Alex",
+    "Emily",
+    "Chris",
+    "Katie",
+    "Michael",
+    "Sarah",
+  ];
+  const lastNames = [
+    "Smith",
+    "Johnson",
+    "Williams",
+    "Brown",
+    "Jones",
+    "Garcia",
+    "Miller",
+    "Davis",
+  ];
+  const adjectives = [
+    "Clever",
+    "Brave",
+    "Calm",
+    "Witty",
+    "Loyal",
+    "Honest",
+    "Kind",
+    "Bold",
+  ];
+  const numbers = Array.from({ length: 1000 }, (_, i) => i + 1); // Generate numbers from 1 to 1000
+
+  const randomFirstName =
+    firstNames[Math.floor(Math.random() * firstNames.length)];
+  const randomLastName =
+    lastNames[Math.floor(Math.random() * lastNames.length)];
+  const randomAdjective =
+    adjectives[Math.floor(Math.random() * adjectives.length)];
+  const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+
+  return {
+    customerId: `${randomAdjective}${randomFirstName}${randomNumber}`,
+    firstname: `${randomAdjective}${randomFirstName}${randomNumber}`,
+    lastname: `${randomLastName}`,
+  };
+};

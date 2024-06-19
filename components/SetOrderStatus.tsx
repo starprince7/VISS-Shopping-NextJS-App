@@ -61,23 +61,33 @@ export const SetOrderStatus = ({
     setLoading(true);
     setIsButtonDisabled(true);
 
-    const res = await apiClient.post(
-      "/api/admin/orders/update_status",
-      payload,
-    );
-    if (res.data.error) {
-      toastService.showErrorMessage(res.data.error);
-      setLoading(true);
-      setIsButtonDisabled(true);
-      return;
-    }
+    try {
+      const res = await apiClient.post(
+        "/api/admin/orders/update_status",
+        payload,
+      );
+      console.log("Res:", res);
+      if (res.data.error) {
+        toastService.showErrorMessage(res.data.error);
+        setLoading(true);
+        setIsButtonDisabled(true);
+        return;
+      }
 
-    // success
-    toastService.showSuccessMessage(res.data.message);
-    setLoading(false);
-    setIsButtonDisabled(false);
-    setOrderStatus("");
-    handleClose();
+      // success
+      toastService.showSuccessMessage(res.data.message);
+    } catch (e: any) {
+      toastService.showErrorMessage(
+        `Update failed, ${e.response.data.message || e.message}!`,
+      );
+      setLoading(false);
+      setIsButtonDisabled(false);
+    } finally {
+      setLoading(false);
+      setIsButtonDisabled(false);
+      setOrderStatus("");
+      handleClose();
+    }
   };
 
   return (

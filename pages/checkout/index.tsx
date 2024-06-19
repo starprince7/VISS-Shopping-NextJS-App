@@ -1,4 +1,14 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Container } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -15,6 +25,48 @@ import getValidAuthentication from "../../utils/middleware/validateAPIRequest";
 import getServerSession from "../../utils/middleware/get-server-session";
 import { useSession } from "../../context/session-provider";
 import { PaystackPaymentButton } from "../../components/payment-button/PaystackButton";
+import Link from "next/link";
+
+export default function CheckoutPage() {
+  const session = useSession();
+  console.log("Current session:", session);
+  const cart = useSelector(selectCart);
+
+  return (
+    <>
+      <HeaderClient />
+      <Container maxWidth="lg">
+        <FlexRow
+          sx={{
+            justifyContent: "space-between",
+            flexDirection: { xs: "column", sm: "row" },
+            alignItems: "center",
+            gap: 6,
+            my: 5,
+          }}
+        >
+          <Stack direction="column" gap={1} className="w-full">
+            {!!cart.length &&
+              cart.map((cartItem) => <CartItemInCheckoutPage {...cartItem} />)}
+          </Stack>
+          {!!cart.length && <SummaryBox />}
+        </FlexRow>
+        {!cart.length && (
+          <Card>
+            <CardContent>
+              <Alert severity="info">You have an empty baggage.</Alert>
+              <CardActionArea>
+                <Link href="/home" className="btn block mx-auto w-44">
+                  Continue shopping
+                </Link>
+              </CardActionArea>
+            </CardContent>
+          </Card>
+        )}
+      </Container>
+    </>
+  );
+}
 
 function CartItemInCheckoutPage({
   productNumber,
@@ -109,9 +161,7 @@ function CartItemInCheckoutPage({
   );
 }
 
-function CheckoutPage() {
-  const session = useSession();
-  console.log("Current session:", session);
+function SummaryBox() {
   const cart = useSelector(selectCart);
   const totalAmountInCart = cart.reduce((acc, cartItem) => {
     const itemTotal = cartItem.price * cartItem.quantity;
@@ -123,55 +173,34 @@ function CheckoutPage() {
   );
 
   return (
-    <>
-      <HeaderClient />
-      <Container maxWidth="lg">
-        <FlexRow
-          sx={{
-            justifyContent: "space-between",
-            flexDirection: { xs: "column", sm: "row" },
-            alignItems: "center",
-            gap: 6,
-            my: 5,
-          }}
-        >
-          <Stack direction="column" gap={1} className="w-full">
-            {!!cart.length &&
-              cart.map((cartItem) => <CartItemInCheckoutPage {...cartItem} />)}
-          </Stack>
-          <Box
-            height={270}
-            minWidth={350}
-            className="shadow-md rounded-md p-2 sm:p-5"
-          >
-            <Stack direction="column" gap={2} className="my-3">
-              <FlexRow justifyContent="space-between">
-                <Typography>Sum Total</Typography>
-                <Typography fontWeight={600}>
-                  {formatToCurrency(totalAmountInCart, "NGN")}
-                </Typography>
-              </FlexRow>
-              <FlexRow justifyContent="space-between">
-                <Typography>Item(s) in cart:</Typography>
-                <Typography>{numberOfItemsInCart}</Typography>
-              </FlexRow>
-              <FlexRow justifyContent="space-between">
-                <Typography color="GrayText">VAT:</Typography>
-                <Typography color="GrayText">NGN 0.00</Typography>
-              </FlexRow>
-            </Stack>
-            <PaystackPaymentButton />
-            <Typography color="GrayText" fontSize={14}>
-              By clicking pay you agree to your usage of cookies.
-            </Typography>
-          </Box>
+    <Box
+      height={270}
+      minWidth={350}
+      className="shadow-md rounded-md p-2 sm:p-5"
+    >
+      <Stack direction="column" gap={2} className="my-3">
+        <FlexRow justifyContent="space-between">
+          <Typography>Sum Total</Typography>
+          <Typography fontWeight={600}>
+            {formatToCurrency(totalAmountInCart, "NGN")}
+          </Typography>
         </FlexRow>
-      </Container>
-    </>
+        <FlexRow justifyContent="space-between">
+          <Typography>Item(s) in cart:</Typography>
+          <Typography>{numberOfItemsInCart}</Typography>
+        </FlexRow>
+        <FlexRow justifyContent="space-between">
+          <Typography color="GrayText">VAT:</Typography>
+          <Typography color="GrayText">NGN 0.00</Typography>
+        </FlexRow>
+      </Stack>
+      <PaystackPaymentButton />
+      <Typography color="GrayText" fontSize={14}>
+        By clicking pay you agree to your usage of cookies.
+      </Typography>
+    </Box>
   );
 }
-
-export default CheckoutPage;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { req, res } = ctx;

@@ -6,8 +6,9 @@ import { CustomerModel, CustomerType } from "../../types";
 
 const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(
   {
+    inviteCode: String,
     wallet: { type: Number, default: 0 },
-    customerId: { type: String, default: '' },
+    customerId: { type: String, default: "" },
     name: {
       firstname: {
         type: String,

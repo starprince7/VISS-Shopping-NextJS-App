@@ -19,7 +19,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
 
       const { error, customer } = await logIn(email, password);
-
+      console.log("Logged in customer: ", customer);
       const token = createSessionToken(customer!); // these information are stored in the session token.
       const MAX_AGE = 24 * 60 * 60;
 

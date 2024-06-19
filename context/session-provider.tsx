@@ -8,16 +8,31 @@ const SessionContext = React.createContext({} as CustomerType | null);
 
 // Provider.
 export default function SessionProvider({ children }) {
-  const [decodedSession, setDecodedSession] = useState<CustomerType | null>(
-    null,
-  );
+  const { decodedSession } = internal_useSessionGetter();
+
+  if (!!decodedSession) {
+    return (
+      <SessionContext.Provider value={decodedSession}>
+        {children}
+      </SessionContext.Provider>
+    );
+  } else {
+    return (
+      <SessionContext.Provider value={null}>{children}</SessionContext.Provider>
+    );
+  }
+}
+
+// internal session getter
+const internal_useSessionGetter = () => {
+  const [decodedSession, setDecodedSession] = useState(null);
 
   const fetchSession = async () => {
     const response = await axios.get("/api/auth/session");
     return response.data;
   };
 
-  const { data: sessionData } = useQuery({
+  const { data: sessionData, refetch } = useQuery({
     queryKey: ["session"],
     queryFn: fetchSession,
   });
@@ -28,12 +43,8 @@ export default function SessionProvider({ children }) {
     }
   }, [sessionData]);
 
-  return (
-    <SessionContext.Provider value={decodedSession}>
-      {children}
-    </SessionContext.Provider>
-  );
-}
+  return { decodedSession, refetch };
+};
 
 // useSession Hook.
 export const useSession = () => React.useContext(SessionContext);

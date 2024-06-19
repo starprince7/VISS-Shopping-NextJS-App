@@ -30,6 +30,7 @@ export const OrderRow = (props: Order) => {
     isOrderFulfilled,
     customer,
     sumTotal,
+    amount,
     paymentStatus,
   } = props;
   const [open, setOpen] = useState(false);
@@ -43,7 +44,7 @@ export const OrderRow = (props: Order) => {
           #{orderNo}
         </TableCell>
         <TableCell align="left">
-          {customer.name.firstname} {customer.name.lastname}
+          {customer?.name?.firstname} {customer?.name?.lastname}
         </TableCell>
         <TableCell align="center">
           <Tooltip title="Click" followCursor>
@@ -98,7 +99,7 @@ export const OrderRow = (props: Order) => {
             paymentStatus === "SUCCESS" ? "text-green-500" : "text-gray-400"
           }`}
         >
-          <b>{formatToCurrency(sumTotal, "NGN")}</b>
+          <b>{formatToCurrency(sumTotal || amount, "NGN")}</b>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -160,9 +161,9 @@ export const OrderRow = (props: Order) => {
         <SetOrderStatus
           orderId={openOrderId}
           orderNo={orderNo}
-          customerName={`${customer.fullName && customer.fullName} ${
-            !customer.fullName ? customer.name.firstname : ""
-          } ${!customer.fullName ? customer.name.lastname || "" : ""}`}
+          customerName={`${customer?.fullName && customer?.fullName} ${
+            !customer?.fullName ? customer?.name?.firstname : ""
+          } ${!customer?.fullName ? customer?.name?.lastname || "" : ""}`}
           handleClose={() => setOrderStatusModalOpen(false)}
         />
       </Modal>

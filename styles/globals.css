@@ -21,7 +21,10 @@
         @apply w-72 mx-auto overflow-hidden h-72 border-8 my-5 text-center text-neutral-400 cursor-pointer rounded-md;
     }
     .btn {
-        @apply w-full p-4 bg-blue-600 active:bg-blue-800 outline-none rounded-md text-white font-semibold my-5;
+        @apply w-full p-3 bg-blue-600 active:bg-blue-800 outline-none rounded-md text-white font-semibold my-5;
+    }
+    .card {
+        @max-w-sm rounded overflow-hidden shadow-lg bg-gray-800 text-white;
     }
 }
 .layout {

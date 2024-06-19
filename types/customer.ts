@@ -12,6 +12,7 @@ export type ShippingInfo = {
 };
 
 export type CustomerType = {
+  inviteCode: string;
   wallet: number;
   customerId: string;
   _id: string;
