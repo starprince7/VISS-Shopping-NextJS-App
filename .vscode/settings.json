@@ -18,5 +18,5 @@
     "toastify"
   ],
   "editor.fontSize": 13,
-  "editor.fontFamily": "Source Code Pro"
+  "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace"
 }
