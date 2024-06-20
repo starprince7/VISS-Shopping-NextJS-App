@@ -47,7 +47,8 @@
     "max-classes-per-file": "off",
     "import/extensions": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "import/no-named-as-default": "off"
+    "import/no-named-as-default": "off",
+    "import/no-unresolved": "off"
   },
   "globals": {
     "React": "writable"
