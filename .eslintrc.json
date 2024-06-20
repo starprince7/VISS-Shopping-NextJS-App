@@ -48,7 +48,7 @@
     "import/extensions": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "import/no-named-as-default": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "error"
   },
   "globals": {
     "React": "writable"
