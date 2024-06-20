@@ -63,6 +63,7 @@ export default function ProductDetailsSlugPage() {
                     productId: product?.productId!,
                     productNumber: product?.productNumber!,
                     quantity: 1,
+                    price: product?.price!,
                   }),
                 );
               }}

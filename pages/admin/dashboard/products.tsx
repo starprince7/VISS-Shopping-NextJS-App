@@ -12,6 +12,7 @@ import { useCategories } from "../../../hooks";
 import toastService from "../../../services/toast-notification";
 import apiClient from "../../../config/apiConfig";
 import { fetchProducts } from "../../../store/productsSlice/reducer";
+import { Category } from "../../../types";
 
 interface ProductFormContextProps {
   setImage: (arg: string) => void;
@@ -180,7 +181,7 @@ const ProductsPage: NextPage = () => {
             countInStock={countInStock}
             category={category}
             description={description}
-            categories={categories}
+            categories={categories as any}
           />
         </ProductFormContext.Provider>
       </Drawer>
@@ -195,7 +196,7 @@ export default ProductsPage;
 */
 
 interface Props {
-  categories: ReturnType<typeof useCategories>;
+  categories: Category[];
   loading: boolean;
   image: string;
   title: string;

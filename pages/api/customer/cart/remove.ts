@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
    */
 
   // Check for the existence of customerId and productId fields
-  const { customerId, productId } = req.body as CartItem;
+  const { customerId, productId } = req.body as CartItem & { customerId };
 
   if (!customerId)
     return res.status(400).json({ error: "Missing `customerId` field." });

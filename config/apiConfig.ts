@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 // import { DeviceUUID } from "device-uuid";
 import packageJson from "../package.json";
-import store from "../store";
+import { store } from "../store";
 import { logOutAction } from "../store/AdminSlice/reducer";
 import * as StorageService from "../utils/helpers/storage";
 

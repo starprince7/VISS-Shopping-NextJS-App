@@ -6,10 +6,9 @@ type Category = {
   name: string;
   type?: string;
 };
-type Response = ReturnType<typeof useQuery<Category[]>>;
 
-export const useCategories = (): Response => {
-  return useQuery({
+export const useCategories = () => {
+  return useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: async () => {
       const { data } = await axios.get("/api/categories");

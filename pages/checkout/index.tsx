@@ -20,7 +20,7 @@ import { formatToCurrency } from "../../utils/currencyFormatter";
 import { removeFromCart, selectCart } from "../../store/cartSlice";
 import { CartItem } from "../../types";
 import { useProduct } from "../../hooks";
-import CartItemLoadingSkeleton from "../../components/Skeleton/CartItemLoader";
+import { CartItemLoadingSkeleton } from "../../components/Skeleton/CartItemLoader";
 
 import getServerSession from "../../utils/middleware/get-server-session";
 import { useSession } from "../../context/session-provider";
