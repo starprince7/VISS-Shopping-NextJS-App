@@ -62,7 +62,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .status(200)
       .json({ msg: "Product removed from cart successfully" });
   } catch (error) {
-    console.error("Error removing product from cart:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };

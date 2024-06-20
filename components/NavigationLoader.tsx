@@ -1,18 +1,19 @@
-import React from 'react'
-import { useRouter } from 'next/router'
-import { Box, LinearProgress } from '@mui/material'
+import React from "react";
+import { useRouter } from "next/router";
+import { Box, LinearProgress } from "@mui/material";
 
-const LOADER_THRESHOLD = 250
+const LOADER_THRESHOLD = 250;
 
 export default function NavigationLoader(props: any) {
-  const [isLoading, setLoading] = React.useState(false)
-  const router = useRouter()
+  const [isLoading, setLoading] = React.useState(false);
+  const router = useRouter();
 
   React.useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
+    let timer: any | null = null;
 
-    const start = () =>
+    const start = () => {
       timer = setTimeout(() => setLoading(true), LOADER_THRESHOLD);
+    };
 
     const end = () => {
       if (timer) {
@@ -22,14 +23,14 @@ export default function NavigationLoader(props: any) {
       setLoading(false);
     };
 
-    router.events.on('routeChangeStart', start);
-    router.events.on('routeChangeComplete', end);
-    router.events.on('routeChangeError', end);
+    router.events.on("routeChangeStart", start);
+    router.events.on("routeChangeComplete", end);
+    router.events.on("routeChangeError", end);
 
     return () => {
-      router.events.off('routeChangeStart', start);
-      router.events.off('routeChangeComplete', end);
-      router.events.off('routeChangeError', end);
+      router.events.off("routeChangeStart", start);
+      router.events.off("routeChangeComplete", end);
+      router.events.off("routeChangeError", end);
 
       if (timer) {
         clearTimeout(timer);
@@ -44,14 +45,14 @@ export default function NavigationLoader(props: any) {
     <Box
       sx={{
         zIndex: 10020,
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        height: '100vh',
-        width: '100%',
+        height: "100vh",
+        width: "100%",
       }}
     >
-      <LinearProgress color='info' />
+      <LinearProgress color="info" />
     </Box>
   );
 }

@@ -2,7 +2,12 @@ import React from "react";
 import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules";
+import {
+  EffectCoverflow,
+  Pagination,
+  Navigation,
+  Autoplay,
+} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -35,19 +40,19 @@ export const ProductCarousel = ({ className, products }: Props) => {
       sx={{ borderRadius: 2, position: "relative", my: 5, py: 1 }}
       disableGutters
     >
-      <div className="absolute w-60 h-full z-10  bottom-0"></div>
+      <div className="absolute w-60 h-full z-10  bottom-0" />
       <Swiper
         autoplay={{
           delay: 2300,
-          disableOnInteraction: true
+          disableOnInteraction: true,
         }}
         spaceBetween={1}
         slidesPerView={4}
         simulateTouch
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        loop={true}
+        effect="coverflow"
+        grabCursor
+        centeredSlides
+        loop
         coverflowEffect={{
           rotate: 5,
           stretch: 26,
@@ -59,7 +64,7 @@ export const ProductCarousel = ({ className, products }: Props) => {
       >
         {renderSwipeItems}
       </Swiper>
-      <div className="absolute w-60 h-full z-10  bottom-0 right-0"></div>
+      <div className="absolute w-60 h-full z-10  bottom-0 right-0" />
     </Container>
   );
 };

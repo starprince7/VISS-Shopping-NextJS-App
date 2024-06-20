@@ -18,14 +18,14 @@ export const Banner = () => {
       <Swiper
         className="sm:h-80 h-48"
         spaceBetween={30}
-        centeredSlides={true}
-        loop={true}
+        centeredSlides
+        loop
         zoom
         autoplay={{
           delay: 6000,
           disableOnInteraction: false,
         }}
-        direction={"horizontal"}
+        direction="horizontal"
         slidesPerView={1}
         mousewheel={false}
         pagination={false}

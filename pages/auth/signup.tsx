@@ -1,12 +1,12 @@
+import Link from "next/link";
 import { Alert, Stack, Typography } from "@mui/material";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, { useState, useRef } from "react";
 
 import { Logo } from "../../assets/icons";
 import toastService from "../../services/toast-notification";
-import Link from "next/link";
 
-export default function signupPage() {
+export default function SignupPage() {
   const FormRef = useRef<HTMLFormElement>();
   const SubmitButtonRef = useRef<HTMLButtonElement>();
   const router = useRouter();
@@ -175,6 +175,7 @@ export default function signupPage() {
           </div>
 
           <button
+            type="submit"
             ref={SubmitButtonRef as React.LegacyRef<HTMLButtonElement>}
             className="btn"
           >

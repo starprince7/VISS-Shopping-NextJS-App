@@ -1,5 +1,5 @@
-import { FlexCol } from "../FlexCol";
 import { Skeleton } from "@mui/material";
+import { FlexCol } from "../FlexCol";
 
 export function ProductCardSkeleton() {
   return (

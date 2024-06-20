@@ -11,60 +11,62 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   switch (method) {
-    case "POST": {
-      const { email, password, fullName } = req.body;
-      const firstname = fullName?.split(" ")[0];
-      const lastname = fullName?.split(" ")[1];
+    case "POST":
+      {
+        const { email, password, fullName } = req.body;
+        const firstname = fullName?.split(" ")[0];
+        const lastname = fullName?.split(" ")[1];
 
-      if (!email) {
-        res.status(401).json({ message: "Provide an email", error: true });
+        if (!email) {
+          res.status(401).json({ message: "Provide an email", error: true });
+        }
+        if (!password) {
+          res.status(401).json({ message: "Provide a password", error: true });
+        }
+
+        // here generate a random customer name for every new signup
+        const { customerId } = generateRandomIdentity();
+        let newCustomerAccount;
+
+        try {
+          newCustomerAccount = await Customer.create({
+            ...req.body,
+            name: {
+              firstname,
+              lastname,
+            },
+            customerId,
+          });
+        } catch (e: any) {
+          console.log("The  sign up error:", e.message);
+          const handledError = schemaErrorHandler(e);
+          res.status(400).json({
+            error: true,
+            message: "Validation Error",
+            validationError: handledError,
+          });
+        } finally {
+          const plainCustomerObj = newCustomerAccount.toObject();
+          const token = createSessionToken(plainCustomerObj); // these information are stored in the session token.
+          const MAX_AGE = 24 * 60 * 60;
+
+          // Set a cookie
+          res.setHeader(
+            "Set-Cookie",
+            serialize("session_token", token, {
+              maxAge: MAX_AGE,
+              path: "/",
+              secure: process.env.NODE_ENV === "production",
+              httpOnly: true,
+            }),
+          );
+          res.status(200).json({
+            error: false,
+            customerId: newCustomerAccount?.customerId,
+          });
+        }
       }
-      if (!password) {
-        res.status(401).json({ message: "Provide a password", error: true });
-      }
-
-      // here generate a random customer name for every new signup
-      const { customerId } = generateRandomIdentity();
-      let newCustomerAccount;
-
-      try {
-        newCustomerAccount = await Customer.create({
-          ...req.body,
-          name: {
-            firstname,
-            lastname,
-          },
-          customerId,
-        });
-      } catch (e: any) {
-        console.log("The  sign up error:", e.message);
-        const handledError = schemaErrorHandler(e);
-        res.status(400).json({
-          error: true,
-          message: "Validation Error",
-          validationError: handledError,
-        });
-      } finally {
-        const plainCustomerObj = newCustomerAccount.toObject();
-        const token = createSessionToken(plainCustomerObj); // these information are stored in the session token.
-        const MAX_AGE = 24 * 60 * 60;
-
-        // Set a cookie
-        res.setHeader(
-          "Set-Cookie",
-          serialize("session_token", token, {
-            maxAge: MAX_AGE,
-            path: "/",
-            secure: process.env.NODE_ENV === "production",
-            httpOnly: true,
-          }),
-        );
-        res.status(200).json({
-          error: false,
-          customerId: newCustomerAccount?.customerId,
-        });
-      }
-    }
+      break;
     default: {
       res.status(409).json({ error: true, message: "Method not allowed!" });
     }

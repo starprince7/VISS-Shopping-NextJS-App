@@ -1,7 +1,7 @@
 import { Box, Skeleton } from "@mui/material";
 
 // Skeleton Component
-function CartItemLoadingSkeleton() {
+export function CartItemLoadingSkeleton() {
   return (
     <Box
       sx={{
@@ -28,5 +28,3 @@ function CartItemLoadingSkeleton() {
     </Box>
   );
 }
-
-export default CartItemLoadingSkeleton;

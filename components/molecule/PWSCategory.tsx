@@ -19,9 +19,15 @@ export const ProductsWithSpecificCategory = ({ categoryName }: PWSCProps) => {
    */
   return (
     <FlexCol sx={{ mt: 6 }}>
-      <Typography sx={{ fontWeight: 600, fontSize: 26, my: 6 }} className=" mb-3 text-primary text-center capitalize">
-        {categoryName == 'watch' ? 'See our watches' : !!products?.length && 'See our ' + categoryName}
+      <Typography
+        sx={{ fontWeight: 600, fontSize: 26, my: 6 }}
+        className=" mb-3 text-primary text-center capitalize"
+      >
+        {categoryName.toLowerCase() === "watch"
+          ? "See our watches"
+          : !!products?.length && `See our ${categoryName}`}
       </Typography>
+
       <FlexRow
         sx={{
           flexWrap: "wrap",

@@ -87,7 +87,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ msg: "Cart updated successfully" });
   } catch (error) {
-    console.error("Error adding product to cart:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };

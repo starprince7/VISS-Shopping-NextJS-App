@@ -45,21 +45,25 @@ export default function CartPopover({
 }
 
 function Cart() {
-  const cart = useSelector(selectCart)
-  const numberOfItemsInCart = cart.reduce((acc, cartItem) => acc + cartItem.quantity, 0)
+  const cart = useSelector(selectCart);
+  const numberOfItemsInCart = cart.reduce(
+    (acc, cartItem) => acc + cartItem.quantity,
+    0,
+  );
   return (
-    <Box sx={{ p: { xs: 2, sm: 4 }, width: '100%', bgcolor: 'white' }}>
-      {!!cart.length ?
+    <Box sx={{ p: { xs: 2, sm: 4 }, width: "100%", bgcolor: "white" }}>
+      {cart.length ? (
         <Typography fontWeight={600} sx={{ fontSize: 20 }}>
-          Your baggage has {numberOfItemsInCart} {numberOfItemsInCart > 1 ? 'items' : 'item'}:
+          Your baggage has {numberOfItemsInCart}{" "}
+          {numberOfItemsInCart > 1 ? "items" : "item"}:
         </Typography>
-        :
+      ) : (
         <Typography fontWeight={600} sx={{ fontSize: 20 }}>
           Your baggage is empty!
-        </Typography>}
-      {!!cart.length && cart.map(item => (
-        <CartItem key={item.productNumber} {...item} />
-      ))}
+        </Typography>
+      )}
+      {!!cart.length &&
+        cart.map((item) => <CartItem key={item.productNumber} {...item} />)}
       {!!cart.length && (
         <>
           <br />
@@ -67,5 +71,5 @@ function Cart() {
         </>
       )}
     </Box>
-  )
+  );
 }

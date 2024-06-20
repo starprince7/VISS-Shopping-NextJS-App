@@ -1,13 +1,13 @@
+import Link from "next/link";
 import { Alert, Typography } from "@mui/material";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, { useState, useRef } from "react";
 
 import { Logo } from "../../assets/icons";
 import toastService from "../../services/toast-notification";
-import Link from "next/link";
 import { useSession } from "../../context/session-provider";
 
-export default function loginPage() {
+export default function LoginPage() {
   const FormRef = useRef<HTMLFormElement>();
   const SubmitButtonRef = useRef<HTMLButtonElement>();
   const router = useRouter();
@@ -133,6 +133,7 @@ export default function loginPage() {
           </div>
 
           <button
+            type="button"
             ref={SubmitButtonRef as React.LegacyRef<HTMLButtonElement>}
             className="btn"
           >

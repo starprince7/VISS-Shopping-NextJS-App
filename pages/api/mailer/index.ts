@@ -2,9 +2,6 @@ import query from "query-string";
 import { mailer } from "../../../utils/mailer/mailgunConfig";
 
 async function ApiMailHandler(req, res) {
-  console.log("Method:", req.method, "👈");
-  console.log("Time:", new Date().toLocaleString());
-
   const { method } = req;
   let isSent: boolean | undefined = false;
 

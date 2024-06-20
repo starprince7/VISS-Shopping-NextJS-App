@@ -23,7 +23,7 @@ export const OverviewCard = ({
   isMoneyCount,
 }: Props) => {
   const { data, error, fetchStatus } = useFetch(src);
-  const dataItems = !!data ? (data[0] as { count: any }) : { count: 0 };
+  const dataItems = data ? (data[0] as { count: any }) : { count: 0 };
 
   if (fetchStatus === "fetching") {
     return <OverviewCardSkeleton />;

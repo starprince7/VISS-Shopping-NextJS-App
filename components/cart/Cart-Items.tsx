@@ -1,15 +1,15 @@
+import { useDispatch } from "react-redux";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { FlexRow } from "../FlexRow";
 import { formatToCurrency } from "../../utils/currencyFormatter";
-import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../store/cartSlice";
-import type { CartItem } from "../../types";
+import type { CartItem as CartItemType } from "../../types";
 import { useProduct } from "../../hooks";
-import CartItemLoadingSkeleton from "../Skeleton/CartItemLoader";
+import { CartItemLoadingSkeleton } from "../Skeleton";
 
-function CartItem({ productNumber, productId, quantity }: CartItem) {
+function CartItem({ productNumber, productId, quantity }: CartItemType) {
   const { isLoading, data, error } = useProduct(productId);
   const dispatch = useDispatch();
 

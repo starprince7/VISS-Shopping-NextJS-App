@@ -1,7 +1,12 @@
 import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules";
+import {
+  EffectCoverflow,
+  Pagination,
+  Navigation,
+  Autoplay,
+} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -29,18 +34,18 @@ export const ProductCarouselMobile = ({ className, products }: Props) => {
 
   return (
     <div className="relative my-5">
-      <div className="absolute w-24 h-full z-10 bottom-0 pointer-events-none"></div>
+      <div className="absolute w-24 h-full z-10 bottom-0 pointer-events-none" />
       <Swiper
-        mousewheel={true}
+        mousewheel
         autoplay={{ delay: 2300 }}
         className={className}
         spaceBetween={5}
         slidesPerView={3}
         simulateTouch
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        loop={true}
+        effect="coverflow"
+        grabCursor
+        centeredSlides
+        loop
         coverflowEffect={{
           rotate: 0,
           stretch: 14,
@@ -52,7 +57,7 @@ export const ProductCarouselMobile = ({ className, products }: Props) => {
       >
         {renderSwipeItems}
       </Swiper>
-      <div className="absolute w-24 h-full z-10  bottom-0 right-0 pointer-events-none"></div>
+      <div className="absolute w-24 h-full z-10  bottom-0 right-0 pointer-events-none" />
     </div>
   );
 };

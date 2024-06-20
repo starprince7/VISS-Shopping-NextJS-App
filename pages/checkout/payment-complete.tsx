@@ -1,8 +1,8 @@
 // src/Payment-complete.js
+import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import Animation from "../../assets/animated-assets/success.json";
-import { useRouter } from "next/router";
 
 const PaymentCompleteSuccess = () => {
   const router = useRouter();
@@ -16,6 +16,7 @@ const PaymentCompleteSuccess = () => {
           the next 2 minutes.
         </p>
         <button
+          type="button"
           onClick={() => router.push("/home")}
           className="mt-6 text-white font-bold py-2 px-4 rounded-md"
           style={{ background: "rgb(95, 206, 47)" }}
@@ -45,7 +46,7 @@ const SuccessAnimation = () => {
     return () => {};
   }, []);
 
-  return <div ref={ref} className="h-36 w-36 mx-auto -mt-4"></div>;
+  return <div ref={ref} className="h-36 w-36 mx-auto -mt-4" />;
 };
 
 export default PaymentCompleteSuccess;

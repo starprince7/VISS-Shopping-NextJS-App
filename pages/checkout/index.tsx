@@ -5,27 +5,26 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardHeader,
+  Container,
   Stack,
   Typography,
 } from "@mui/material";
-import { Container } from "@mui/material";
+import { GetServerSidePropsContext } from "next";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 
 import CloseIcon from "@mui/icons-material/Close";
 
 import { FlexCol, FlexRow, HeaderClient } from "../../components";
 import { formatToCurrency } from "../../utils/currencyFormatter";
-import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, selectCart } from "../../store/cartSlice";
 import { CartItem } from "../../types";
 import { useProduct } from "../../hooks";
 import CartItemLoadingSkeleton from "../../components/Skeleton/CartItemLoader";
-import { GetServerSidePropsContext } from "next";
-import getValidAuthentication from "../../utils/middleware/validateAPIRequest";
+
 import getServerSession from "../../utils/middleware/get-server-session";
 import { useSession } from "../../context/session-provider";
 import { PaystackPaymentButton } from "../../components/payment-button/PaystackButton";
-import Link from "next/link";
 
 export default function CheckoutPage() {
   const session = useSession();
@@ -165,8 +164,9 @@ function SummaryBox() {
   const cart = useSelector(selectCart);
   const totalAmountInCart = cart.reduce((acc, cartItem) => {
     const itemTotal = cartItem.price * cartItem.quantity;
-    return acc + (itemTotal ? itemTotal : 0);
+    return acc + itemTotal;
   }, 0);
+
   const numberOfItemsInCart = cart.reduce(
     (acc, cartItem) => acc + cartItem.quantity,
     0,

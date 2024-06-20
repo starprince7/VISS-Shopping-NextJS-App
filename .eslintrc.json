@@ -23,7 +23,10 @@
     "@next/next/no-page-custom-font": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
     "react/function-component-definition": [0],
     "react/no-unescaped-entities": "off",
     "react/require-default-props": "off",
@@ -42,16 +45,9 @@
     "no-shadow": "off",
     "jsx-a11y/anchor-is-valid": 0,
     "max-classes-per-file": "off",
-    "import/extensions": [
-      "error",
-      "always",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ]
+    "import/extensions": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "import/no-named-as-default": "off"
   },
   "globals": {
     "React": "writable"

@@ -13,7 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Connect database
   await db.connectDB();
 
-  console.log(req.body);
   const {
     paymentProcessor,
     status,
@@ -62,7 +61,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             `https://api.paystack.co/transaction/verify/${transactionRef}`,
             options,
           );
-          console.log("Paystack Response :", paystackResponse.data.status);
         } catch (e) {
           console.log("Paystack Error: ", e);
         }

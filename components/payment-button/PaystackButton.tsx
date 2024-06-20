@@ -8,13 +8,14 @@
 import { useRouter } from "next/router";
 import { PaystackButton } from "react-paystack";
 import { PaystackProps } from "react-paystack/dist/types";
-import { useSession } from "../../context/session-provider";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "@mui/material";
+
+import { useSession } from "../../context/session-provider";
 import { clearCart, selectCart } from "../../store/cartSlice";
 import { generateId } from "../../utils/generate-id";
 import { formatToCurrency } from "../../utils/currencyFormatter";
 import { createOrder } from "../../helpers/create-order";
-import { Button } from "@mui/material";
 
 export function PaystackPaymentButton() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export function PaystackPaymentButton() {
 
   const totalAmountInCart = cart.reduce((acc, cartItem) => {
     const itemTotal = cartItem.price * cartItem.quantity;
-    return acc + (itemTotal ? itemTotal : 0);
+    return acc + itemTotal;
   }, 0);
 
   function handlePaymentSuccessAction(txInfo: any) {

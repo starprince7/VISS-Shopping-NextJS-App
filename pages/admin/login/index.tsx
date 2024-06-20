@@ -95,7 +95,7 @@ export default function LoginAdminPage() {
           className="mt-5"
         >
           <div className="input-field mb-4">
-            <label htmlFor="ADMIN title" className="block text-gray-400 my-2">
+            <label htmlFor="email_admin" className="block text-gray-400 my-2">
               Email address
             </label>
             <input
@@ -103,12 +103,14 @@ export default function LoginAdminPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              id="email_admin" // Add this line
               placeholder="Your email"
               className="input"
             />
           </div>
+
           <div className="input-field mb-4">
-            <label htmlFor="ADMIN title" className="block text-gray-400 my-2">
+            <label htmlFor="password" className="block text-gray-400 my-2">
               Password
             </label>
             <input
@@ -116,12 +118,14 @@ export default function LoginAdminPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
+              id="password"
               placeholder="Your admin password"
               className="input"
             />
           </div>
 
           <button
+            type="submit"
             ref={SubmitButtonRef as React.LegacyRef<HTMLButtonElement>}
             className="btn"
           >
