@@ -16,7 +16,7 @@ const connectDB: ConnectDb = async () => {
   }
 
   if (mongoose.connections.length > 0) {
-    // @ts-expect-error
+    // @ts-ignore
     // eslint-disable-next-line no-underscore-dangle
     connection.isConnected = mongoose.connections[0]._readyState;
 

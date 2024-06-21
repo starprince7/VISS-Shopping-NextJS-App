@@ -1,6 +1,8 @@
 import React, { FC, ReactNode } from "react";
-import Header from "./Header-Admin";
+
 import SideBar from "../molecule/SideBar";
+
+import Header from "./Header-Admin";
 
 export interface LayoutProps {
   children: ReactNode;

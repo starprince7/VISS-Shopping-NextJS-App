@@ -2,12 +2,15 @@
 
 import React from "react";
 import { SvgIcon, Typography } from "@mui/material";
-import { FlexCol } from "./FlexCol";
-import { FlexRow } from "./FlexRow";
+
 import { useFetch } from "../hooks";
-import { OverviewCardSkeleton } from "./Skeleton/OverviewCardSkeleton";
 import { formatToCurrency } from "../utils/currencyFormatter";
 import toastService from "../services/toast-notification";
+
+import { FlexCol } from "./FlexCol";
+import { FlexRow } from "./FlexRow";
+import { OverviewCardSkeleton } from "./Skeleton/OverviewCardSkeleton";
+
 
 type Props = {
   title: string;

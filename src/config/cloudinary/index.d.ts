@@ -3,8 +3,8 @@ import { Transform } from 'stream';
 
 declare module 'cloudinary' {
 
-    /****************************** Constants *************************************/
-    /****************************** Transformations *******************************/
+    /** **************************** Constants ************************************ */
+    /** **************************** Transformations ****************************** */
     type CropMode =
         string
         | "scale"
@@ -131,7 +131,7 @@ declare module 'cloudinary' {
         | 96000
         | 176400
         | 192000;
-    /****************************** Flags *************************************/
+    /** **************************** Flags ************************************ */
     type ImageFlags =
         string
         | Array<string>
@@ -203,7 +203,7 @@ declare module 'cloudinary' {
         | "animoto"
         | "worldstarhiphop"
         | "dailymotion";
-    /****************************** URL *************************************/
+    /** **************************** URL ************************************ */
     type ResourceType = string | "image" | "raw" | "video";
     type ImageFormat =
         string
@@ -386,7 +386,7 @@ declare module 'cloudinary' {
         [futureKey: string]: any;
     }
 
-    /****************************** Admin API Options *************************************/
+    /** **************************** Admin API Options ************************************ */
     export interface AdminApiOptions {
         agent?: object;
         content_type?: string;
@@ -556,7 +556,7 @@ declare module 'cloudinary' {
     type AdminAndResourceOptions = AdminApiOptions | ResourceApiOptions;
     type AdminAndUpdateApiOptions = AdminApiOptions | UpdateApiOptions;
 
-    /****************************** API *************************************/
+    /** **************************** API ************************************ */
     type Status = string | "pending" | "approved" | "rejected";
     type StreamingProfiles = string | "4k" | "full_hd" | "hd" | "sd" | "full_hd_wifi" | "full_hd_lean" | "hd_lean";
     type ModerationKind = string | "manual" | "webpurify" | "aws_rek" | "metascan";
@@ -685,7 +685,7 @@ declare module 'cloudinary' {
 
     export namespace v2 {
 
-        /****************************** Global Utils *************************************/
+        /** **************************** Global Utils ************************************ */
 
         function cloudinary_js_config(): string;
 
@@ -697,7 +697,7 @@ declare module 'cloudinary' {
 
         function url(public_id: string, options?: TransformationOptions | ConfigAndUrlOptions): string;
 
-        /****************************** Tags *************************************/
+        /** **************************** Tags ************************************ */
 
         function image(source: string, options?: ImageTransformationAndTagsOptions | ConfigAndUrlOptions): string;
 
@@ -707,7 +707,7 @@ declare module 'cloudinary' {
 
         function video(public_id: string, options?: VideoTransformationAndTagsOptions | ConfigAndUrlOptions): string;
 
-        /****************************** Utils *************************************/
+        /** **************************** Utils ************************************ */
 
         namespace utils {
 
@@ -743,7 +743,7 @@ declare module 'cloudinary' {
             }>): string;
         }
 
-        /****************************** Admin API V2 Methods *************************************/
+        /** **************************** Admin API V2 Methods ************************************ */
 
         namespace api {
             function create_streaming_profile(name: string, options: AdminApiOptions | { display_name?: string, representations: TransformationOptions }, callback?: ResponseCallback): Promise<any>;
@@ -924,7 +924,7 @@ declare module 'cloudinary' {
 
             function delete_folder(path:string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<any>;
 
-            /****************************** Structured Metadata API V2 Methods *************************************/
+            /** **************************** Structured Metadata API V2 Methods ************************************ */
 
             function add_metadata_field(field: MetadataFieldApiOptions, options?: AdminApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
 
@@ -959,7 +959,7 @@ declare module 'cloudinary' {
             function restore_metadata_field_datasource(field_external_id: string, entries_external_id: string[], callback?: ResponseCallback): Promise<DatasourceChange>;
         }
 
-        /****************************** Upload API V2 Methods *************************************/
+        /** **************************** Upload API V2 Methods ************************************ */
 
         namespace uploader {
             function add_context(context: string, public_ids: string[], options?: { type?: DeliveryType, resource_type?: ResourceType }, callback?: ResponseCallback): Promise<any>;
@@ -1054,14 +1054,14 @@ declare module 'cloudinary' {
 
             function create_slideshow(options?: ConfigOptions & { manifest_transformation?: TransformationOptions, manifest_json?: Record<string, any>}, callback?: UploadResponseCallback): Promise<any>;
 
-            /****************************** Structured Metadata API V2 Methods *************************************/
+            /** **************************** Structured Metadata API V2 Methods ************************************ */
 
             function update_metadata(metadata: string | object, public_ids: string[], options?:UploadApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
 
             function update_metadata(metadata: string| object, public_ids: string[], callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
         }
 
-        /****************************** Search API *************************************/
+        /** **************************** Search API ************************************ */
 
         class search {
 
@@ -1096,7 +1096,7 @@ declare module 'cloudinary' {
             static with_field(args?: string): search;
         }
 
-        /****************************** Provisioning API *************************************/
+        /** **************************** Provisioning API ************************************ */
 
         namespace provisioning {
             namespace account {

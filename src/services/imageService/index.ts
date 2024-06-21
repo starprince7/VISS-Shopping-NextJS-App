@@ -1,5 +1,6 @@
-import cloudinary from "../../config/cloudinary";
 import { UploadApiResponse } from "cloudinary";
+
+import cloudinary from "../../config/cloudinary";
 
 // Image Uploader
 async function uploadImage(
@@ -7,7 +8,7 @@ async function uploadImage(
   productNumber: string,
 ): Promise<UploadApiResponse> {
   console.log("Uploading file to cloudinary...");
-  return await cloudinary.uploader.upload(image, {
+  return cloudinary.uploader.upload(image, {
     folder: "viss_shopping_product_images",
     public_id: productNumber,
   });
@@ -25,7 +26,7 @@ async function removeUploadedImage(
     "Deleting file from cloudinary with product ID... : ",
     `viss_shopping_product_images/${productNumber}`,
   );
-  return await cloudinary.uploader.destroy(
+  return cloudinary.uploader.destroy(
     `viss_shopping_product_images/${productNumber}`,
     {
       resource_type: "image",

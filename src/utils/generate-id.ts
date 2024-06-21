@@ -5,11 +5,11 @@ export function generateId(param?: GenerateIdParam) {
       .padStart(6, "1");
 
     return (
-      (param.prefix ? param.prefix : "").trim() +
-      "_" +
-      id +
-      "_" +
-      (param.suffix ? param.suffix : "").trim()
+      `${(param.prefix ? param.prefix : "").trim() 
+      }_${ 
+      id 
+      }_${ 
+      (param.suffix ? param.suffix : "").trim()}`
     );
   }
 

@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import Customer from "../../../database/models/customerSchema";
 import db from "../../../database/connection/dbConnection";
 import createToken from "../../../utils/createToken";

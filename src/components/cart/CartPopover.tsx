@@ -1,8 +1,10 @@
 import { Box, Popover, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+
 import { selectCart } from "../../store/cartSlice";
-import CartItem from "./Cart-Items";
 import { CheckoutButton } from "../ui/Checkout-Button";
+
+import CartItem from "./Cart-Items";
 
 interface CartListPopoverProps {
   id: string;

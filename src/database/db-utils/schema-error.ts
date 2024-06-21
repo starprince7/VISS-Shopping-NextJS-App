@@ -6,7 +6,7 @@
 
 const schemaErrorHandler = (e) => {
   console.log(e.code);
-  let errors = { email: "", firstName: "", lastName: "", password: "" };
+  const errors = { email: "", firstName: "", lastName: "", password: "" };
 
   if (e.code === 11000) {
     errors.email = "This email already exist, use another!";
@@ -17,19 +17,19 @@ const schemaErrorHandler = (e) => {
     Object.values(e.errors).forEach(({ properties }) => {
       // set first name err
       if (properties.path === "accountContact.email") {
-        errors["email"] = properties.message;
+        errors.email = properties.message;
       }
       // set first name err
       if (properties.path === "accountInformation.firstName") {
-        errors["firstName"] = properties.message;
+        errors.firstName = properties.message;
       }
       // set last name err
       if (properties.path === "accountInformation.lastName") {
-        errors["lastName"] = properties.message;
+        errors.lastName = properties.message;
       }
       // set password err
       if (properties.path === "accountSecurity.password") {
-        errors["password"] = properties.message;
+        errors.password = properties.message;
       }
     });
   }

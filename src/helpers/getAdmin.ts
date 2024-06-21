@@ -1,5 +1,6 @@
-import apiClient from "../config/apiConfig";
+import axios from "axios";
+
 
 export const getAdminAccount = (id: string) => {
-  return apiClient.get(`/api/admin/superUser/${id}`);
+  return axios.get(`/api/admin/superUser/${id}`);
 };

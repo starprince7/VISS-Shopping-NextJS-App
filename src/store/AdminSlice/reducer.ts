@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Router } from "next/router";
+
+import toastService from "@/services/toast-notification";
+
 import { getAdminAccount } from "../../helpers/getAdmin";
-import { getCustomers } from "../../helpers/getCustomers";
-import { navigateTo } from "../../hooks";
-import toastService from "../../src/services/toast-notification";
 import { Administrator } from "../../types";
 import { StorageService } from "../../utils/helpers/storage";
 

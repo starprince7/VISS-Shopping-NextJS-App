@@ -1,4 +1,5 @@
 import query from "query-string";
+
 import { mailer } from "../../../utils/mailer/mailgunConfig";
 
 async function ApiMailHandler(req, res) {

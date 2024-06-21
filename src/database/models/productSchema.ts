@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import moment from "moment";
 import getUid from "get-uid";
+
 import { Product } from "../../types";
 
 const productSchema = new mongoose.Schema<Product>(

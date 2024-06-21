@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
+
 import Customer from "../../../../database/models/customerSchema";
 import db from "../../../../database/connection/dbConnection";
 

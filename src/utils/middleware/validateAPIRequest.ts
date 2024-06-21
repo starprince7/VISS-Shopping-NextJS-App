@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 
-const TOKEN_SECRET = process.env.TOKEN_SECRET;
+const {TOKEN_SECRET} = process.env;
 
 // return-Type-Definition
 type Validation = {

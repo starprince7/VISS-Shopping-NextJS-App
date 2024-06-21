@@ -7,7 +7,6 @@ import { PersistGate } from "redux-persist/integration/react"; // Import Persist
 
 import { store, persistor } from "../store";
 import { lightTheme } from "../theme";
-
 import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import NavigationLoader from "../components/NavigationLoader";

@@ -4,6 +4,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import query from "query-string";
+
 import { verifyToken } from "../../../../utils/createToken";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

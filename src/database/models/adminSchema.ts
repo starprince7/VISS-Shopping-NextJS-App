@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { isEmail } from "validator";
 import bcrypt from "bcrypt";
 import moment from "moment";
+
 import { Administrator } from "../../types";
 
 const adminSchema = new mongoose.Schema<Administrator>(

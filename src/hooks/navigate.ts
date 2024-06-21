@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-export const navigateTo = (url: string) => {
+export const NavigateTo = (url: string) => {
   const router = useRouter();
   router.push(url);
 };

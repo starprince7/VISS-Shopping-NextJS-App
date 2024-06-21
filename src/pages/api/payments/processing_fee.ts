@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import getValidAuthentication from "../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

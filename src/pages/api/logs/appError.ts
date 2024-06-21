@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import sendEmailWithError from "../../../utils/mailer/sendError";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {

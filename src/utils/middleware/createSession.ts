@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+
 import { CustomerType } from "../../types";
 
 const SECRET = process.env.TOKEN_SECRET;

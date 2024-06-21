@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getProducts } from "../../helpers";
 
-import toastService from "../../src/services/toast-notification";
+import toastService from "@/services/toast-notification";
+
+import { getProducts } from "../../helpers";
 import { Product } from "../../types";
 
 export type StateProps = {

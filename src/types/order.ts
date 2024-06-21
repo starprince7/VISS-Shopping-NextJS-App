@@ -1,4 +1,6 @@
-import { CustomerType } from "./customer";
+
+import { CartItem } from "./cart-item";
+import { ShippingInfo } from "./customer";
 import { Product } from "./product";
 
 export interface Order {
@@ -13,7 +15,7 @@ export interface Order {
   shippingFee: number;
   customer: CustomerType;
   orderStatus: OrderStatus;
-  paymentStatus: String;
+  paymentStatus: string;
   transactionRef: string;
   transactionReference?: string;
   isOrderFulfilled: boolean;
@@ -26,3 +28,22 @@ export type OrderStatus =
   | "CANCELED"
   | "REFUNDED"
   | "RETURNED";
+
+
+type CustomerType = {
+  inviteCode: string;
+  wallet: number;
+  customerId: string;
+  _id: string;
+  name: { firstname: string; lastname: string };
+  fullName: string;
+  email: string | { unique: object };
+  password: string;
+  cart: CartItem[];
+  orderHistory: Order[];
+  isEmailVerified: boolean;
+  isPhoneVerified: boolean;
+  date_registered: string;
+  verification_code: string | number;
+  shippingInfo: ShippingInfo[];
+};

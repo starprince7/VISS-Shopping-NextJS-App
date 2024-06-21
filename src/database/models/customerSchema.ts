@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { isEmail } from "validator";
 import bcrypt from "bcrypt";
 import moment from "moment";
+
 import { CustomerModel, CustomerType } from "../../types";
 
 const customerSchema = new mongoose.Schema<CustomerType, CustomerModel>(

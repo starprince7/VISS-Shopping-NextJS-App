@@ -1,4 +1,5 @@
 import { CustomerType, Order } from "../../types";
+
 import { client, domain } from "./mailgunConfig";
 
 const sendFailedOrderEmail = async (customer: CustomerType, txRef: string) => {

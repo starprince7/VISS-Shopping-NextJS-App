@@ -1,6 +1,7 @@
 import { Model } from "mongoose";
-import { Order } from "./order";
+
 import { CartItem } from "./cart-item";
+import { Product } from "./product";
 
 export type ShippingInfo = {
   phoneNumber: string;
@@ -32,3 +33,29 @@ export type CustomerType = {
 export interface CustomerModel extends Model<CustomerType> {
   logIn(): CustomerType;
 }
+
+interface Order {
+  _id: string;
+  orderNo: string;
+  orderDate: string;
+  orderDetails: Product[];
+  orderTotal: number;
+  sumTotal: number;
+  amount: number;
+  processingFee: number;
+  shippingFee: number;
+  customer: CustomerType;
+  orderStatus: OrderStatus;
+  paymentStatus: string;
+  transactionRef: string;
+  transactionReference?: string;
+  isOrderFulfilled: boolean;
+  orderIsFulfilledAt: string;
+}
+
+type OrderStatus =
+  | "PENDING"
+  | "DELIVERED"
+  | "CANCELED"
+  | "REFUNDED"
+  | "RETURNED";

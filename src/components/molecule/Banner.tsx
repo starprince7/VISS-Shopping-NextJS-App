@@ -1,11 +1,7 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Container } from "@mui/material";
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 

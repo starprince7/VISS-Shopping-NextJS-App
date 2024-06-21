@@ -1,8 +1,11 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
-import { FlexCol } from "../FlexCol";
-import { Logo } from "../../assets/icons";
+
+import { Logo } from "@/assets/icons";
+
 import { FlexRow } from "../FlexRow";
+import { FlexCol } from "../FlexCol";
+
 
 export const Footer = () => {
   return (

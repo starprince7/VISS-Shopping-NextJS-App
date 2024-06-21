@@ -2,7 +2,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import lottie from "lottie-web";
-import Animation from "../../assets/animated-assets/success.json";
+
+import Animation from "@/assets/animated-assets/success.json";
 
 const PaymentCompleteSuccess = () => {
   const router = useRouter();

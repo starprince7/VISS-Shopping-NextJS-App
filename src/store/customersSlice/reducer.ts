@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import toastService from "@/services/toast-notification";
+
 import { getCustomers } from "../../helpers/getCustomers";
-import toastService from "../../src/services/toast-notification";
 import { CustomerType } from "../../types";
 
 export type StateProps = {

@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   EffectCoverflow,
@@ -12,8 +11,8 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import { Container } from "@mui/material";
+
 import { Product } from "../../types";
 
 type Props = {

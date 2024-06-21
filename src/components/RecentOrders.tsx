@@ -6,10 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+
+import { useFetch } from "@/hooks";
+import toastService from "@/services/toast-notification";
+
 import { OrderRow } from "./OrderRow";
-import { useFetch } from "../hooks";
 import { TableLoadingView } from "./Skeleton/TableLoadingView";
-import toastService from "../services/toast-notification";
+
 
 export default function RecentOrders() {
   const { data, error, fetchStatus } = useFetch(
@@ -25,7 +28,7 @@ export default function RecentOrders() {
   }
 
   return (
-    <TableContainer component={Paper}>
+    (<TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
@@ -40,10 +43,10 @@ export default function RecentOrders() {
         <TableBody>
           {data.map((row) => (
             // @ts-ignore
-            <OrderRow key={row.orderNo} {...row} />
+            (<OrderRow key={row.orderNo} {...row} />)
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer>)
   );
 }

@@ -1,7 +1,8 @@
 import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
-import { FlexCol } from "../../components";
+
+import { FlexCol } from "@/components";
 
 export default function InvalidURrlPage() {
   const router = useRouter();

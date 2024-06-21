@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+
 import Admin from "../database/models/adminSchema";
 import { Administrator } from "../types";
 

@@ -12,7 +12,6 @@ import {
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-
 import CloseIcon from "@mui/icons-material/Close";
 
 import { FlexCol, FlexRow, HeaderClient } from "../../components";
@@ -21,7 +20,6 @@ import { removeFromCart, selectCart } from "../../store/cartSlice";
 import { CartItem } from "../../types";
 import { useProduct } from "../../hooks";
 import { CartItemLoadingSkeleton } from "../../components/Skeleton/CartItemLoader";
-
 import getServerSession from "../../utils/middleware/get-server-session";
 import { useSession } from "../../context/session-provider";
 import { PaystackPaymentButton } from "../../components/payment-button/PaystackButton";
@@ -141,7 +139,7 @@ function CartItemInCheckoutPage({
                     sx={{ alignItems: "center", gap: 1.5, flexWrap: "wrap-reverse" }}
                 >
                     <Typography sx={{ fontSize: { xs: 12, sm: 16 } }}>
-                        {formatToCurrency(data?.price!, "NGN")}
+                        {formatToCurrency(data?.price ?? 0, "NGN")}
                     </Typography>
                     <Button
                         color="error"

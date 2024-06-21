@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+
 import { FlexCol } from "../FlexCol";
 import { FlexRow } from "../FlexRow";
 import { ProductCard } from "../atom";
@@ -40,7 +41,7 @@ export const ProductsWithSpecificCategory = ({ categoryName }: PWSCProps) => {
             .fill(true)
             .map((_, i) => <ProductCardSkeleton key={i} />)}
         {status === "success" &&
-          products.map((product, i) => (
+          products.map((product) => (
             <ProductCard {...product} key={product._id} />
           ))}
       </FlexRow>

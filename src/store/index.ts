@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 // Reducers
 import productReducer from "./productsSlice/reducer";
@@ -19,23 +19,25 @@ export const rootReducer = {
   FailedOrders: failedOrderReducer,
   CompletedOrders: completedOrderReducer,
   Administrator: administratorReducer,
-  Cart: cartSliceOrReducer
+  Cart: cartSliceOrReducer,
 };
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ['Cart']
+  whitelist: ["Cart"],
 };
 
-
-const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducer));
+const persistedReducer = persistReducer(
+  persistConfig,
+  combineReducers(rootReducer),
+);
 
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST']
+        ignoredActions: ["persist/PERSIST"],
       },
     }),
 });

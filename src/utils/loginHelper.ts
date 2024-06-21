@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+
 import Customer from "../database/models/customerSchema";
 import { CustomerType } from "../types";
 

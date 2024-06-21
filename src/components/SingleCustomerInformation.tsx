@@ -5,11 +5,13 @@ import {
   TaskAlt as VerifiedIcon,
 } from "@mui/icons-material";
 import React from "react";
+
 import { formatToCurrency } from "../utils/currencyFormatter";
-import { FlexCol } from "./FlexCol";
-import { FlexRow } from "./FlexRow";
 import { getColorFromString } from "../utils/getColorFromString";
 import { CustomerType } from "../types";
+
+import { FlexCol } from "./FlexCol";
+import { FlexRow } from "./FlexRow";
 
 type Props = CustomerType & { handleClose: () => void };
 

@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 import Link from "next/link";
-
 import { Container } from "@mui/material";
+
 import { SearchBar } from "../SearchBar";
 import { CartBadge } from "../cart/CartBadge";
-
 import { useDeviceType } from "../../hooks";
 import Logo from "../../assets/icons/Logo";
 

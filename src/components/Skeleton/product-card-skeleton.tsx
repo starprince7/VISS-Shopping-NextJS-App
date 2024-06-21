@@ -1,4 +1,5 @@
 import { Skeleton } from "@mui/material";
+
 import { FlexCol } from "../FlexCol";
 
 export function ProductCardSkeleton() {

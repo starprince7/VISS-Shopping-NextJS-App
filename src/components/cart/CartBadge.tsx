@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import ShoppingBasketTwoTone from "@mui/icons-material/ShoppingBasketTwoTone";
 import { Badge, BadgeProps, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
-import CartPopover from "./CartPopover";
+
 import { selectCart } from "../../store/cartSlice";
+
+import CartPopover from "./CartPopover";
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   "& .MuiBadge-badge": {

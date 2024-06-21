@@ -1,5 +1,6 @@
-import apiClient from "../config/apiConfig";
 import { useQuery } from "@tanstack/react-query";
+
+import apiClient from "../config/apiConfig";
 
 export const useFetch = (url: string) => {
   return useQuery({

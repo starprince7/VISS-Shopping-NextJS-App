@@ -1,4 +1,5 @@
-import apiClient from "../config/apiConfig";
+import axios from "axios";
+
 
 type Params = {
   page: number;
@@ -7,7 +8,7 @@ type Params = {
 };
 
 export const getOrders = async ({ page, limit = 0, status }: Params) => {
-  return apiClient.get(
+  return axios.get(
     `/api/admin/orders?page=${page}&limit=${limit}&status=${status}`,
   );
 };

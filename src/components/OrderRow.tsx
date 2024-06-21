@@ -17,8 +17,10 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import { Order } from "../types";
 import { formatToCurrency } from "../utils/currencyFormatter";
+
 import { SetOrderStatus } from "./SetOrderStatus";
 
 export const OrderRow = (props: Order) => {

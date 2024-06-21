@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container, IconButton, Typography } from "@mui/material";
 import WatchIcon from "@mui/icons-material/Watch";
 import React from "react";
+
 import { FlexRow } from "../FlexRow";
 import { Category } from "../../types";
 

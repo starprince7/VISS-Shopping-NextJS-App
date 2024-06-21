@@ -30,7 +30,7 @@ export default function Customers() {
   } = useSelector(selectCustomers);
 
   const loadCustomers = React.useCallback(
-    (page: number = 0) => {
+    (page = 0) => {
       dispatch(fetchCustomers({ page: page + 1 }) as unknown as AnyAction);
     },
     [dispatch],

@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import db from "../../../../../database/connection/dbConnection";
 import Category from "../../../../../database/models/categorySchema";
 

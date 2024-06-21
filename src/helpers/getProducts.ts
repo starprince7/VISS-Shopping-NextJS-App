@@ -1,5 +1,6 @@
-import apiClient from "../config/apiConfig";
+import axios from "axios";
 
-export const getProducts = async (page: number, limit: number = 10) => {
-  return await apiClient.get(`/api/products?page=${page}&limit=${limit}`);
+
+export const getProducts = async (page: number, limit = 10) => {
+  return axios.get(`/api/products?page=${page}&limit=${limit}`);
 };

@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { CustomerType } from "../types";
 import axios from "axios";
+
+import { CustomerType } from "../types";
 
 // Create context.
 const SessionContext = React.createContext({} as CustomerType | null);
 
 // Provider.
 export default function SessionProvider({ children }) {
-  const { decodedSession } = internal_useSessionGetter();
+  const { decodedSession } = Internal_useSessionGetter();
 
-  if (!!decodedSession) {
+  if (decodedSession) {
     return (
       <SessionContext.Provider value={decodedSession}>
         {children}
       </SessionContext.Provider>
     );
-  } else {
-    return (
-      <SessionContext.Provider value={null}>{children}</SessionContext.Provider>
-    );
   }
+  return (
+    <SessionContext.Provider value={null}>{children}</SessionContext.Provider>
+  );
 }
 
 // internal session getter
-const internal_useSessionGetter = () => {
+const Internal_useSessionGetter = () => {
   const [decodedSession, setDecodedSession] = useState(null);
 
   const fetchSession = async () => {

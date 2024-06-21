@@ -2,11 +2,13 @@ import { Avatar, Box, Chip, IconButton, Typography } from "@mui/material";
 import Person4Icon from "@mui/icons-material/Person4";
 import { CloseSharp as CloseIcon } from "@mui/icons-material";
 import React from "react";
+
 import { formatToCurrency } from "../utils/currencyFormatter";
-import { FlexCol } from "./FlexCol";
-import { FlexRow } from "./FlexRow";
 import { getColorFromString } from "../utils/getColorFromString";
 import { Order } from "../types";
+
+import { FlexCol } from "./FlexCol";
+import { FlexRow } from "./FlexRow";
 
 type Props = Order & { handleClose: () => void };
 

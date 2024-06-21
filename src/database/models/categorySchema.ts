@@ -1,5 +1,6 @@
 import moment from "moment";
 import mongoose from "mongoose";
+
 import { Category } from "../../types";
 
 const categorySchema = new mongoose.Schema<Category>(

@@ -13,11 +13,9 @@ import {
   logOutAction,
 } from "../../store/AdminSlice/reducer";
 import { selectAdmin } from "../../store/AdminSlice/selector";
-import { StorageService } from "../../utils/helpers/storage";
 
-export interface Props { }
 
-const UserDrop: FC<Props> = (props) => {
+const UserDrop = (props) => {
   const dispatch = useDispatch();
   const { admin } = useSelector(selectAdmin);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

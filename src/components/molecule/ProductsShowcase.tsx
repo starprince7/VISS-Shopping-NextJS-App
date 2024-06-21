@@ -1,8 +1,9 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-import { ProductsWithSpecificCategory } from "./PWSCategory";
 import { Category } from "../../types";
+
+import { ProductsWithSpecificCategory } from "./PWSCategory";
 /**
  * This component will fetch all available categories
  * And render products horizontally for each category

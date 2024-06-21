@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { serialize } from "cookie";
+
 import logIn from "../../../utils/loginHelper";
 import createSessionToken from "../../../utils/middleware/createSession";
 import db from "../../../database/connection/dbConnection";

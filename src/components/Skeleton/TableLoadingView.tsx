@@ -1,4 +1,5 @@
 import { Skeleton, Stack } from "@mui/material";
+
 import { FlexRow } from "../FlexRow";
 
 export const TableLoadingView = () => {

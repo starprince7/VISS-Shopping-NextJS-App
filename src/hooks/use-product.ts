@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+
 import { Product } from "../types";
 
 type ProductHook = ReturnType<typeof useQuery<Product>>;

@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Button, Stack, Typography } from "@mui/material";
 import { StarBorder as StarBorderIcon, Star as StarIcon, Add as AddIcon, Remove as RemoveIcon } from "@mui/icons-material";
 
 import { FlexCol } from "../FlexCol";
-
 import { formatToCurrency } from "../../utils/currencyFormatter";
 import { addToCart, removeFromCart, selectCart } from "../../store/cartSlice";
 import { Product } from "../../types";

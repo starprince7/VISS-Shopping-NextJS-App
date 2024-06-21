@@ -1,5 +1,6 @@
 import FlutterWave from "./flutterwave.config";
 
+
 export default async function createSubaccount() {
   const sub_account_details = {
     account_bank: "044",

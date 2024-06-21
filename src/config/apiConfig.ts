@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
 // import { DeviceUUID } from "device-uuid";
 import packageJson from "../../package.json";
 import { store } from "../store";
@@ -59,7 +60,7 @@ if (typeof window !== "undefined") {
       } else {
         request.headers = {
           ...request.headers,
-          authorization: request?.headers?.authorization! || "",
+          authorization: request?.headers?.authorization ?? "",
         };
       }
 

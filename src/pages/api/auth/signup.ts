@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { serialize } from "cookie";
+
 import createSessionToken from "../../../utils/middleware/createSession";
 import Customer from "../../../database/models/customerSchema";
 import schemaErrorHandler from "../../../database/db-utils/schema-error";

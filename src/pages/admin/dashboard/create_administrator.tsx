@@ -2,10 +2,11 @@ import { LoadingButton } from "@mui/lab";
 import { InputBase, Paper, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { FlexRow, Layout } from "../../../components";
-import apiClient from "../../../config/apiConfig";
-import toastService from "../../../services/toast-notification";
-import { selectAdmin } from "../../../store/AdminSlice/selector";
+
+import { FlexRow, Layout } from "@/components";
+import apiClient from "@/config/apiConfig";
+import toastService from "@/services/toast-notification";
+import { selectAdmin } from "@/store/AdminSlice/selector";
 
 export default function CreateAdministratorPage() {
   const { admin } = useSelector(selectAdmin);

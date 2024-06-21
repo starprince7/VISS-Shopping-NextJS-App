@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import db from "../../../../database/connection/dbConnection";
 import Admin from "../../../../database/models/adminSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";

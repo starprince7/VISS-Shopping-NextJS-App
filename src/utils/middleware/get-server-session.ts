@@ -1,8 +1,9 @@
 import { GetServerSidePropsContext } from "next";
 import jwt from "jsonwebtoken";
+
 import { CustomerType } from "../../types";
 
-const TOKEN_SECRET = process.env.TOKEN_SECRET;
+const { TOKEN_SECRET } = process.env;
 
 type Request = GetServerSidePropsContext["req"];
 
@@ -15,14 +16,17 @@ const getServerSession: FuncParams = (req) => {
   let session: CustomerType | null;
 
   if (!token) {
-    return (session = null);
+    (session = null);
+    return session
   }
 
   try {
     const decodedToken = jwt.verify(token, TOKEN_SECRET);
-    return (session = decodedToken);
+    (session = decodedToken);
+    return session
   } catch (e) {
-    return (session = null);
+    (session = null);
+    return session
   }
 };
 

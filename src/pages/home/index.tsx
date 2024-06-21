@@ -1,5 +1,6 @@
 import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+
 import { ProductCarousel } from "../../components/molecule/ProductCarousel";
 import {
   Banner,
@@ -10,7 +11,6 @@ import {
 } from "../../components";
 import { ProductCarouselMobile } from "../../components/molecule/ProductCarouselMobile";
 import { useDeviceType } from "../../hooks";
-
 import db from "../../database/connection/dbConnection";
 import CategoryModel from "../../database/models/categorySchema";
 import Product from "../../database/models/productSchema";

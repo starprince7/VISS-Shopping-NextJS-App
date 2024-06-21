@@ -1,5 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import mongoose, { isValidObjectId } from "mongoose";
+
 import Product from "../../../database/models/productSchema";
 import db from "../../../database/connection/dbConnection";
 

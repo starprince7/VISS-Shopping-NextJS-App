@@ -14,5 +14,5 @@ export const getColorFromString = (string: string) => {
   }
   /* eslint-enable no-bitwise */
 
-  return color + "9e";
+  return `${color  }9e`;
 };

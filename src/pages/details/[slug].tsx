@@ -36,13 +36,13 @@ export default function ProductDetailsSlugPage() {
             width={1080}
             height={720}
             alt="Product image"
-            src={product?.image!}
+            src={product?.image ?? ""}
             className="flex-1 rounded-xl"
           />
           <FlexCol sx={{ flex: 1, p: 2 }}>
             <Typography>{product?.title}</Typography>
             <Typography sx={{ my: 1, fontWeight: 600, fontSize: 25 }}>
-              {formatToCurrency(product?.price!, "NGN")}
+              {formatToCurrency(product?.price ?? 0, "NGN")}
             </Typography>
             <Rating />
             <Button
@@ -60,10 +60,10 @@ export default function ProductDetailsSlugPage() {
               onClick={() => {
                 dispatch(
                   addToCart({
-                    productId: product?.productId!,
-                    productNumber: product?.productNumber!,
+                    productId: product?.productId ?? '',
+                    productNumber: product?.productNumber as number,
                     quantity: 1,
-                    price: product?.price!,
+                    price: product?.price ?? 0,
                   }),
                 );
               }}

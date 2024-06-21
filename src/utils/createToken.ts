@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const max_age = 24 * 60 * 60;
-const TOKEN_SECRET = process.env.TOKEN_SECRET;
+const {TOKEN_SECRET} = process.env;
 
 type VerificationReturnType = { error: any; verified: boolean; decode: any };
 
