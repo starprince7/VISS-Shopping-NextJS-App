@@ -17,6 +17,6 @@
     "signup",
     "toastify"
   ],
-  "editor.fontSize": 13,
+  "editor.fontSize": 12,
   "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace"
 }
