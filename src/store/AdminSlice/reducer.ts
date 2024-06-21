@@ -28,7 +28,7 @@ export const fetchAdminAccount = createAsyncThunk(
       window.location.assign("/");
       return;
     }
-    const result = id && (await getAdminAccount(id as string));
+    const result: any = id && (await getAdminAccount(id as string));
     return result.data;
   },
 );

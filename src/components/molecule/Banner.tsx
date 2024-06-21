@@ -4,8 +4,6 @@ import { Container } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-
-// import required modules
 import { Autoplay, Mousewheel, Navigation, Pagination } from "swiper/modules";
 
 export const Banner = () => {
