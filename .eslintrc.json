@@ -90,12 +90,27 @@
     "react-hooks/exhaustive-deps": "warn",
     "prefer-const": "error",
     "dot-notation": "error",
-    "import/order": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ],
     "import/no-cycle": "error",
     "no-return-await": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "@typescript-eslint/ban-types": "off"
   },
   "globals": {
     "React": "writable"
