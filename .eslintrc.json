@@ -90,20 +90,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "prefer-const": "error",
     "dot-notation": "error",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
-        "newlines-between": "always"
-      }
-    ],
+    "import/order": "off",
     "import/no-cycle": "error",
     "no-return-await": "error",
     "@typescript-eslint/no-empty-function": "off",

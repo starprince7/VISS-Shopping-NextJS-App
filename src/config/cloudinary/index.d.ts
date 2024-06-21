@@ -274,7 +274,7 @@ declare module 'cloudinary' {
     }
 
     export interface ImageTransformationOptions extends CommonTransformationOptions {
-        underlay?: string | Object;
+        underlay?: string | Record<string, any>;
         color?: string;
         color_space?: ColorSpace;
         opacity?: number | string;
@@ -289,6 +289,7 @@ declare module 'cloudinary' {
 
         [futureKey: string]: any;
     }
+
 
     interface VideoTransformationOptions extends CommonTransformationOptions {
         audio_codec?: AudioCodec;
@@ -711,7 +712,7 @@ declare module 'cloudinary' {
 
         namespace utils {
 
-            function sign_request(params_to_sign: object, options?: ConfigAndUrlOptions): { signature: string; api_key: string; [key:string]:any};
+            function sign_request(params_to_sign: object, options?: ConfigAndUrlOptions): { signature: string; api_key: string;[key: string]: any };
 
             function api_sign_request(params_to_sign: object, api_secret: string): string;
 
@@ -735,7 +736,7 @@ declare module 'cloudinary' {
 
             function webhook_signature(data?: string, timestamp?: number, options?: ConfigOptions): string;
 
-            function private_download_url(publicID: string, format:string, options: Partial<{
+            function private_download_url(publicID: string, format: string, options: Partial<{
                 resource_type: ResourceType;
                 type: DeliveryType;
                 expires_at: number;
@@ -920,9 +921,9 @@ declare module 'cloudinary' {
 
             function usage(options?: AdminApiOptions): Promise<any>;
 
-            function create_folder(path:string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<any>;
+            function create_folder(path: string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<any>;
 
-            function delete_folder(path:string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<any>;
+            function delete_folder(path: string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<any>;
 
             /** **************************** Structured Metadata API V2 Methods ************************************ */
 
@@ -938,9 +939,9 @@ declare module 'cloudinary' {
 
             function delete_metadata_field(field_external_id: string, callback?: ResponseCallback): Promise<DeleteApiResponse>;
 
-            function metadata_field_by_field_id(external_id:string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
+            function metadata_field_by_field_id(external_id: string, options?: AdminApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
 
-            function metadata_field_by_field_id(external_id:string, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
+            function metadata_field_by_field_id(external_id: string, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
 
             function update_metadata_field(external_id: string, field: MetadataFieldApiOptions, options?: AdminApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
 
@@ -1052,13 +1053,13 @@ declare module 'cloudinary' {
 
             function upload_url(options?: ConfigOptions): Promise<any>;
 
-            function create_slideshow(options?: ConfigOptions & { manifest_transformation?: TransformationOptions, manifest_json?: Record<string, any>}, callback?: UploadResponseCallback): Promise<any>;
+            function create_slideshow(options?: ConfigOptions & { manifest_transformation?: TransformationOptions, manifest_json?: Record<string, any> }, callback?: UploadResponseCallback): Promise<any>;
 
             /** **************************** Structured Metadata API V2 Methods ************************************ */
 
-            function update_metadata(metadata: string | object, public_ids: string[], options?:UploadApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
+            function update_metadata(metadata: string | object, public_ids: string[], options?: UploadApiOptions, callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
 
-            function update_metadata(metadata: string| object, public_ids: string[], callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
+            function update_metadata(metadata: string | object, public_ids: string[], callback?: ResponseCallback): Promise<MetadataFieldApiResponse>;
         }
 
         /** **************************** Search API ************************************ */
