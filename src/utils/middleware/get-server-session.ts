@@ -8,7 +8,7 @@ const { TOKEN_SECRET } = process.env;
 type Request = GetServerSidePropsContext["req"];
 
 // function-Type-Definition
-type FuncParams = (req: Request) => CustomerType;
+type FuncParams = (req: Request) => CustomerType | null;
 
 // Main Function
 const getServerSession: FuncParams = (req) => {
