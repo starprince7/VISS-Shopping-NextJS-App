@@ -16,7 +16,7 @@ type Props = {
 export const ProductsShowcase = ({ categories }: Props) => {
   return (
     <Container className="my-6">
-      {categories.map(({ name }, i) => (
+      {categories?.map(({ name }, i) => (
         <ProductsWithSpecificCategory key={i} categoryName={name} />
       ))}
     </Container>

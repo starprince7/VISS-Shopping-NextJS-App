@@ -19,10 +19,10 @@ export const Categories = ({ categories }: Props) => {
         gap={3}
         sx={{ mx: "auto", flexWrap: "wrap", justifyContent: "center" }}
       >
-        {categories.map(({ name }) => (
+        {categories?.map(({ name }) => (
           <div className="rounded-full w-fit py-4 px-6 text-center">
             <Link href={`/category/${name}`}>
-              <IconButton className="bg-primary my-2">
+              <IconButton sx={{ bgcolor: "silver" }}>
                 <WatchIcon
                   sx={{ fontSize: { xs: 65, sm: 50 }, color: "white" }}
                 />

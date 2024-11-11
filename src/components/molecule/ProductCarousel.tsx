@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const ProductCarousel = ({ className, products }: Props) => {
-  const renderSwipeItems = products.map((product) => (
+  const renderSwipeItems = products?.map((product) => (
     <SwiperSlide key={product._id} className="mr-4">
       <Image
         width={780}

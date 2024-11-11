@@ -16,30 +16,42 @@ import CategoryModel from "../../database/models/categorySchema";
 import Product from "../../database/models/productSchema";
 
 export async function getServerSideProps() {
-  await db.connectDB();
+  try {
+    console.log("Home page server rendering...");
 
-  const categories = await CategoryModel.find();
-  const page = 1;
-  const limit = 5;
+    // Connect to database
+    await db.connectDB().catch((err) => console.log("Error:", err));
 
-  const products = await Product.find()
-    .sort({ date_created: -1 })
-    .skip((Number(page) - 1) * Number(limit))
-    .limit(Number(limit))
-    .exec();
+    // Fetch data
+    const [categories, products] = await Promise.all([
+      CategoryModel.find().lean(), // .lean() for better performance
+      Product.find().sort({ date_created: -1 }).limit(5).lean(),
+    ]);
 
-  return {
-    props: {
-      categories: JSON.parse(JSON.stringify(categories || [])),
-      products: JSON.parse(JSON.stringify(products || [])),
-    },
-  };
+    return {
+      props: {
+        categories: JSON.parse(JSON.stringify(categories || [])),
+        products: JSON.parse(JSON.stringify(products || [])),
+      },
+    };
+  } catch (error) {
+    console.error("Error in getServerSideProps:", error);
+    return {
+      props: {
+        categories: [],
+        products: [],
+        error: "Failed to fetch data",
+      },
+    };
+  }
 }
 
 export default function HomePage({
   categories,
   products,
+  error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log("Server-side error:", error);
   const deviceType = useDeviceType();
   return (
     <>
