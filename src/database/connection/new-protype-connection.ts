@@ -43,13 +43,18 @@ class DatabaseConnection implements IDatabaseConnection {
     };
 
     try {
+      // eslint-disable-next-line no-console
       console.log("DATABASE CONNECTION STARTING...");
       const db: mongoose.Connection = (
         await mongoose.connect(process.env.DATABASE_URI, databaseOptions)
       ).connection;
+      // eslint-disable-next-line no-console
       console.log("CONNECTED TO DATABASE!");
+      // @ts-expect-error
+      // eslint-disable-next-line no-underscore-dangle
       this.connection.isConnected = db.readyState === 1; // Check if connected
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log("FAILED TO ESTABLISH A DATABASE CONNECTION: ", e);
     }
   }
