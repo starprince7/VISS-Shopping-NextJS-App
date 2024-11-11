@@ -12,6 +12,7 @@ interface IDatabaseConnection {
 
 class DatabaseConnection implements IDatabaseConnection {
   private static instance: DatabaseConnection;
+
   public connection: IConnection;
 
   private constructor() {
