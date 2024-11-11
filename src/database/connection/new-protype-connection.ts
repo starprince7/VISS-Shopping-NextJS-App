@@ -51,7 +51,6 @@ class DatabaseConnection implements IDatabaseConnection {
       ).connection;
       // eslint-disable-next-line no-console
       console.log("CONNECTED TO DATABASE!");
-      // @ts-expect-error
       // eslint-disable-next-line no-underscore-dangle
       this.connection.isConnected = db.readyState === 1; // Check if connected
     } catch (e) {
