@@ -7,9 +7,10 @@ import sendAdminSignupLinkOverEmail from "../../../../utils/mailer/adminCreation
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { error, auth_req } = getValidAuthentication(req, res);
-  if (error) return;
-  const { method } = auth_req;
+  // const { error, auth_req } = getValidAuthentication(req, res);
+  // if (error) return;
+  // const { method } = auth_req;
+  const { method } = req;
   const { email, adminId } = req.body;
 
   await db.connectDB();
