@@ -5,9 +5,10 @@ import Admin from "../../../../database/models/adminSchema";
 import getValidAuthentication from "../../../../utils/middleware/validateAPIRequest";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { error, auth_req } = getValidAuthentication(req, res);
-  if (error) return;
-  const { method } = auth_req;
+  // const { error, auth_req } = getValidAuthentication(req, res);
+  // if (error) return;
+  // const { method } = auth_req;
+  const { method } = req;
   const { adminUserId } = req.query;
 
   // connect DB
